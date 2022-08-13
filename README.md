@@ -4,7 +4,7 @@
 ___
 ### Assignment 1
 
-####Traffic Light Simulator
+Traffic Light Simulator
 Mechanism:
 * Turn on green led for 10 seconds.
 * Turn on yellow led for 3 seconds.
