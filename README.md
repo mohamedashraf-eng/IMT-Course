@@ -1,2 +1,2 @@
 # IMT-Course
-My assignments - project within the course.
+My assignments & projects during the course.
