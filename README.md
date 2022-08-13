@@ -5,6 +5,7 @@ ___
 ### Assignment 1
 
 Traffic Light Simulator
+
 Mechanism:
 * Turn on green led for 10 seconds.
 * Turn on yellow led for 3 seconds.
@@ -19,9 +20,10 @@ Table of contents:
 |Green Led|1|To repersent the Go|
 |Seven Segement|2|To repersent the count down digits|
 
-### Assignment 1
+### Assignment 2
 Light Animation System
-Using only 3 DIP switch (that represents 8 different modes)
+Using only 3 DIP switch (that represents 8 different modes).
+
 Modes:
 1. Flashing every 500 ms
 2. Shifting Left every 250 ms
