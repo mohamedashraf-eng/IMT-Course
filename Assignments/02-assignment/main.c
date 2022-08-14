@@ -12,7 +12,10 @@
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
-#include "assignment_2.h"
+//#include "assignment_2.h"
+
+#include <avr/io.h>
+#include "LIB/BIT_MATH.h"
 
 /**
  * @brief main entry point.
@@ -20,10 +23,24 @@
  */
 int main(void)
 {
-	SYS_INIT();
+	//SYS_INIT();
+
+	REG_SET(DDRA);
+	REG_CLR(PORTA);
+
+	BIT_SET(PORTB, PB0);
+	BIT_SET(PORTB, PB1);
+	BIT_SET(PORTB, PB2);
 
 	while(1)
 	{
+		//MODE_CTRL();
+		if( (BIT_GET(PINB, PB1) == 0) )
+		{
+			BIT_SET(PORTA, PA0);
+			BIT_SET(PORTA, PA1);
+		}
+		else;
 
 	}
 

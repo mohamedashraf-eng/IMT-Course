@@ -141,7 +141,7 @@ LOAD g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x4a2a
+.text           0x00000000     0x4c3a
  *(.vectors)
  .vectors       0x00000000       0x54 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o
                 0x00000000                __vectors
@@ -247,45 +247,47 @@ LOAD g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk
                 0x00000b36                . = ALIGN (0x2)
  *(.text.*)
  .text.SYS_INIT
-                0x00000b36       0x4e ./assignment_2.o
+                0x00000b36       0x82 ./assignment_2.o
                 0x00000b36                SYS_INIT
  .text.LED_CTRL
-                0x00000b84       0xc2 ./assignment_2.o
-                0x00000b84                LED_CTRL
+                0x00000bb8       0xc2 ./assignment_2.o
+                0x00000bb8                LED_CTRL
  .text.MODE_CTRL
-                0x00000c46      0x13c ./assignment_2.o
-                0x00000c46                MODE_CTRL
- .text.SW_READ  0x00000d82       0xe8 ./assignment_2.o
- .text.LED_1    0x00000e6a       0x54 ./assignment_2.o
- .text.LED_2    0x00000ebe       0x54 ./assignment_2.o
- .text.LED_3    0x00000f12       0x54 ./assignment_2.o
- .text.LED_4    0x00000f66       0x54 ./assignment_2.o
- .text.LED_5    0x00000fba       0x54 ./assignment_2.o
- .text.LED_6    0x0000100e       0x54 ./assignment_2.o
- .text.LED_7    0x00001062       0x54 ./assignment_2.o
- .text.LED_8    0x000010b6       0x54 ./assignment_2.o
- .text.MODE_1   0x0000110a      0x208 ./assignment_2.o
- .text.MODE_2   0x00001312      0xadc ./assignment_2.o
- .text.MODE_3   0x00001dee      0xadc ./assignment_2.o
- .text.MODE_4   0x000028ca      0x97e ./assignment_2.o
- .text.MODE_5   0x00003248      0x97e ./assignment_2.o
- .text.MODE_6   0x00003bc6      0x1f6 ./assignment_2.o
- .text.MODE_7   0x00003dbc      0x94a ./assignment_2.o
- .text.MODE_8   0x00004706      0x1f6 ./assignment_2.o
- .text.MODE     0x000048fc       0xae ./assignment_2.o
- .text.main     0x000049aa        0xe ./main.o
-                0x000049aa                main
- .text.libgcc   0x000049b8        0x0 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
- .text.libgcc   0x000049b8       0x38 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
-                0x000049b8                __prologue_saves__
- .text.libgcc   0x000049f0       0x36 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
-                0x000049f0                __epilogue_restores__
- .text.libgcc   0x00004a26        0x0 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
-                0x00004a26                . = ALIGN (0x2)
+                0x00000c7a      0x13c ./assignment_2.o
+                0x00000c7a                MODE_CTRL
+ .text.SW_READ  0x00000db6       0xe8 ./assignment_2.o
+                0x00000db6                SW_READ
+ .text.LED_1    0x00000e9e       0x54 ./assignment_2.o
+ .text.LED_2    0x00000ef2       0x54 ./assignment_2.o
+ .text.LED_3    0x00000f46       0x54 ./assignment_2.o
+ .text.LED_4    0x00000f9a       0x54 ./assignment_2.o
+ .text.LED_5    0x00000fee       0x54 ./assignment_2.o
+ .text.LED_6    0x00001042       0x54 ./assignment_2.o
+ .text.LED_7    0x00001096       0x54 ./assignment_2.o
+ .text.LED_8    0x000010ea       0x54 ./assignment_2.o
+ .text.MODE_1   0x0000113e      0x208 ./assignment_2.o
+ .text.MODE_2   0x00001346      0xae4 ./assignment_2.o
+ .text.MODE_3   0x00001e2a      0xae4 ./assignment_2.o
+ .text.MODE_4   0x0000290e      0x97e ./assignment_2.o
+ .text.MODE_5   0x0000328c      0x97e ./assignment_2.o
+ .text.MODE_6   0x00003c0a      0x1f6 ./assignment_2.o
+ .text.MODE_7   0x00003e00      0xab0 ./assignment_2.o
+ .text.MODE_8   0x000048b0      0x1f6 ./assignment_2.o
+ .text.MODE     0x00004aa6       0xae ./assignment_2.o
+                0x00004aa6                MODE
+ .text.main     0x00004b54       0x74 ./main.o
+                0x00004b54                main
+ .text.libgcc   0x00004bc8        0x0 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x00004bc8       0x38 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
+                0x00004bc8                __prologue_saves__
+ .text.libgcc   0x00004c00       0x36 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
+                0x00004c00                __epilogue_restores__
+ .text.libgcc   0x00004c36        0x0 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+                0x00004c36                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00004a26        0x0 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
-                0x00004a26                exit
-                0x00004a26                _exit
+ .fini9         0x00004c36        0x0 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                0x00004c36                exit
+                0x00004c36                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -304,11 +306,11 @@ LOAD g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00004a26        0x4 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .fini0         0x00004c36        0x4 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00004a2a                _etext = .
+                0x00004c3a                _etext = .
 
-.data           0x00800060        0x8 load address 0x00004a2a
+.data           0x00800060        0x8 load address 0x00004c3a
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800060        0x0 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o
@@ -362,8 +364,8 @@ LOAD g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk
  *(.bss*)
  *(COMMON)
                 0x00800068                PROVIDE (__bss_end, .)
-                0x00004a2a                __data_load_start = LOADADDR (.data)
-                0x00004a32                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00004c3a                __data_load_start = LOADADDR (.data)
+                0x00004c42                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800068        0x0
                 0x00800068                PROVIDE (__noinit_start, .)
@@ -388,11 +390,11 @@ LOAD g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk
 .signature
  *(.signature*)
 
-.stab           0x00000000     0x324c
+.stab           0x00000000     0x3378
  *(.stab)
- .stab          0x00000000     0x30f0 ./assignment_2.o
- .stab          0x000030f0      0x15c ./main.o
-                                0x4bc (size before relaxing)
+ .stab          0x00000000     0x31ec ./assignment_2.o
+ .stab          0x000031ec      0x18c ./main.o
+                                0x348 (size before relaxing)
 
 .stabstr        0x00000000      0xde8
  *(.stabstr)

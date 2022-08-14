@@ -37,10 +37,15 @@
 void SYS_INIT(void)
 {
 	/* Setting the mode for used ports */
-	REG_CLR(DDRA);
-	REG_SET(PORTA); /* Enable input pull-up */
-	REG_SET(DDRD);
-	REG_CLR(PORTD); /* Init as low */
+	REG_SET(DDRA);
+	REG_CLR(PORTA);  /* Init as low */
+
+	BIT_CLR(DDRB, PB0);
+	BIT_CLR(DDRB, PB1);
+	BIT_CLR(DDRB, PB2);
+	BIT_SET(PORTB, PB0);
+	BIT_SET(PORTB, PB1);
+	BIT_SET(PORTB, PB2);
 
 }/** @end SYS_INIT*/
 
@@ -132,25 +137,25 @@ void MODE_CTRL(void)
  * @brief function to read switches
  *
  */
-static cu8 SW_READ(cu8 SW)
+cu8 SW_READ(cu8 SW)
 {
 	switch(SW)
 	{
-		case SW1: 	return BIT_GET(PINA, PA0);
+		case SW1: 	return BIT_GET(PINB, PB0);
 			break;
-		case SW2: 	return BIT_GET(PINA, PA1);
+		case SW2: 	return BIT_GET(PINB, PB1);
 			break;
-		case SW3: 	return BIT_GET(PINA, PA2);
+		case SW3: 	return BIT_GET(PINB, PB2);
 			break;
-		case SW4:	return BIT_GET(PINA, PA3);
+		case SW4:	return BIT_GET(PINB, PB3);
 			break;
-		case SW5: 	return BIT_GET(PINA, PA4);
+		case SW5: 	return BIT_GET(PINB, PB4);
 			break;
-		case SW6: 	return BIT_GET(PINA, PA5);
+		case SW6: 	return BIT_GET(PINB, PB5);
 			break;
-		case SW7: 	return BIT_GET(PINA, PA6);
+		case SW7: 	return BIT_GET(PINB, PB6);
 			break;
-		case SW8: 	return BIT_GET(PINA, PA7);
+		case SW8: 	return BIT_GET(PINB, PB7);
 			break;
 
 		default: 	return -1;
@@ -299,7 +304,7 @@ static void LED_8(cu8 STATE)
 static void MODE_1(void)
 {
 	REG_SET(PORTA);
-	_delay_ms(50);
+	_delay_ms(DELAY_IN_BETWEEN);
 	REG_CLR(PORTA);
 	_delay_ms(500);
 }/** @end MODE_1 */
@@ -309,6 +314,7 @@ static void MODE_1(void)
 static void MODE_2(void)
 {
 	_delay_ms(DELAY_IN_BETWEEN);
+	LED_CTRL(LED8, OFF);
 	LED_CTRL(LED1, ON);
 
 	_delay_ms(DELAY_IN_BETWEEN);
@@ -347,6 +353,7 @@ static void MODE_2(void)
 static void MODE_3(void)
 {
 	_delay_ms(DELAY_IN_BETWEEN);
+	LED_CTRL(LED1, OFF);
 	LED_CTRL(LED8, ON);
 
 	_delay_ms(DELAY_IN_BETWEEN);
@@ -501,6 +508,7 @@ static void MODE_7(void)
 	LED_CTRL(LED7, ON);
 	_delay_ms(DELAY_IN_BETWEEN);
 	LED_CTRL(LED8, ON);
+	_delay_ms(DELAY_IN_BETWEEN);
 
 	REG_CLR(PORTA);
 
@@ -521,7 +529,7 @@ static void MODE_8(void)
 /**
  * @brief functino to select between modes
  */
-static void MODE(cu8 MODE_SELECT)
+void MODE(cu8 MODE_SELECT)
 {
 	switch(MODE_SELECT)
 	{
