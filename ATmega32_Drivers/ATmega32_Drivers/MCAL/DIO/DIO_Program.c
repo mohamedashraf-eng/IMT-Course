@@ -65,10 +65,10 @@ void DIO_voidSetRegisterDirection(cu8 A_cu8PortID, cu8 A_cu8RegisterDirection)
 {
 	switch(A_cu8PortID)
 	{
-		case PORT_A: break;
-		case PORT_B: break;
-		case PORT_C: break;
-		case PORT_D: break;
+		case PORT_A: REG_SET(DDRA);	break;
+		case PORT_B: REG_SET(DDRB);	break;
+		case PORT_C: REG_SET(DDRC);	break;
+		case PORT_D: REG_SET(DDRD);	break;
 		default: return;
 	}
 }/** @end DIO_voidSetRegisterDirection */
@@ -78,10 +78,10 @@ void DIO_voidSetRegisterValue(cu8 A_cu8PortID, cu8 A_cu8RegisterValue)
 {
 	switch(A_cu8PortID)
 	{
-		case PORT_A: break;
-		case PORT_B: break;
-		case PORT_C: break;
-		case PORT_D: break;
+		case PORT_A: REG_SET(PORTA);	break;
+		case PORT_B: REG_SET(PORTB);	break;
+		case PORT_C: REG_SET(PORTC);	break;
+		case PORT_D: REG_SET(PORTD);	break;
 		default: return;
 	}
 }/** @end DIO_voidSetRegisterValue */
@@ -93,10 +93,10 @@ cu8 DIO_cu8GetPinValue(cu8 A_cu8PortID, cu8 A_cu8PinID)
 
 	switch(A_cu8PortID)
 	{
-		case PORT_A: L_PinValue = BIT_GET(PINA, A_cu8PinID); break;
-		case PORT_B: L_PinValue = BIT_GET(PINB, A_cu8PinID); break;
-		case PORT_C: L_PinValue = BIT_GET(PINC, A_cu8PinID); break;
-		case PORT_D: L_PinValue = BIT_GET(PIND, A_cu8PinID); break;
+		case PORT_A: L_PinValue = BIT_GET(PINA, A_cu8PinID); 	break;
+		case PORT_B: L_PinValue = BIT_GET(PINB, A_cu8PinID); 	break;
+		case PORT_C: L_PinValue = BIT_GET(PINC, A_cu8PinID); 	break;
+		case PORT_D: L_PinValue = BIT_GET(PIND, A_cu8PinID); 	break;
 		default: 	 break;			/* return error */
 	}
 

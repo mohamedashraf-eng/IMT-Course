@@ -29,7 +29,7 @@ typedef enum DIO_PORTS
 	PORT_B,
 	PORT_D,
 	PORT_C
-}ports_et;
+}port_et;
 
 typedef enum DIO_PINS
 {
@@ -41,7 +41,7 @@ typedef enum DIO_PINS
 	PIN_5,
 	PIN_6,
 	PIN_7
-}pins_et;
+}pin_et;
 
 typedef enum DIO_PINS_DIRECTION
 {
