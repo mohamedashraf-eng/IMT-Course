@@ -11,86 +11,90 @@
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
- * -	HEADERS INCLUDED
- * --------------------------------------------------------------------------------------------------------------------------------------------------
-*/
-
-
-
-/*
- * --------------------------------------------------------------------------------------------------------------------------------------------------
  * -	MACROS & ENUMS
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
-/** @defgroup addresses */
-#define DIO_PERIPHERAL_BASE_ADDRESS		( (u8) (0x10) )
-#define DIO_PERIPHERAL_REG_OFFSET		( (u8) (0x01) )
-#define DIO_PERIPHERAL_MMIO_OFFSET		( (u8) (0x20) )
+#define PINS_NUM_PER_PORT		( (cu8) (8) )
 
-/** @def macro like function to convert the peripheral address to its mmio address */
-#define MMIO_ADDRESS(PERIPHERAL)			 	( (PERIPHERAL + DIO_PERIPHERAL_MMIO_OFFSET) )
-#define DIO_PERIPHERAL_ADDRRESS(ADDRESS)		( (ADDRESS + DIO_PERIPHERAL_REG_OFFSET)     )
-
-/** @defgroup PORTA Registers */
-#define DDRA	( *((u8 volatile * const) ( MMIO_ADDRESS(DIO_PERIPHERAL_ADDRRESS(PORTA) ))) )
-#define PORTA	( *((u8 volatile * const) ( MMIO_ADDRESS(DIO_PERIPHERAL_ADDRRESS(PINA) )))  )
-#define PINA	( *((u8 volatile * const) ( MMIO_ADDRESS(DIO_PERIPHERAL_ADDRRESS(DDRB) )))  )
-
-/** @defgroup PORTB Registers */
-#define DDRB	( *((u8 volatile * const) ( MMIO_ADDRESS(DIO_PERIPHERAL_ADDRRESS(PORTB) ))) )
-#define PORTB	( *((u8 volatile * const) ( MMIO_ADDRESS(DIO_PERIPHERAL_ADDRRESS(PINB) )))  )
-#define PINB	( *((u8 volatile * const) ( MMIO_ADDRESS(DIO_PERIPHERAL_ADDRRESS(DDRC) )))  )
-
-
-/** @defgroup PORTC Registers */
-#define DDRC	( *((u8 volatile * const) ( MMIO_ADDRESS(DIO_PERIPHERAL_ADDRRESS(PORTC )))) )
-#define PORTC	( *((u8 volatile * const) ( MMIO_ADDRESS(DIO_PERIPHERAL_ADDRRESS(PINC) )))  )
-#define PINC	( *((u8 volatile * const) ( MMIO_ADDRESS(DIO_PERIPHERAL_ADDRRESS(DDRD) )))  )
-
-
-/** @defgroup PORTD Registers */
-#define DDRD	( *((u8 volatile * const) ( MMIO_ADDRESS(DIO_PERIPHERAL_ADDRRESS(PORTD) ))) )
-#define PORTD	( *((u8 volatile * const) ( MMIO_ADDRESS(DIO_PERIPHERAL_ADDRRESS(PIND) )))  )
-#define PIND	( *((u8 volatile * const) ( MMIO_ADDRESS(DIO_PERIPHERAL_BASE_ADDRESS) ))    )
-
-/** @def Pointer Array */
-#define NUM_OF_PORTS		( (cu8) (4) )
-#define NUM_OF_REGISTERS	( (cu8) (3) )
-#define PORT_PIN_NUM		( (cu8) (8)	)
-
-enum GPIOS_REGISTERS
+typedef struct
 {
-	GPIO_PIND	= DIO_PERIPHERAL_BASE_ADDRESS,
-	GPIO_PORTD,
-	GPIO_DDRD,
-	GPIO_PINC,
-	GPIO_PORTC,
-	GPIO_DDRC,
-	GPIO_PINB,
-	GPIO_PORTB,
-	GPIO_DDRB,
-	GPIO_PINA,
-	GPIO_PORTA,
-	GPIO_DDRA
+	u8 Channel;
+	u8 PinType		:2;
+	u8 Direction	:1;
+	u8 Data			:1;
+	u8 Function		:2;
+}ST_DIO_ConfigType_t;
+
+typedef enum
+{
+	ADC0,
+	ADC1,
+	ADC2,
+	ADC3,
+	ADC4,
+	ADC5,
+	ADC6,
+	ADC7
+}ET_DIO_PORTA_ChannelType_t;
+
+typedef enum
+{
+	XCK,
+	T0,
+	T1,
+	INT2,
+	AIN0,
+	OC0,
+	AIN1,
+	SS,
+	MOSI,
+	MISO,
+	SCK
+}ET_DIO_PORTB_ChannelType_t;
+
+typedef enum
+{
+	SCL,
+	SDA,
+	TMS,
+	TDO,
+	TDI,
+	TOSC1,
+	TOSC2
+}ET_DIO_PORTC_ChannelType_t;
+
+typedef enum
+{
+	RXD,
+	TXD,
+	INT0,
+	INT1,
+	OC1B,
+	OC1A,
+	ICP,
+	OC2
+}ET_DIO_PORTD_ChannelType_t;
+
+
+ST_DIO_ConfigType_t DIO_PORTA_InitialConfig[PINS_NUM_PER_PORT] =
+{
+
 };
 
-u8 volatile * const GPIOX_ADDRS[NUM_OF_PORTS * NUM_OF_REGISTERS] =
+ST_DIO_ConfigType_t DIO_PORTB_InitialConfig[PINS_NUM_PER_PORT] =
 {
-		(u8 volatile *) (GPIO_DDRA),  /** @def base address of DDRA  */
-		(u8 volatile *) (GPIO_PORTA), /** @def base address of PORTA */
-		(u8 volatile *) (GPIO_PINA),  /** @def base address of PINA  */
 
-		(u8 volatile *) (GPIO_DDRB),  /** @def base address of DDRB  */
-		(u8 volatile *) (GPIO_PORTB), /** @def base address of PORTB */
-		(u8 volatile *) (GPIO_PINB),  /** @def base address of PINB  */
+};
 
-		(u8 volatile *) (GPIO_DDRC),  /** @def base address of DDRC  */
-		(u8 volatile *) (GPIO_PORTC), /** @def base address of PORTC */
-		(u8 volatile *) (GPIO_PINC),  /** @def base address of PINC  */
+ST_DIO_ConfigType_t DIO_PORTC_InitialConfigPINS_NUM_PER_PORT[] =
+{
 
-		(u8 volatile *) (GPIO_DDRD),  /** @def base address of DDRBD */
-		(u8 volatile *) (GPIO_PORTD), /** @def base address of PORTD */
+};
+
+ST_DIO_ConfigType_t DIO_PORTD_InitialConfig[PINS_NUM_PER_PORT] =
+{
+
 };
 
 #endif /* MCAL_DIO_DIO_CONFIG_H_ */

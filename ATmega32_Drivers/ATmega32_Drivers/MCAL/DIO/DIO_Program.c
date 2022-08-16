@@ -16,24 +16,28 @@
 #include "../../LIB/bit_math.h"
 #include "../../LIB/std_types.h"
 
+#include "DIO_Registers.h"
 #include "DIO_Private.h"
 #include "DIO_Config.h"
 #include "DIO_Interface.h"
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
- * -	MACROS
+ * -	FUNCTIONS IMPLEMENTATION
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
+void DIO_voidDioInitialization(void)
+{
+	/** @todo add code */
+
+}/** @end DIO_voidDioInitialization */
 
 
+void DIO_voidDioReset(void)
+{
 
-/*
- * --------------------------------------------------------------------------------------------------------------------------------------------------
- * -	FUNCTIONS PROTOTYPE
- * --------------------------------------------------------------------------------------------------------------------------------------------------
-*/
+}/** @end DIO_voidDioReset */
 
 void DIO_voidSetPinDirection(cu8 Copy_cu8PortID, cu8 Copy_cu8PinID, cu8 Copy_cu8PinDirection)
 {

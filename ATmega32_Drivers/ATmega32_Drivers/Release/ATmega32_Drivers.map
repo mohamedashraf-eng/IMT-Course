@@ -3,7 +3,9 @@ Archive member included because of file (symbol)
 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
                               g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o (exit)
 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
-                              ./MCAL/DIO/DIO_Program.o (__do_copy_data)
+                              ./HAL/LED/LED_Program.o (__do_copy_data)
+g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+                              ./MCAL/DIO/DIO_Program.o (__do_clear_bss)
 
 Memory Configuration
 
@@ -20,6 +22,7 @@ Linker script and memory map
 
 LOAD g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o
 LOAD ./MCAL/DIO/DIO_Program.o
+LOAD ./HAL/LED/LED_Program.o
 LOAD ./APP/main.o
 LOAD g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
 LOAD g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a
@@ -115,7 +118,7 @@ LOAD g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x2dc
+.text           0x00000000      0x29c
  *(.vectors)
  .vectors       0x00000000       0x54 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o
                 0x00000000                __vectors
@@ -155,6 +158,8 @@ LOAD g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk
  *(.init4)
  .init4         0x00000060       0x16 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
                 0x00000060                __do_copy_data
+ .init4         0x00000076       0x10 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+                0x00000076                __do_clear_bss
  *(.init4)
  *(.init5)
  *(.init5)
@@ -165,64 +170,79 @@ LOAD g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk
  *(.init8)
  *(.init8)
  *(.init9)
- .init9         0x00000076        0x8 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o
+ .init9         0x00000086        0x8 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o
  *(.init9)
  *(.text)
- .text          0x0000007e        0x4 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o
-                0x0000007e                __vector_1
-                0x0000007e                __vector_12
-                0x0000007e                __bad_interrupt
-                0x0000007e                __vector_6
-                0x0000007e                __vector_3
-                0x0000007e                __vector_11
-                0x0000007e                __vector_13
-                0x0000007e                __vector_17
-                0x0000007e                __vector_19
-                0x0000007e                __vector_7
-                0x0000007e                __vector_5
-                0x0000007e                __vector_4
-                0x0000007e                __vector_9
-                0x0000007e                __vector_2
-                0x0000007e                __vector_15
-                0x0000007e                __vector_8
-                0x0000007e                __vector_14
-                0x0000007e                __vector_10
-                0x0000007e                __vector_16
-                0x0000007e                __vector_18
-                0x0000007e                __vector_20
- .text          0x00000082        0x0 ./MCAL/DIO/DIO_Program.o
- .text          0x00000082        0x0 ./APP/main.o
- .text          0x00000082        0x0 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
- .text          0x00000082        0x0 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
-                0x00000082                . = ALIGN (0x2)
+ .text          0x0000008e        0x4 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o
+                0x0000008e                __vector_1
+                0x0000008e                __vector_12
+                0x0000008e                __bad_interrupt
+                0x0000008e                __vector_6
+                0x0000008e                __vector_3
+                0x0000008e                __vector_11
+                0x0000008e                __vector_13
+                0x0000008e                __vector_17
+                0x0000008e                __vector_19
+                0x0000008e                __vector_7
+                0x0000008e                __vector_5
+                0x0000008e                __vector_4
+                0x0000008e                __vector_9
+                0x0000008e                __vector_2
+                0x0000008e                __vector_15
+                0x0000008e                __vector_8
+                0x0000008e                __vector_14
+                0x0000008e                __vector_10
+                0x0000008e                __vector_16
+                0x0000008e                __vector_18
+                0x0000008e                __vector_20
+ .text          0x00000092        0x0 ./MCAL/DIO/DIO_Program.o
+ .text          0x00000092        0x0 ./HAL/LED/LED_Program.o
+ .text          0x00000092        0x0 ./APP/main.o
+ .text          0x00000092        0x0 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text          0x00000092        0x0 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .text          0x00000092        0x0 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+                0x00000092                . = ALIGN (0x2)
  *(.text.*)
+ .text.DIO_voidDioInitialization
+                0x00000092        0x2 ./MCAL/DIO/DIO_Program.o
+                0x00000092                DIO_voidDioInitialization
  .text.DIO_voidSetPinDirection
-                0x00000082       0x84 ./MCAL/DIO/DIO_Program.o
-                0x00000082                DIO_voidSetPinDirection
+                0x00000094       0x72 ./MCAL/DIO/DIO_Program.o
+                0x00000094                DIO_voidSetPinDirection
  .text.DIO_voidSetPinValue
-                0x00000106       0x7a ./MCAL/DIO/DIO_Program.o
+                0x00000106       0x72 ./MCAL/DIO/DIO_Program.o
                 0x00000106                DIO_voidSetPinValue
  .text.DIO_voidSetRegisterDirection
-                0x00000180       0x5a ./MCAL/DIO/DIO_Program.o
-                0x00000180                DIO_voidSetRegisterDirection
+                0x00000178       0x26 ./MCAL/DIO/DIO_Program.o
+                0x00000178                DIO_voidSetRegisterDirection
  .text.DIO_voidSetRegisterValue
-                0x000001da       0x52 ./MCAL/DIO/DIO_Program.o
-                0x000001da                DIO_voidSetRegisterValue
+                0x0000019e       0x26 ./MCAL/DIO/DIO_Program.o
+                0x0000019e                DIO_voidSetRegisterValue
  .text.DIO_cu8GetPinValue
-                0x0000022c       0x5c ./MCAL/DIO/DIO_Program.o
-                0x0000022c                DIO_cu8GetPinValue
+                0x000001c4       0x38 ./MCAL/DIO/DIO_Program.o
+                0x000001c4                DIO_cu8GetPinValue
  .text.DIO_cu8GetRegisterValue
-                0x00000288       0x4e ./MCAL/DIO/DIO_Program.o
-                0x00000288                DIO_cu8GetRegisterValue
- .text.main     0x000002d6        0x2 ./APP/main.o
-                0x000002d6                main
- .text.libgcc   0x000002d8        0x0 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
- .text.libgcc   0x000002d8        0x0 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
-                0x000002d8                . = ALIGN (0x2)
+                0x000001fc       0x2a ./MCAL/DIO/DIO_Program.o
+                0x000001fc                DIO_cu8GetRegisterValue
+ .text.LED_voidLedSetValue
+                0x00000226       0x1c ./HAL/LED/LED_Program.o
+                0x00000226                LED_voidLedSetValue
+ .text.LED_voidLedInitalaization
+                0x00000242       0x32 ./HAL/LED/LED_Program.o
+                0x00000242                LED_voidLedInitalaization
+ .text.LED_voidLedsInitalaization
+                0x00000274       0x22 ./HAL/LED/LED_Program.o
+                0x00000274                LED_voidLedsInitalaization
+ .text.main     0x00000296        0x2 ./APP/main.o
+                0x00000296                main
+ .text.libgcc   0x00000298        0x0 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x00000298        0x0 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x00000298        0x0 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+                0x00000298                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000002d8        0x0 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
-                0x000002d8                exit
-                0x000002d8                _exit
+ .fini9         0x00000298        0x0 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                0x00000298                exit
+                0x00000298                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -241,49 +261,65 @@ LOAD g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000002d8        0x4 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000298        0x4 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x000002dc                _etext = .
+                0x0000029c                _etext = .
 
-.data           0x00800060       0x18 load address 0x000002dc
+.data           0x00800060       0x18 load address 0x0000029c
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800060        0x0 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o
  .data          0x00800060        0x0 ./MCAL/DIO/DIO_Program.o
+ .data          0x00800060        0x0 ./HAL/LED/LED_Program.o
  .data          0x00800060        0x0 ./APP/main.o
  .data          0x00800060        0x0 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
  .data          0x00800060        0x0 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .data          0x00800060        0x0 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
  *(.data*)
+ .data.myLedsConfig
+                0x00800060       0x18 ./HAL/LED/LED_Program.o
+                0x00800060                myLedsConfig
  *(.rodata)
  *(.rodata*)
- .rodata.GPIOX_ADDRS
-                0x00800060       0x18 ./MCAL/DIO/DIO_Program.o
-                0x00800060                GPIOX_ADDRS
  *(.gnu.linkonce.d*)
                 0x00800078                . = ALIGN (0x2)
                 0x00800078                _edata = .
                 0x00800078                PROVIDE (__data_end, .)
 
-.bss            0x00800078        0x0
+.bss            0x00800078       0x30
                 0x00800078                PROVIDE (__bss_start, .)
  *(.bss)
  .bss           0x00800078        0x0 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o
  .bss           0x00800078        0x0 ./MCAL/DIO/DIO_Program.o
+ .bss           0x00800078        0x0 ./HAL/LED/LED_Program.o
  .bss           0x00800078        0x0 ./APP/main.o
  .bss           0x00800078        0x0 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
  .bss           0x00800078        0x0 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .bss           0x00800078        0x0 g:/estk/01- imt sdk-20220810t141900z-001/01- imt sdk/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
  *(.bss*)
+ .bss.DIO_PORTA_InitialConfig
+                0x00800078       0x10 ./MCAL/DIO/DIO_Program.o
+                0x00800078                DIO_PORTA_InitialConfig
+ .bss.DIO_PORTB_InitialConfig
+                0x00800088       0x10 ./MCAL/DIO/DIO_Program.o
+                0x00800088                DIO_PORTB_InitialConfig
+ .bss.DIO_PORTC_InitialConfigPINS_NUM_PER_PORT
+                0x00800098        0x0 ./MCAL/DIO/DIO_Program.o
+                0x00800098                DIO_PORTC_InitialConfigPINS_NUM_PER_PORT
+ .bss.DIO_PORTD_InitialConfig
+                0x00800098       0x10 ./MCAL/DIO/DIO_Program.o
+                0x00800098                DIO_PORTD_InitialConfig
  *(COMMON)
-                0x00800078                PROVIDE (__bss_end, .)
-                0x000002dc                __data_load_start = LOADADDR (.data)
-                0x000002f4                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x008000a8                PROVIDE (__bss_end, .)
+                0x0000029c                __data_load_start = LOADADDR (.data)
+                0x000002b4                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00800078        0x0
-                0x00800078                PROVIDE (__noinit_start, .)
+.noinit         0x008000a8        0x0
+                0x008000a8                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x00800078                PROVIDE (__noinit_end, .)
-                0x00800078                _end = .
-                0x00800078                PROVIDE (__heap_start, .)
+                0x008000a8                PROVIDE (__noinit_end, .)
+                0x008000a8                _end = .
+                0x008000a8                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)

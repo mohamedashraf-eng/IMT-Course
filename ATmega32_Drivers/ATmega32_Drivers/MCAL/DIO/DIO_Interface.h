@@ -11,14 +11,6 @@
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
- * -	HEADERS INCLUDED
- * --------------------------------------------------------------------------------------------------------------------------------------------------
-*/
-
-
-
-/*
- * --------------------------------------------------------------------------------------------------------------------------------------------------
  * -	MACROS & ENUMS
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
@@ -31,41 +23,53 @@ typedef enum DIO_PORTS
 	PORT_C
 }port_et;
 
-typedef enum DIO_PINS
+enum DIO_PINS
 {
-	PIN_0,
 	PIN_1,
 	PIN_2,
 	PIN_3,
 	PIN_4,
 	PIN_5,
 	PIN_6,
-	PIN_7
-}pin_et;
+	PIN_7,
+	PIN_8
+};
 
-typedef enum DIO_PINS_DIRECTION
+enum DIO_PIN_DIRECTION
 {
 	INPUT,
 	OUTPUT
-}dir_et;
+};
 
-typedef enum DIO_PINS_STATE
+enum DIO_PIN_STATE
 {
 	LOW,
 	HIGH
-}state_et;
+};
 
-typedef enum DIO_PINS_CHANNEL
+enum DIO_PIN_TYPE
 {
 	DIGITAL,
 	ANALOG
-}channel_et;
+};
+
+enum DIO_PIN_FUNCTION
+{
+	GPIO,
+	SPI,
+	I2C,
+	ADC
+};
+
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
  * -	FUNCTIONS PROTOTYPE
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
+
+void DIO_voidDioInitialization(void);
+void DIO_voidDioClear(void);
 
 /** @defgroup control - bit level*/
 void DIO_voidSetPinDirection(cu8 Copy_cu8PortID, cu8 Copy_cu8PinID, cu8 Copy_cu8PinDirection);
