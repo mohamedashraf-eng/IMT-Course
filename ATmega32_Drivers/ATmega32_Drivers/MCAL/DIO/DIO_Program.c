@@ -8,7 +8,7 @@
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
- * -																	HEADERS INCLUDED
+ * -	HEADERS INCLUDED
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
@@ -22,7 +22,7 @@
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
- * -																		MACROS
+ * -	MACROS
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
@@ -31,92 +31,132 @@
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
- * -																	FUNCTIONS PROTOTYPE
+ * -	FUNCTIONS PROTOTYPE
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
-void DIO_voidSetPinDirection(cu8 A_cu8PortID, cu8 A_cu8PinID, cu8 A_cu8PinDirection)
+void DIO_voidSetPinDirection(cu8 Copy_cu8PortID, cu8 Copy_cu8PinID, cu8 Copy_cu8PinDirection)
 {
-	switch(A_cu8PortID)
+	if( (Copy_cu8PortID < NUM_OF_PORTS) && (Copy_cu8PinID < PORT_PIN_NUM) )
 	{
-		case PORT_A: break;
-		case PORT_B: break;
-		case PORT_C: break;
-		case PORT_D: break;
-		default: return;
+		switch(Copy_cu8PortID)
+		{
+			case PORT_A: BIT_WRT(DDRA, Copy_cu8PinID, Copy_cu8PinDirection);	break;
+			case PORT_B: BIT_WRT(DDRB, Copy_cu8PinID, Copy_cu8PinDirection);	break;
+			case PORT_C: BIT_WRT(DDRC, Copy_cu8PinID, Copy_cu8PinDirection);	break;
+			case PORT_D: BIT_WRT(DDRD, Copy_cu8PinID, Copy_cu8PinDirection);	break;
+			default: return;
+		}
+	}
+	else
+	{
+		/* return error */
 	}
 }/** @end DIO_voidSetPinDirection */
 
 
-void DIO_voidSetPinValue(cu8 A_cu8PortID, cu8 A_cu8PinID, cu8 A_cu8PinValue)
+void DIO_voidSetPinValue(cu8 Copy_cu8PortID, cu8 Copy_cu8PinID, cu8 Copy_cu8PinValue)
 {
-	switch(A_cu8PortID)
+	if( (Copy_cu8PortID < NUM_OF_PORTS) && (Copy_cu8PinID < PORT_PIN_NUM) )
 	{
-		case PORT_A: break;
-		case PORT_B: break;
-		case PORT_C: break;
-		case PORT_D: break;
-		default: return;
+		switch(Copy_cu8PortID)
+		{
+			case PORT_A: BIT_WRT(PORTA, Copy_cu8PinID, Copy_cu8PinValue);	break;
+			case PORT_B: BIT_WRT(PORTB, Copy_cu8PinID, Copy_cu8PinValue);	break;
+			case PORT_C: BIT_WRT(PORTC, Copy_cu8PinID, Copy_cu8PinValue);	break;
+			case PORT_D: BIT_WRT(PORTD, Copy_cu8PinID, Copy_cu8PinValue);	break;
+			default: return;
+		}
+	}
+	else
+	{
+		/* return error */
 	}
 }/** @end DIO_voidSetPinValue */
 
 
-void DIO_voidSetRegisterDirection(cu8 A_cu8PortID, cu8 A_cu8RegisterDirection)
+void DIO_voidSetRegisterDirection(cu8 Copy_cu8PortID, cu8 Copy_cu8RegisterDirection)
 {
-	switch(A_cu8PortID)
+	if( (Copy_cu8PortID < NUM_OF_PORTS) )
 	{
-		case PORT_A: REG_SET(DDRA);	break;
-		case PORT_B: REG_SET(DDRB);	break;
-		case PORT_C: REG_SET(DDRC);	break;
-		case PORT_D: REG_SET(DDRD);	break;
-		default: return;
+		switch(Copy_cu8PortID)
+		{
+			case PORT_A: REG_WRT(DDRA, Copy_cu8RegisterDirection);	break;
+			case PORT_B: REG_WRT(DDRB, Copy_cu8RegisterDirection);	break;
+			case PORT_C: REG_WRT(DDRC, Copy_cu8RegisterDirection);	break;
+			case PORT_D: REG_WRT(DDRD, Copy_cu8RegisterDirection);	break;
+			default: return;
+		}
+	}
+	else
+	{
+		/* return error */
 	}
 }/** @end DIO_voidSetRegisterDirection */
 
 
-void DIO_voidSetRegisterValue(cu8 A_cu8PortID, cu8 A_cu8RegisterValue)
+void DIO_voidSetRegisterValue(cu8 Copy_cu8PortID, cu8 Copy_cu8RegisterValue)
 {
-	switch(A_cu8PortID)
+	if( (Copy_cu8PortID < NUM_OF_PORTS) )
 	{
-		case PORT_A: REG_SET(PORTA);	break;
-		case PORT_B: REG_SET(PORTB);	break;
-		case PORT_C: REG_SET(PORTC);	break;
-		case PORT_D: REG_SET(PORTD);	break;
-		default: return;
+		switch(Copy_cu8PortID)
+		{
+			case PORT_A: REG_WRT(PORTA, Copy_cu8RegisterValue);	break;
+			case PORT_B: REG_WRT(PORTB, Copy_cu8RegisterValue);	break;
+			case PORT_C: REG_WRT(PORTC, Copy_cu8RegisterValue);	break;
+			case PORT_D: REG_WRT(PORTD, Copy_cu8RegisterValue);	break;
+			default: return;
+		}
+	}
+	else
+	{
+		/* return error */
 	}
 }/** @end DIO_voidSetRegisterValue */
 
 
-cu8 DIO_cu8GetPinValue(cu8 A_cu8PortID, cu8 A_cu8PinID)
+cu8 DIO_cu8GetPinValue(cu8 Copy_cu8PortID, cu8 Copy_cu8PinID)
 {
 	u8 L_PinValue = 0;
 
-	switch(A_cu8PortID)
+	if( (Copy_cu8PortID < NUM_OF_PORTS) )
 	{
-		case PORT_A: L_PinValue = BIT_GET(PINA, A_cu8PinID); 	break;
-		case PORT_B: L_PinValue = BIT_GET(PINB, A_cu8PinID); 	break;
-		case PORT_C: L_PinValue = BIT_GET(PINC, A_cu8PinID); 	break;
-		case PORT_D: L_PinValue = BIT_GET(PIND, A_cu8PinID); 	break;
-		default: 	 break;			/* return error */
+		switch(Copy_cu8PortID)
+		{
+			case PORT_A: L_PinValue = BIT_GET(PINA, Copy_cu8PinID); 	break;
+			case PORT_B: L_PinValue = BIT_GET(PINB, Copy_cu8PinID); 	break;
+			case PORT_C: L_PinValue = BIT_GET(PINC, Copy_cu8PinID); 	break;
+			case PORT_D: L_PinValue = BIT_GET(PIND, Copy_cu8PinID); 	break;
+			default: 	 break;			/* return error */
+		}
 	}
-
+	else
+	{
+		/* return error */
+	}
 	return L_PinValue;
 }/** @end DIO_cu8GetPinValue */
 
 
-cu8 DIO_cu8GetRegisterValue(cu8 A_cu8PortID)
+cu8 DIO_cu8GetRegisterValue(cu8 Copy_cu8PortID)
 {
 	u8 L_RegisterValue = 0;
 
-	switch(A_cu8PortID)
+	if( (Copy_cu8PortID < NUM_OF_PORTS) )
 	{
-		case PORT_A: L_RegisterValue = REG_GET(PINA); break;
-		case PORT_B: L_RegisterValue = REG_GET(PINB); break;
-		case PORT_C: L_RegisterValue = REG_GET(PINC); break;
-		case PORT_D: L_RegisterValue = REG_GET(PIND); break;
-		default: 	 break;			/* return error */
+		switch(Copy_cu8PortID)
+		{
+			case PORT_A: L_RegisterValue = REG_GET(PINA); break;
+			case PORT_B: L_RegisterValue = REG_GET(PINB); break;
+			case PORT_C: L_RegisterValue = REG_GET(PINC); break;
+			case PORT_D: L_RegisterValue = REG_GET(PIND); break;
+			default: 	 break;			/* return error */
+		}
 	}
-
+	else
+	{
+		/* return error */
+	}
 	return L_RegisterValue;
 }/** @end DIO_cu8GetRegisterValue */
 

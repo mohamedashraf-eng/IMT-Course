@@ -11,7 +11,7 @@
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
- * -																	HEADERS INCLUDED
+ * -	HEADERS INCLUDED
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
@@ -19,7 +19,7 @@
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
- * -																	MACROS & ENUMS
+ * -	MACROS & ENUMS
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
@@ -55,22 +55,29 @@ typedef enum DIO_PINS_STATE
 	HIGH
 }state_et;
 
+typedef enum DIO_PINS_CHANNEL
+{
+	DIGITAL,
+	ANALOG
+}channel_et;
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
- * -																	FUNCTIONS PROTOTYPE
+ * -	FUNCTIONS PROTOTYPE
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
 /** @defgroup control - bit level*/
-void DIO_voidSetPinDirection(cu8 A_cu8PortID, cu8 A_cu8PinID, cu8 A_cu8PinDirection);
-void DIO_voidSetPinValue(cu8 A_cu8PortID, cu8 A_cu8PinID, cu8 A_cu8PinValue);
+void DIO_voidSetPinDirection(cu8 Copy_cu8PortID, cu8 Copy_cu8PinID, cu8 Copy_cu8PinDirection);
+void DIO_voidSetPinValue(cu8 Copy_cu8PortID, cu8 Copy_cu8PinID, cu8 Copy_cu8PinValue);
+
 /** @defgroup control - register level*/
-void DIO_voidSetRegisterDirection(cu8 A_cu8PortID, cu8 A_cu8RegisterDirection);
-void DIO_voidSetRegisterValue(cu8 A_cu8PortID, cu8 A_cu8RegisterValue);
+void DIO_voidSetRegisterDirection(cu8 Copy_cu8PortID, cu8 Copy_cu8RegisterDirection);
+void DIO_voidSetRegisterValue(cu8 Copy_cu8PortID, cu8 Copy_cu8RegisterValue);
+
 /** @defgroup input */
-cu8 DIO_cu8GetPinValue(cu8 A_cu8PortID, cu8 A_cu8PinID);
-cu8 DIO_cu8GetRegisterValue(cu8 A_cu8PortID);
+cu8 DIO_cu8GetPinValue(cu8 Copy_cu8PortID, cu8 Copy_cu8PinID);
+cu8 DIO_cu8GetRegisterValue(cu8 Copy_cu8PortID);
 
 
 #endif /* MCAL_DIO_DIO_INTERFACE_H_ */
