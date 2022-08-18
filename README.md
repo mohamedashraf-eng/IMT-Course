@@ -67,6 +67,14 @@ project
 │       │   LIB
 └───ATmega32_Drivers
 │   └───APP
+│       └───SSD_Counter
+│           └───Counter_Private.h
+│           └───Counter_Interface.h
+│           └───Counter_Program.c
+│       └───SSD_Frame
+│           └───Frame_Private.h
+│           └───Frame_Interface.h
+│           └───Frame_Program.c
 │       │   main.c
 │   └───HAL
 │       └───LED
