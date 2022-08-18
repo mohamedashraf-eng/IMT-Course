@@ -26,18 +26,23 @@
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
-void LED_voidLedsInitalaization(void)
+
+cu8 G_cu8LedsArray[NUM_OF_LEDS] = {LED_1, LED_2, LED_3, LED_4, LED_5, LED_6, LED_7, LED_8};
+
+void
+LED_voidLedsInitalaization(void)
 {
-	u8 Led_ID;
-	for(Led_ID = 0; (Led_ID < NUM_OF_LEDS); ++Led_ID)
+	u8 L_u8LedID;
+	for(L_u8LedID = 0; (L_u8LedID < NUM_OF_LEDS); ++L_u8LedID)
 	{
-		DIO_voidSetPinDirection(myLedsConfig[Led_ID].PORT_ID,
-								myLedsConfig[Led_ID].PIN_ID,
+		DIO_voidSetPinDirection(myLedsConfig[L_u8LedID].PORT_ID,
+								myLedsConfig[L_u8LedID].PIN_ID,
 								OUTPUT);
 	}
-}
+}/** @end LED_voidLedsInitalaization */
 
-void LED_voidLedInitalaization(cu8 Copy_cu8LedID)
+void
+LED_voidLedInitalaization(cu8 Copy_cu8LedID)
 {
 	DIO_voidSetPinDirection(myLedsConfig[Copy_cu8LedID].PORT_ID,
 							myLedsConfig[Copy_cu8LedID].PIN_ID,
@@ -48,7 +53,8 @@ void LED_voidLedInitalaization(cu8 Copy_cu8LedID)
 						myLedsConfig[Copy_cu8LedID].INITAL_STATE);
 }/** @end LED_voidLedInitalaization */
 
-void LED_voidLedSetValue(cu8 Copy_cu8LedID, cu8 Copy_cu8LedValue)
+void
+LED_voidLedSetValue(cu8 Copy_cu8LedID, cu8 Copy_cu8LedValue)
 {
 	DIO_voidSetPinValue(myLedsConfig[Copy_cu8LedID].PORT_ID,
 						myLedsConfig[Copy_cu8LedID].PIN_ID,

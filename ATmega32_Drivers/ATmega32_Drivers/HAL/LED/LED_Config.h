@@ -23,17 +23,20 @@ typedef struct
 	cu8 INITAL_STATE;
 }ST_LED_LedsConfig_t;
 
-
-ST_LED_LedsConfig_t myLedsConfig[NUM_OF_LEDS] =
+/** Available options:
+ *  1. PORT_A , PORT_B , PORT_C , PORT_D
+ *  2. LOW , HIGH
+ */
+const ST_LED_LedsConfig_t myLedsConfig[NUM_OF_LEDS] =
 {
-		{PORT_A, PIN_1, LOW}, /** @def Led 1 */
-		{PORT_A, PIN_2, LOW}, /** @def Led 2 */
+		{PORT_D, PIN_1, LOW}, /** @def Led 1 */
+		{PORT_D, PIN_2, LOW}, /** @def Led 2 */
 		{PORT_A, PIN_3, LOW}, /** @def Led 3 */
 		{PORT_A, PIN_4, LOW}, /** @def Led 4 */
 		{PORT_A, PIN_5, LOW}, /** @def Led 5 */
 		{PORT_A, PIN_6, LOW}, /** @def Led 6 */
 		{PORT_A, PIN_7, LOW}, /** @def Led 7 */
-		{PORT_A, PIN_8, LOW}, /** @def Led 8 */
+		{PORT_A, PIN_8, LOW}  /** @def Led 8 */
 };
 
 #endif /* HAL_LED_LED_CONFIG_H_ */

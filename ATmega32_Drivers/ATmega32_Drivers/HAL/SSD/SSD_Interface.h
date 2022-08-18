@@ -1,12 +1,12 @@
 /*
- * LED_Interface.h
+ * SSD_Interface.h
  *
- *  Created on: Aug 16, 2022
+ *  Created on: Aug 17, 2022
  *      Author: Wx
  */
 /** @def Header Guards */
-#ifndef HAL_LED_LED_INTERFACE_H_
-#define HAL_LED_LED_INTERFACE_H_
+#ifndef HAL_SSD_SSD_INTERFACE_H_
+#define HAL_SSD_SSD_INTERFACE_H_
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -14,22 +14,43 @@
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
-enum LEDS_ID
+enum SSD_ID
 {
-	LED_1,
-	LED_2,
-	LED_3,
-	LED_4,
-	LED_5,
-	LED_6,
-	LED_7,
-	LED_8,
+	SSD_1,
+	SSD_2
 };
 
-enum LEDS_STATE
+enum SSD_Display
 {
-	LED_OFF,
-	LED_ON
+	ZERO,
+	ONE,
+	TWO,
+	THREE,
+	FOUR,
+	FIVE,
+	SIX,
+	SEVEN,
+	EIGHT,
+	NINE,
+	A,
+	B,
+	C,
+	D,
+	E,
+	F
+};
+
+enum SSD_PINS
+{
+	PIN_A,
+	PIN_B,
+	PIN_C,
+	PIN_D,
+	PIN_E,
+	PIN_F,
+	PIN_G,
+	PIN_DOT,
+	PIN_COMM
 };
 
 /*
@@ -37,13 +58,11 @@ enum LEDS_STATE
  * -	FUNCTIONS PROTOTYPE
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
-void
-LED_voidLedsInitalaization(void);
 
-void
-LED_voidLedInitalaization(cu8 Copy_cu8LedID);
+void SSD_voidSsdInitalization(u8 Copy_u8SsdID);
+void SSD_voidSsdTurnOn(u8 Copy_u8SsdID);
+void SSD_voidSsdTurnOff(u8 Copy_u8SsdID);
+void SSD_voidSsdSetNumber(u8 Copy_u8SsdID, u8 Copy_u8Number);
+void SSD_voidSsdSetPin(u8 Copy_u8SsdID, u8 Copy_u8SsdPin);
 
-void
-LED_voidLedSetValue(cu8 Copy_cu8LedID, cu8 Copy_cu8LedValue);
-
-#endif /* HAL_LED_LED_INTERFACE_H_ */
+#endif /* HAL_SSD_SSD_INTERFACE_H_ */

@@ -68,20 +68,32 @@ enum DIO_PIN_FUNCTION
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
-void DIO_voidDioInitialization(void);
-void DIO_voidDioClear(void);
+void
+DIO_voidDioInitialization(void);
+
+void
+DIO_voidDioClear(void);
 
 /** @defgroup control - bit level*/
-void DIO_voidSetPinDirection(cu8 Copy_cu8PortID, cu8 Copy_cu8PinID, cu8 Copy_cu8PinDirection);
-void DIO_voidSetPinValue(cu8 Copy_cu8PortID, cu8 Copy_cu8PinID, cu8 Copy_cu8PinValue);
+void
+DIO_voidSetPinDirection(u8 Copy_u8PortID, u8 Copy_u8PinID, u8 Copy_u8PinDirection);
+
+void
+DIO_voidSetPinValue(u8 Copy_u8PortID, u8 Copy_u8PinID, u8 Copy_u8PinValue);
 
 /** @defgroup control - register level*/
-void DIO_voidSetRegisterDirection(cu8 Copy_cu8PortID, cu8 Copy_cu8RegisterDirection);
-void DIO_voidSetRegisterValue(cu8 Copy_cu8PortID, cu8 Copy_cu8RegisterValue);
+void
+DIO_voidSetRegisterDirection(u8 Copy_u8PortID, u8 Copy_u8RegisterDirection);
+
+void
+DIO_voidSetRegisterValue(u8 Copy_u8PortID, u8 Copy_u8RegisterValue);
 
 /** @defgroup input */
-cu8 DIO_cu8GetPinValue(cu8 Copy_cu8PortID, cu8 Copy_cu8PinID);
-cu8 DIO_cu8GetRegisterValue(cu8 Copy_cu8PortID);
+u8
+DIO_u8GetPinValue(u8 Copy_u8PortID, u8 Copy_u8PinID);
+
+u8
+DIO_u8GetRegisterValue(u8 Copy_u8PortID);
 
 
 #endif /* MCAL_DIO_DIO_INTERFACE_H_ */

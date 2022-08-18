@@ -1,12 +1,13 @@
 /*
- * LED_Interface.h
+ * BUTTON_Interface.h
  *
- *  Created on: Aug 16, 2022
+ *  Created on: Aug 17, 2022
  *      Author: Wx
  */
 /** @def Header Guards */
-#ifndef HAL_LED_LED_INTERFACE_H_
-#define HAL_LED_LED_INTERFACE_H_
+#ifndef HAL_BUTTON_BUTTON_INTERFACE_H_
+#define HAL_BUTTON_BUTTON_INTERFACE_H_
+
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -14,22 +15,22 @@
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
-enum LEDS_ID
+enum BUTTONS_ID
 {
-	LED_1,
-	LED_2,
-	LED_3,
-	LED_4,
-	LED_5,
-	LED_6,
-	LED_7,
-	LED_8,
+	BUTTON_1,
+	BUTTON_2,
+	BUTTON_3,
+	BUTTON_4,
+	BUTTON_5,
+	BUTTON_6,
+	BUTTON_7,
+	BUTTON_8,
 };
 
-enum LEDS_STATE
+enum BUTTONS_STATE
 {
-	LED_OFF,
-	LED_ON
+	BUTTON_OFF,
+	BUTTON_ON
 };
 
 /*
@@ -38,12 +39,12 @@ enum LEDS_STATE
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 void
-LED_voidLedsInitalaization(void);
+BUTTON_voidButtonsInitalaization(void);
 
 void
-LED_voidLedInitalaization(cu8 Copy_cu8LedID);
+BUTTON_voidButtonInitalaization(u8 Copy_u8ButtonID);
 
-void
-LED_voidLedSetValue(cu8 Copy_cu8LedID, cu8 Copy_cu8LedValue);
+u8
+BUTTON_u8ButtonGetValue(u8 Copy_u8ButtonID);
 
-#endif /* HAL_LED_LED_INTERFACE_H_ */
+#endif /* HAL_BUTTON_BUTTON_INTERFACE_H_ */

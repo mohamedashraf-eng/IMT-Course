@@ -15,34 +15,34 @@
 */
 
 /** @defgroup addresses */
-#define DIO_PERIPHERAL_BASE_ADDRESS		( (u8) (0x10) )
-#define DIO_PERIPHERAL_REG_OFFSET		( (u8) (0x01) )
+//#define DIO_PERIPHERAL_BASE_ADDRESS		( (u8) (0x10) )
 #define DIO_PERIPHERAL_MMIO_OFFSET		( (u8) (0x20) )
+//#define DIO_PERIPHERAL_REG_OFFSET		( (u8) (0x01) )
 
 /** @def macro like function to convert the peripheral address to its mmio address */
 #define MMIO_ADDRESS(PERIPHERAL)			 	( (PERIPHERAL + DIO_PERIPHERAL_MMIO_OFFSET) )
-#define DIO_PERIPHERAL_ADDRRESS(ADDRESS)		( (ADDRESS + DIO_PERIPHERAL_REG_OFFSET)     )
+//#define DIO_PERIPHERAL_ADDRRESS(ADDRESS)		( (ADDRESS + DIO_PERIPHERAL_REG_OFFSET)     )
 
 /** @defgroup PORTA Registers */
-#define DDRA	( *((u8 volatile * const) ( MMIO_ADDRESS(0x1B)))  )
-#define PORTA	( *((u8 volatile * const) ( MMIO_ADDRESS(0x1A)))  )
-#define PINA	( *((u8 volatile * const) ( MMIO_ADDRESS(0x19)))  )
+#define PORTA	( *((u8 volatile *) ( MMIO_ADDRESS(0x1B)))  )
+#define DDRA	( *((u8 volatile *) ( MMIO_ADDRESS(0x1A)))  )
+#define PINA	( *((u8 volatile *) ( MMIO_ADDRESS(0x19)))  )
 
 /** @defgroup PORTB Registers */
-#define DDRB	( *((u8 volatile * const) ( MMIO_ADDRESS(0x18)))  )
-#define PORTB	( *((u8 volatile * const) ( MMIO_ADDRESS(0x17)))  )
-#define PINB	( *((u8 volatile * const) ( MMIO_ADDRESS(0x16)))  )
+#define PORTB	( *((u8 volatile *) ( MMIO_ADDRESS(0x18)))  )
+#define DDRB	( *((u8 volatile *) ( MMIO_ADDRESS(0x17)))  )
+#define PINB	( *((u8 volatile *) ( MMIO_ADDRESS(0x16)))  )
 
 
 /** @defgroup PORTC Registers */
-#define DDRC	( *((u8 volatile * const) ( MMIO_ADDRESS(0x15)))  )
-#define PORTC	( *((u8 volatile * const) ( MMIO_ADDRESS(0x14)))  )
-#define PINC	( *((u8 volatile * const) ( MMIO_ADDRESS(0x13)))  )
+#define PORTC	( *((u8 volatile *) ( MMIO_ADDRESS(0x15)))  )
+#define DDRC	( *((u8 volatile *) ( MMIO_ADDRESS(0x14)))  )
+#define PINC	( *((u8 volatile *) ( MMIO_ADDRESS(0x13)))  )
 
 /** @defgroup PORTD Registers */
-#define DDRD	( *((u8 volatile * const) ( MMIO_ADDRESS(0x12))) )
-#define PORTD	( *((u8 volatile * const) ( MMIO_ADDRESS(0x11))) )
-#define PIND	( *((u8 volatile * const) ( MMIO_ADDRESS(0x10))) )
+#define PORTD	( *((u8 volatile *) ( MMIO_ADDRESS(0x12))) )
+#define DDRD	( *((u8 volatile *) ( MMIO_ADDRESS(0x11))) )
+#define PIND	( *((u8 volatile *) ( MMIO_ADDRESS(0x10))) )
 
 /* @def Pointer Array */
 #define NUM_OF_PORTS		( (cu8) (4) )
