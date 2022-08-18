@@ -43,15 +43,8 @@ Table of contents:
 ___
 ## Drivers
 Set of microcontroller drivers internally / externally for easy to use for normal user.
-
 Architecture: Static - Basic
-
 Folder structure:
-
-ATmega32_Drivers: 1.APP: 1. main.c
-                  2.HAL: 1.LED 2.BUTTON 3.SSD
-                  3.MCAL: 1.DIO
-                  4.LIB: 1. std_types.h 2.bit_math.h 3.std_libs.h
 ```
 project
 │   README.md  
