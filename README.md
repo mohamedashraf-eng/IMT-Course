@@ -52,6 +52,55 @@ ATmega32_Drivers: 1.APP: 1. main.c
                   2.HAL: 1.LED 2.BUTTON 3.SSD
                   3.MCAL: 1.DIO
                   4.LIB: 1. std_types.h 2.bit_math.h 3.std_libs.h
+```
+project
+│   README.md  
+│
+└───Assignments
+│   │   file011.txt
+│   │   file012.txt
+│   │
+│   └───01-assignment
+│       │   main.c
+│       │   assignment1.h
+│       │   assignment1.c
+│       │   LIB
+│   └───02-assignment
+│       │   main.c
+│       │   assignment2.h
+│       │   assignment2.c
+│       │   LIB
+└───ATmega32_Drivers
+│   └───APP
+│       │   main.c
+│   └───HAL
+│       └───LED
+|           | LED_Private.h
+|           | LED_Config.h
+|           | LED_Interface.h
+|           | LED_Program.c
+|       └───BUTTON
+|           | BUTTON_Private.h
+|           | BUTTON_Config.h
+|           | BUTTON_Interface.h
+|           | BUTTON_Program.c
+|       └───SSD
+|           | SSD_Private.h
+|           | SSD_Config.h
+|           | SSD_Interface.h
+|           | SSD_Program.c
+|   └───MCAL
+|       └───DIO
+|           | DIO_Registers.h
+|           | DIO_Private.h
+|           | DIO_Config.h
+|           | DIO_Interface.h
+|           | DIO_Program.c
+|   └───LIB
+|       | bit_math.h
+|       | std_types.h
+|       | std_libs.h
+```
 ___               
 |Driver|Type|State|
 |----------|--------|------|
