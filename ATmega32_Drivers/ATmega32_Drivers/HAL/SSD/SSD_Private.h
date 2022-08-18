@@ -62,4 +62,7 @@ ST_SsdPinConfig_t mySSD2_PinConfig[] =
 static void SSD_voidSSD1Initialize(void);
 static void SSD_voidSSD2Initialize(void);
 
+static void SSD_voidSetSsdPinDirection(u8 Copy_u8SsdID, u8 Copy_SsdPinID);
+static void SSD_voidSetSsdPinValue(u8 Copy_u8SsdID, u8 Copy_SsdPinID);
+
 #endif /* HAL_SSD_SSD_PRIVATE_H_ */

@@ -23,44 +23,30 @@
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
- * -	FUNCTIONS IMPLEMENTATION
+ * -	FUNCTIONS IMPLEMENTATION -- PUBLIC
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
-void
-BUTTON_voidButtonsInitalaization(void)
+void BUTTON_voidButtonsInitalaization(void)
 {
 	int L_u8Counter;
 	for(L_u8Counter = 0; (L_u8Counter < NUM_OF_BUTTONS); ++L_u8Counter)
 	{
-		DIO_voidSetPinDirection(myButtonConfig[L_u8Counter].PORT_ID,
-								myButtonConfig[L_u8Counter].PIN_ID,
-								INPUT);
-
-		DIO_voidSetPinValue(myButtonConfig[L_u8Counter].PORT_ID,
-							myButtonConfig[L_u8Counter].PIN_ID,
-							myButtonConfig[L_u8Counter].BUTTON_STATE);
+		BUTTON_voidSetButtonPinDirection(L_u8Counter);
+		BUTTON_voidSetButtonPinValue(L_u8Counter);
 	}
 }/** @end BUTTON_voidButtonsInitalaization */
 
-void
-BUTTON_voidButtonInitalaization(u8 Copy_cu8ButtonID)
+void BUTTON_voidButtonInitalaization(u8 Copy_cu8ButtonID)
 {
-	DIO_voidSetPinDirection(myButtonConfig[Copy_cu8ButtonID].PORT_ID,
-							myButtonConfig[Copy_cu8ButtonID].PIN_ID,
-							INPUT);
-
-	DIO_voidSetPinValue(myButtonConfig[Copy_cu8ButtonID].PORT_ID,
-						myButtonConfig[Copy_cu8ButtonID].PIN_ID,
-						myButtonConfig[Copy_cu8ButtonID].BUTTON_STATE);
+	BUTTON_voidSetButtonPinDirection(Copy_cu8ButtonID);
+	BUTTON_voidSetButtonPinValue(Copy_cu8ButtonID);
 }/** @end BUTTON_voidButtonInitalaization */
 
 
-u8
-BUTTON_u8ButtonGetValue(u8 Copy_u8ButtonID)
+u8 BUTTON_u8ButtonGetValue(u8 Copy_u8ButtonID)
 {
-	u8 L_u8ButtonValue = DIO_u8GetPinValue(myButtonConfig[Copy_u8ButtonID].PORT_ID,
-									 	    myButtonConfig[Copy_u8ButtonID].PIN_ID);
+	u8 L_u8ButtonValue = BUTTON_u8GetButtonValue(Copy_u8ButtonID);
 
 #if   (INPUT_TYPE == EXTERNAL_PULLUP_RESISTOR)
 
@@ -120,3 +106,31 @@ BUTTON_u8ButtonGetValue(u8 Copy_u8ButtonID)
 
 	return L_u8ButtonValue;
 }/** @end BUTTON_voidButtonGetValue */
+
+/*
+ * --------------------------------------------------------------------------------------------------------------------------------------------------
+ * -	FUNCTIONS IMPLEMENTATION -- PRIVATE
+ * --------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+
+static void BUTTON_voidSetButtonPinDirection(u8 Copy_u8ButtonID)
+{
+	DIO_voidSetPinDirection(myButtonConfig[Copy_u8ButtonID].PORT_ID,
+							myButtonConfig[Copy_u8ButtonID].PIN_ID,
+							INPUT);
+}/** @end BUTTON_voidSetButtonPinDirection */
+
+static void BUTTON_voidSetButtonPinValue(u8 Copy_u8ButtonID)
+{
+	DIO_voidSetPinValue(myButtonConfig[Copy_u8ButtonID].PORT_ID,
+						myButtonConfig[Copy_u8ButtonID].PIN_ID,
+						myButtonConfig[Copy_u8ButtonID].BUTTON_STATE);
+}/** @end BUTTON_voidSetButtonPinValue */
+
+static u8 BUTTON_u8GetButtonValue(u8 Copy_u8ButtonID)
+{
+	u8 L_ButtonValue =  DIO_u8GetPinValue(myButtonConfig[Copy_u8ButtonID].PORT_ID,
+	 	    							  myButtonConfig[Copy_u8ButtonID].PIN_ID);
+
+	return L_ButtonValue;
+}/** @end BUTTON_u8GetButtonValue */

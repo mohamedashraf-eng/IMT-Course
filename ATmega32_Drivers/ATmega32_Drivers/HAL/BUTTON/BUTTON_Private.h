@@ -24,4 +24,14 @@ enum ATmega32_INPUT_CONFIG
 #define EXTERNAL_PULLDOWN_RESISTOR	( 4 )
 #define NOTHING						( 5 )
 
+/*
+ * --------------------------------------------------------------------------------------------------------------------------------------------------
+ * -	PRIVATE FUNCTIONS PROTOYPE
+ * --------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+
+static void BUTTON_voidSetButtonPinDirection(u8 Copy_u8ButtonID);
+static void BUTTON_voidSetButtonPinValue(u8 Copy_u8ButtonID);
+static u8 BUTTON_u8GetButtonValue(u8 Copy_u8ButtonID);
+
 #endif /* HAL_BUTTON_BUTTON_PRIVATE_H_ */

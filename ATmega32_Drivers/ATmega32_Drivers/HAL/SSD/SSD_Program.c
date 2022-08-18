@@ -23,7 +23,7 @@
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
- * -	FUNCTIONS IMPLEMENTATION
+ * -	FUNCTIONS IMPLEMENTATION -- PUBLIC
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
@@ -50,12 +50,10 @@ void SSD_voidSsdTurnOn(u8 Copy_u8SsdID)
 										mySSD1_PinConfig[PIN_COMM].PIN_ID,
 										SSD1_COMM_ON);
 			break;
-
 		case SSD_2:	DIO_voidSetPinValue(mySSD2_PinConfig[PIN_COMM].PORT_ID,
 										mySSD2_PinConfig[PIN_COMM].PIN_ID,
-										SSD2_COMM_ON);
+										SSD1_COMM_ON);
 			break;
-
 		default: return;
 	}
 }/** @end SSD_voidSsdTurnOn */
@@ -64,16 +62,18 @@ void SSD_voidSsdTurnOff(u8 Copy_u8SsdID)
 {
 	switch(Copy_u8SsdID)
 	{
+	switch(Copy_u8SsdID)
+	{
 		case SSD_1:	DIO_voidSetPinValue(mySSD1_PinConfig[PIN_COMM].PORT_ID,
 										mySSD1_PinConfig[PIN_COMM].PIN_ID,
 										SSD1_COMM_OFF);
 			break;
-
 		case SSD_2:	DIO_voidSetPinValue(mySSD2_PinConfig[PIN_COMM].PORT_ID,
 										mySSD2_PinConfig[PIN_COMM].PIN_ID,
-										SSD2_COMM_OFF);
+										SSD1_COMM_OFF);
 			break;
-
+		default: return;
+	}
 		default: return;
 	}
 }/** @end SSD_voidSsdTurnOff */
@@ -156,20 +156,19 @@ void SSD_voidSsdSetPin(u8 Copy_u8SsdID, u8 Copy_u8SsdPin)
 	}
 }/** @end SSD_voidSsdSetPin */
 
+/*
+ * --------------------------------------------------------------------------------------------------------------------------------------------------
+ * -	FUNCTIONS IMPLEMENTATION -- PRIVATE
+ * --------------------------------------------------------------------------------------------------------------------------------------------------
+*/
 
-/** @defgroup private functions */
 static void SSD_voidSSD1Initialize(void)
 {
 	u8 L_u8Counter;
 	for(L_u8Counter = 0; (L_u8Counter < SSD1_NUM_OF_PINS); ++L_u8Counter)
 	{
-		DIO_voidSetPinDirection(mySSD1_PinConfig[L_u8Counter].PORT_ID,
-								mySSD1_PinConfig[L_u8Counter].PIN_ID,
-								OUTPUT);
-
-		DIO_voidSetPinValue(mySSD1_PinConfig[L_u8Counter].PORT_ID,
-							mySSD1_PinConfig[L_u8Counter].PIN_ID,
-							mySSD1_PinConfig[L_u8Counter].PIN_STATE);
+		SSD_voidSetSsdPinDirection(SSD_2, L_u8Counter);
+		SSD_voidSetSsdPinValue(SSD_2, L_u8Counter);
 	}
 }/** @end SSD_voidSSD1Initialize */
 
@@ -178,14 +177,40 @@ static void SSD_voidSSD2Initialize(void)
 	u8 L_u8Counter;
 	for(L_u8Counter = 0; (L_u8Counter < SSD1_NUM_OF_PINS); ++L_u8Counter)
 	{
-		DIO_voidSetPinDirection(mySSD2_PinConfig[L_u8Counter].PORT_ID,
-								mySSD2_PinConfig[L_u8Counter].PIN_ID,
-								OUTPUT);
-
-		DIO_voidSetPinValue(mySSD2_PinConfig[L_u8Counter].PORT_ID,
-							mySSD2_PinConfig[L_u8Counter].PIN_ID,
-							mySSD2_PinConfig[L_u8Counter].PIN_STATE);
+		SSD_voidSetSsdPinDirection(SSD_2, L_u8Counter);
+		SSD_voidSetSsdPinValue(SSD_2, L_u8Counter);
 	}
 }/** @end SSD_voidSSD2Initialize */
 
+static void SSD_voidSetSsdPinDirection(u8 Copy_u8SsdID, u8 Copy_SsdPinID)
+{
+	switch(Copy_u8SsdID)
+	{
+		case SSD_1:		DIO_voidSetPinDirection(mySSD1_PinConfig[Copy_SsdPinID].PORT_ID,
+												mySSD1_PinConfig[Copy_SsdPinID].PIN_ID,
+												OUTPUT);
+			break;
+		case SSD_2:		DIO_voidSetPinDirection(mySSD2_PinConfig[Copy_SsdPinID].PORT_ID,
+												mySSD2_PinConfig[Copy_SsdPinID].PIN_ID,
+												OUTPUT);
+			break;
+		default: return;
+	}
+}/** @end SSD_voidSetSsdPinDirection */
+
+static void SSD_voidSetSsdPinValue(u8 Copy_u8SsdID, u8 Copy_SsdPinID)
+{
+	switch(Copy_u8SsdID)
+	{
+		case SSD_1:		DIO_voidSetPinValue(mySSD1_PinConfig[Copy_SsdPinID].PORT_ID,
+											mySSD1_PinConfig[Copy_SsdPinID].PIN_ID,
+											mySSD1_PinConfig[Copy_SsdPinID].PIN_STATE);
+			break;
+		case SSD_2:		DIO_voidSetPinValue(mySSD2_PinConfig[Copy_SsdPinID].PORT_ID,
+											mySSD2_PinConfig[Copy_SsdPinID].PIN_ID,
+											mySSD2_PinConfig[Copy_SsdPinID].PIN_STATE);
+			break;
+		default: return;
+	}
+}/** @end SSD_voidSetSsdPinValue */
 
