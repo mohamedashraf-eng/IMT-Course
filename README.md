@@ -39,3 +39,13 @@ Table of contents:
 |----------|--------|------|
 |Leds|8|To represent the modes animation|
 |3-DIP switch|1|To switch between modes|
+
+___
+## Drivers
+___
+|Driver|Type|State|
+|----------|--------|------|
+|Digital Input Output Driver|Internal|Done|
+|Led|External|Done|
+|Button|External|Done|
+|Seven Segement Digit|External|Done|
