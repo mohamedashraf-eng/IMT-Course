@@ -43,7 +43,9 @@ Table of contents:
 ___
 ## Drivers
 Set of microcontroller drivers internally / externally for easy to use for normal user.
-Architecture: Static - Basic
+
+Architecture: Static - Basic.
+
 Folder structure:
 ```
 project
