@@ -42,7 +42,23 @@ Table of contents:
 
 ___
 ## Drivers
-___
+Set of microcontroller drivers internally / externally for easy to use for normal user.
+
+Architecture: Static - Basic
+
+Folder structure:
+
+ATmega32_Drivers -|-APP -|
+                  |-HAL -|
+                         |-SSD
+                         |-BUTTON
+                         |-LED
+                  |-MCAL -|
+                          |-DIO
+                  |-LIB -| std_types.h
+                         | bit_math.h
+                         | std_libs.h
+___               
 |Driver|Type|State|
 |----------|--------|------|
 |Digital Input Output Driver|Internal|Done|
