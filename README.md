@@ -92,6 +92,11 @@ project
 |           | SSD_Config.h
 |           | SSD_Interface.h
 |           | SSD_Program.c
+|       └───LCD
+|           | LCD_Private.h
+|           | LCD_Config.h
+|           | LCD_Interface.h
+|           | LCD_Program.c
 |   └───MCAL
 |       └───DIO
 |           | DIO_Registers.h
