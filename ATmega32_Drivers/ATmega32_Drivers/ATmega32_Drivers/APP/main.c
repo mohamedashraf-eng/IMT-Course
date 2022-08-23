@@ -14,32 +14,22 @@
 #include "../LIB/std_types.h"
 #include "../LIB/bit_math.h"
 
-#include "SSD_Counter/Counter_Interface.h"
+#include "LCD_PrintingName/Printing_Interface.h"
 
-#include "../HAL/SSD/SSD_Interface.h"
+#include "../HAL/LCD/LCD_Interface.h"
 
 #include <avr/delay.h>
 
 int  main(void)
 {
-	Counter_voidSystemInitalaization();
+	Printing_voidSystemInitialization();
 
-	u8 L_u8Limit = 99;
-	u8 L_u8Counter = 0;
+	u8 L_MyNameArr[] = "MOHAMED";
+	u8 ArrSize = sizeof(L_MyNameArr) / sizeof(L_MyNameArr[0]);
 
 	while(True)
 	{
-		Counter_voidUpdate(L_u8Counter, L_u8Limit);
-
-		++L_u8Counter;
-
-		if( (L_u8Counter >= L_u8Limit) )
-		{
-			_delay_ms(100); /** @note give the chance to see */
-			L_u8Counter = 0;
-		}
-		else;
-
+		Printing_voidSystemUpdate();
 	}
 
 	return 0;

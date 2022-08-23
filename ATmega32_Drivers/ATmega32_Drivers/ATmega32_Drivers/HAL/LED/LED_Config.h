@@ -14,14 +14,6 @@
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
-#define NUM_OF_LEDS ( (cu8) (8) )
-
-typedef struct
-{
-	cu8 PORT_ID;
-	cu8 PIN_ID;
-	cu8 INITAL_STATE;
-}ST_LED_LedsConfig_t;
 
 /** Available options:
  *  1. PORT_A , PORT_B , PORT_C , PORT_D

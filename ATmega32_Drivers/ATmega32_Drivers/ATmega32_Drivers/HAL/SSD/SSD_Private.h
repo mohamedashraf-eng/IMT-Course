@@ -18,12 +18,42 @@
 #define SSD1_NUM_OF_PINS (9) /** @note SSD pins + Common pin */
 #define SSD2_NUM_OF_PINS (9) /** @note SSD pins + Common pin */
 
+/**
+ * The below options cannot be modified.
+ **/
+/** @defgroup SSD 1 CONFIG */
+#if (SSD1_COMMON == COMMON_CATHODE)
+	#define SSD1_COMM_ON  ( LOW )
+	#define SSD1_COMM_OFF ( HIGH )
+#else
+	#define SSD1_COMM_ON  ( HIGH )
+	#define SSD1_COMM_OFF ( LOW )
+#endif
+
+/** @defgroup SSD 2 CONFIG */
+#if (SSD2_COMMON == COMMON_CATHODE)
+	#define SSD2_COMM_ON  ( LOW )
+	#define SSD2_COMM_OFF ( HIGH )
+#else
+	#define SSD2_COMM_ON  ( HIGH )
+	#define SSD2_COMM_OFF ( LOW )
+#endif
+
+
+
+/*
+ * --------------------------------------------------------------------------------------------------------------------------------------------------
+ * -	STRUCTS & GLOBALS
+ * --------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+
 typedef struct
 {
 	u8 PORT_ID;
 	u8 PIN_ID;
 	u8 PIN_STATE;
 }ST_SsdPinConfig_t;
+
 
 /** @defgroup SSD1 Pin Configuration */
 ST_SsdPinConfig_t mySSD1_PinConfig[] =

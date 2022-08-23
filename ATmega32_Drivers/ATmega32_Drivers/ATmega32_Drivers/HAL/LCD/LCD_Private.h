@@ -1,12 +1,14 @@
-/*
- * LED_Private.h
- *
- *  Created on: Aug 16, 2022
- *      Author: Wx
- */
+/**
+ * @file LCD_Private.h
+ * 
+ * @author: Mohamed Wx
+ * @date Aug 22, 2022
+ * @version v1.0
+ * @copyright (c) Mohamed Ashraf WxCo 2022
+ **/
 /** @def Header Guards */
-#ifndef HAL_LED_LED_PRIVATE_H_
-#define HAL_LED_LED_PRIVATE_H_
+#ifndef HAL_LCD_LCD_PRIVATE_H_
+#define HAL_LCD_LCD_PRIVATE_H_
 
 
 /*
@@ -15,7 +17,10 @@
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
-#define NUM_OF_LEDS ( (cu8) (8) )
+#define ROW1_BASE_ADDRESS 	(0x80)
+#define ROW2_BASE_ADDRESS 	(0x40 | 128)
+
+#define DIGIT_STACK_MAX 	(10)
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -25,18 +30,22 @@
 
 typedef struct
 {
-	cu8 PORT_ID;
-	cu8 PIN_ID;
-	cu8 INITAL_STATE;
-}ST_LED_LedsConfig_t;
+	u8 DATA_PORT_ID;
+	u8 EN_PORT_ID;
+	u8 EN_PIN_ID;
+	u8 RW_PORT_ID;
+	u8 RW_PIN_ID;
+	u8 RS_PORT_ID;
+	u8 RS_PIN_ID;
+}ST_LCD_ConfigParameters_t;
+
 
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
- * -	PRIVATE FUNCTIONS PROTOYPE
+ * -	PRIVATE FUNCTIONS PROTOTYPE
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
-static void LED_SetLedPinDirection(u8 Copy_u8LedPinID);
-static void LED_SetLedPinValue(u8 Copy_u8LedPinID);
 
-#endif /* HAL_LED_LED_PRIVATE_H_ */
+
+#endif /* HAL_LCD_LCD_PRIVATE_H_ */

@@ -34,7 +34,6 @@ DIO_voidDioInitialization(void)
 
 }/** @end DIO_voidDioInitialization */
 
-
 void
 DIO_voidDioReset(void)
 {
@@ -61,7 +60,6 @@ DIO_voidSetPinDirection(u8 Copy_u8PortID, u8 Copy_u8PinID, u8 Copy_u8PinDirectio
 	}
 }/** @end DIO_voidSetPinDirection */
 
-
 void
 DIO_voidSetPinValue(u8 Copy_u8PortID, u8 Copy_u8PinID, u8 Copy_u8PinValue)
 {
@@ -81,7 +79,6 @@ DIO_voidSetPinValue(u8 Copy_u8PortID, u8 Copy_u8PinID, u8 Copy_u8PinValue)
 		/* return error */
 	}
 }/** @end DIO_voidSetPinValue */
-
 
 void
 DIO_voidSetRegisterDirection(u8 Copy_u8PortID, u8 Copy_u8RegisterDirection)
@@ -103,7 +100,6 @@ DIO_voidSetRegisterDirection(u8 Copy_u8PortID, u8 Copy_u8RegisterDirection)
 	}
 }/** @end DIO_voidSetRegisterDirection */
 
-
 void
 DIO_voidSetRegisterValue(u8 Copy_u8PortID, u8 Copy_u8RegisterValue)
 {
@@ -123,7 +119,6 @@ DIO_voidSetRegisterValue(u8 Copy_u8PortID, u8 Copy_u8RegisterValue)
 		/* return error */
 	}
 }/** @end DIO_voidSetRegisterValue */
-
 
 u8
 DIO_u8GetPinValue(u8 Copy_u8PortID, u8 Copy_u8PinID)
@@ -147,7 +142,6 @@ DIO_u8GetPinValue(u8 Copy_u8PortID, u8 Copy_u8PinID)
 	}
 	return L_PinValue;
 }/** @end DIO_u8GetPinValue */
-
 
 u8
 DIO_u8GetRegisterValue(u8 Copy_u8PortID)

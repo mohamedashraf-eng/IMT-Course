@@ -24,6 +24,16 @@ enum ATmega32_INPUT_CONFIG
 #define EXTERNAL_PULLDOWN_RESISTOR	( 4 )
 #define NOTHING						( 5 )
 
+#define NUM_OF_BUTTONS ( (cu8) (8) )
+
+typedef struct
+{
+	cu8 PORT_ID;
+	cu8 PIN_ID;
+	cu8 BUTTON_STATE;
+}ST_ButtonConfig_t;
+
+
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
  * -	PRIVATE FUNCTIONS PROTOYPE

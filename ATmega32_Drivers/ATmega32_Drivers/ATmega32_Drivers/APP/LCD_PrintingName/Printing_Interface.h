@@ -1,25 +1,20 @@
-/*
- * Frame_Interface.h
- *
- *  Created on: Aug 18, 2022
- *      Author: Wx
- */
-/** @def Header Guards */
-#ifndef APP_SSD_FRAME_FRAME_INTERFACE_H_
-#define APP_SSD_FRAME_FRAME_INTERFACE_H_
+/**
+ * @file Printing_Interface.h
+ * 
+ * @author: Mohamed Wx
+ * @date Aug 23, 2022
+ * @version v1.0
+ * @copyright (c) Mohamed Ashraf WxCo 2022
+ **/
 
+#ifndef APP_LCD_PRINTINGNAME_PRINTING_INTERFACE_H_
+#define APP_LCD_PRINTINGNAME_PRINTING_INTERFACE_H_
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
  * -	MACROS & ENUMS
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
-
-enum Frame_Directions
-{
-	Clockwise,
-	AntiClockwise
-};
 
 
 /*
@@ -28,9 +23,9 @@ enum Frame_Directions
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
-void Frame_voidSystemInitalaization(void);
-void Frame_voidSetFrameDirection(u8 Copy_u8FrameDirection);
-void Frame_voidUpdate(void);
+
+void Printing_voidSystemInitialization(void);
+void Printing_voidSystemUpdate(void);
 
 
-#endif /* APP_SSD_FRAME_FRAME_INTERFACE_H_ */
+#endif /* APP_LCD_PRINTINGNAME_PRINTING_INTERFACE_H_ */

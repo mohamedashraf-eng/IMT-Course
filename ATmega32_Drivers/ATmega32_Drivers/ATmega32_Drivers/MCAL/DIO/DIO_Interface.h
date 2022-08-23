@@ -37,8 +37,10 @@ enum DIO_PINS
 
 enum DIO_PIN_DIRECTION
 {
-	INPUT,
-	OUTPUT
+	INPUT 	   = 0,
+	OUTPUT 	   = 1,
+	OUTPUT_ALL = 0xFF,
+	INPUT_ALL  = 0x00
 };
 
 enum DIO_PIN_STATE

@@ -21,10 +21,12 @@ C_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
+APP/LCD_PrintingName \
 APP/SSD_Counter \
 APP/SSD_Frame \
 APP \
 HAL/BUTTON \
+HAL/LCD \
 HAL/LED \
 HAL/SSD \
 MCAL/DIO \
