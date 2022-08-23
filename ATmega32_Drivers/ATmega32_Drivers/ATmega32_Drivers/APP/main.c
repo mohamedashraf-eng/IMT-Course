@@ -24,12 +24,10 @@ int  main(void)
 {
 	Printing_voidSystemInitialization();
 
-	u8 L_MyNameArr[] = "MOHAMED";
-	u8 ArrSize = sizeof(L_MyNameArr) / sizeof(L_MyNameArr[0]);
-
 	while(True)
 	{
-		Printing_voidSystemUpdate();
+		//Printing_voidSystemUpdate1();
+		Printing_voidSystemUpdate2();
 	}
 
 	return 0;

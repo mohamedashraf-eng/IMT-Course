@@ -25,7 +25,7 @@
 
 
 void Printing_voidSystemInitialization(void);
-void Printing_voidSystemUpdate(void);
-
+void Printing_voidSystemUpdate1(void);
+void Printing_voidSystemUpdate2(void);
 
 #endif /* APP_LCD_PRINTINGNAME_PRINTING_INTERFACE_H_ */

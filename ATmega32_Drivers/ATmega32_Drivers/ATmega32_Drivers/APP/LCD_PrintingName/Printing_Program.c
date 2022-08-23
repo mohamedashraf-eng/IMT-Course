@@ -45,37 +45,49 @@ void Printing_voidSystemInitialization(void)
 	BUTTON_voidButtonInitalaization(BUTTON_2);
 }/** @end Printing_voidSystemInitialization */
 
-void Printing_voidSystemUpdate(void)
+void Printing_voidSystemUpdate1(void)
 {
-	u8 delay = 20;
+	u8 delay = 10;
 
-	u8 i = 0;
+	u8 L_u8MyNameArr[] = "MOHAMEDASHRAFFATHY";
+	u8 L_u8ArrSize = sizeof(L_u8MyNameArr) / sizeof(L_u8MyNameArr[0]);
 
-	u8 L_u8MyNameArr[] = "MOHAMEDASHRAFFAT";
-	//u8 Lu8ArrSize = sizeof(L_u8MyNameArr) / sizeof(L_u8MyNameArr[0]);
+	u8 row = 0;
 
-	u8 x = 0, y = 1;
-
-	for(i = 0; i < 15; i++)
+	for(u8 i = 0; i < L_u8ArrSize; ++i)
 	{
-		LCD_voidGoToRowColumn(Row0_ID, x);
+		LCD_voidGoToRowColumn(row, i);
 		LCD_voidDisplayCharacter(L_u8MyNameArr[i]);
 
-		_delay_ms(delay);
+		row ^= 1;
 
-		LCD_voidGoToRowColumn(Row1_ID, y);
-		LCD_voidDisplayCharacter(L_u8MyNameArr[i+1]);
+		_delay_ms(delay);
+	}
+
+	LCD_voidClearScreen();
+}/** @end Printing_voidSystemUpdate */
+
+void Printing_voidSystemUpdate2(void)
+{
+	u8 delay = 50;
+
+	u8 L_u8MyNameArr[] = "MOHAMED";
+
+	u8 row = 0;
+
+	for(u8 i = 0; i < 15; ++i)
+	{
+		LCD_voidGoToRowColumn(row, i);
+		LCD_voidDisplayString(L_u8MyNameArr);
+
+		row ^= 1;
 
 		_delay_ms(delay);
 
 		LCD_voidClearScreen();
-
-		x += 1;
-		y += 1;
-
-		//Printing_voidSwapCharacters(&L_u8MyNameArr[i], &L_u8MyNameArr[i+1]);
 	}
-}/** @end Printing_voidSystemUpdate */
+}/** @end Printing_voidSystemUpdate2 */
+
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
