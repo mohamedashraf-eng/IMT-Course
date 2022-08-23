@@ -16,10 +16,6 @@
 
 #include "LCD_PrintingName/Printing_Interface.h"
 
-#include "../HAL/LCD/LCD_Interface.h"
-
-#include <avr/delay.h>
-
 int  main(void)
 {
 	Printing_voidSystemInitialization();
