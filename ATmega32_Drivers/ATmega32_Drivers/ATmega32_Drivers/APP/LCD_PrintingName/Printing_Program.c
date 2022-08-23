@@ -41,8 +41,6 @@ void Printing_voidSystemInitialization(void)
 {
 	/** @def initalize system */
 	LCD_voidSystemInitalaization(LCD_EightBitMode);
-	BUTTON_voidButtonInitalaization(BUTTON_1);
-	BUTTON_voidButtonInitalaization(BUTTON_2);
 }/** @end Printing_voidSystemInitialization */
 
 void Printing_voidSystemUpdate1(void)
