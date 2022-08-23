@@ -90,15 +90,7 @@ void LCD_voidDisplayCharacter(u8 Copy_u8Character)
 						myLCD_Configs.EN_PIN_ID,
 						LOW);
 
-	_delay_ms(6);
-
-
-	DIO_voidSetPinValue(myLCD_Configs.EN_PORT_ID,
-						myLCD_Configs.EN_PIN_ID,
-						HIGH);
-
-	_delay_ms(11);
-
+	_delay_ms(5);
 }/** @end LCD_voidDisplayCharacter */
 
 void LCD_voidDisplayString(u8 *Address_u8String)
