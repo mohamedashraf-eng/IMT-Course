@@ -1,15 +1,14 @@
 /**
- * @file LCD_Config.h
+ * @file KEYPAD_Interface.h
  * 
  * @author: Mohamed Wx
- * @date Aug 22, 2022
+ * @date Aug 24, 2022
  * @version v1.0
  * @copyright (c) Mohamed Ashraf WxCo 2022
  **/
 /** @def Header Guards */
-#ifndef HAL_LCD_LCD_CONFIG_H_
-#define HAL_LCD_LCD_CONFIG_H_
-
+#ifndef HAL_KEYPAD_KEYPAD_INTERFACE_H_
+#define HAL_KEYPAD_KEYPAD_INTERFACE_H_
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -17,20 +16,37 @@
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
+#define NO_KEY_PRESSED	 255
+
+enum KEY_STATE
+{
+	Pressed,
+	NotPressed
+};
+
+enum KEYPAD_PINS
+{
+	KP_Row0_ID,
+	KP_Row1_ID,
+	KP_Row2_ID,
+	KP_Row3_ID,
+	KP_Column0_ID,
+	KP_Column1_ID,
+	KP_Column2_ID,
+	KP_Column3_ID,
+
+	KP_LastRow_ID	 = KP_Row3_ID,
+	KP_LastColumn_ID = KP_Column3_ID
+};
+
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
- * -	STRUCTS & GLOBALS
+ * -	PUBLIC FUNCTIONS PROTOTYPE
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
-/** @def keypad config parameters */
+void KEYPAD_voidSystemInitialization(void);
+void KEYPAD_voidGetPressedKey(u8 *Address_u8PressedValue);
 
-ST_LCD_ConfigParameters_t myLCD_Configs =
-{
-	PORT_A,			/** @note Data	*/
-	PORT_D, PIN_1,	/** @note EN	*/
-	PORT_D, PIN_2,	/** @note RW	*/
-	PORT_D, PIN_3	/** @note RS	*/
-};
 
-#endif /* HAL_LCD_LCD_CONFIG_H_ */
+#endif /* HAL_KEYPAD_KEYPAD_INTERFACE_H_ */

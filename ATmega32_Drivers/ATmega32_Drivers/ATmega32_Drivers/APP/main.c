@@ -14,16 +14,32 @@
 #include "../LIB/std_types.h"
 #include "../LIB/bit_math.h"
 
-#include "LCD_PrintingName/Printing_Interface.h"
+#include "../MCAL/DIO/DIO_Interface.h"
+
+#include "../HAL/LCD/LCD_Interface.h"
+#include "../HAL/KEYPAD/KEYPAD_Interface.h"
+
+#include <avr/delay.h>
 
 int  main(void)
 {
-	Printing_voidSystemInitialization();
+	LCD_voidSystemInitalaization(LCD_EightBitMode);
+	KEYPAD_voidSystemInitialization();
+
+	u8 Value = 0;
 
 	while(True)
 	{
-		//Printing_voidSystemUpdate1();
-		Printing_voidSystemUpdate2();
+		KEYPAD_voidGetPressedKey(&Value);
+
+		if( (Value != NO_KEY_PRESSED) )
+		{
+			LCD_voidDisplayCharacter('W');
+		}
+		else
+		{
+			;
+		}
 	}
 
 	return 0;

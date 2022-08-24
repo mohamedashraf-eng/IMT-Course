@@ -1,15 +1,14 @@
 /**
- * @file LCD_Private.h
+ * @file KEYPAD_Private.h
  * 
  * @author: Mohamed Wx
- * @date Aug 22, 2022
+ * @date Aug 24, 2022
  * @version v1.0
  * @copyright (c) Mohamed Ashraf WxCo 2022
  **/
 /** @def Header Guards */
-#ifndef HAL_LCD_LCD_PRIVATE_H_
-#define HAL_LCD_LCD_PRIVATE_H_
-
+#ifndef HAL_KEYPAD_KEYPAD_PRIVATE_H_
+#define HAL_KEYPAD_KEYPAD_PRIVATE_H_
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -17,10 +16,6 @@
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
-#define ROW1_BASE_ADDRESS 	(0x80)
-#define ROW2_BASE_ADDRESS 	(0x40 | 128)
-
-#define DIGIT_STACK_MAX 	(10)
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -28,18 +23,15 @@
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
+
+/** @def keypad config parameters */
 typedef struct
 {
-	u8 DATA_PORT_ID;
-	u8 EN_PORT_ID;
-	u8 EN_PIN_ID;
-	u8 RW_PORT_ID;
-	u8 RW_PIN_ID;
-	u8 RS_PORT_ID;
-	u8 RS_PIN_ID;
-}ST_LCD_ConfigParameters_t;
-
-
+	u8 PORT_ID;
+	u8 PIN_ID;
+	u8 PIN_Direction;
+	u8 PIN_Value;
+}ST_KeyPadConfig_t;
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -48,7 +40,4 @@ typedef struct
 */
 
 
-static void LCD_voidSendCommand(u8 Copy_u8Command);
-//static u8 LCD_u8IsBusy(void);
-
-#endif /* HAL_LCD_LCD_PRIVATE_H_ */
+#endif /* HAL_KEYPAD_KEYPAD_PRIVATE_H_ */

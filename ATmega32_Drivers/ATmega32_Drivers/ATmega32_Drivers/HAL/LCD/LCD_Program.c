@@ -107,6 +107,14 @@ void LCD_voidDisplayString(u8 *Address_u8String)
 
 void LCD_voidDisplayInteger(u32 Copy_u32Integer)
 {
+	/* Hangle the zero & signed */
+	if( (Copy_u32Integer <= 0) )
+	{
+		LCD_voidDisplayCharacter('0');
+		return;
+	}
+	else;
+
 	u8 L_u8IntegerDigitsSTACK[DIGIT_STACK_MAX];
 	s8 L_u8StackTop = 0;
 

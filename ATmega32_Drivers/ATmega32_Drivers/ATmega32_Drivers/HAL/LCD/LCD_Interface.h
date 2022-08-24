@@ -90,14 +90,6 @@ void LCD_voidClearScreen(void);
 void LCD_voidDisplayShiftLeft(void);
 void LCD_voidDisplayShiftRight(void);
 
-/*
- * --------------------------------------------------------------------------------------------------------------------------------------------------
- * -	PRIVATE FUNCTIONS PROTOTYPE
- * --------------------------------------------------------------------------------------------------------------------------------------------------
-*/
-
-static void LCD_voidSendCommand(u8 Copy_u8Command);
-static u8 LCD_u8IsBusy(void);
 
 
 #endif /* HAL_LCD_LCD_INTERFACE_H_ */

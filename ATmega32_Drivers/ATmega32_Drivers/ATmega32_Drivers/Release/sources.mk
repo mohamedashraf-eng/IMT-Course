@@ -26,6 +26,7 @@ APP/SSD_Counter \
 APP/SSD_Frame \
 APP \
 HAL/BUTTON \
+HAL/KEYPAD \
 HAL/LCD \
 HAL/LED \
 HAL/SSD \
