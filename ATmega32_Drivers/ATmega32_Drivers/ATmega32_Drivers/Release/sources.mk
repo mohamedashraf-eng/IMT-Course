@@ -24,6 +24,7 @@ SUBDIRS := \
 APP/LCD_PrintingName \
 APP/SSD_Counter \
 APP/SSD_Frame \
+APP/SimpleCalculator \
 APP \
 HAL/BUTTON \
 HAL/KEYPAD \

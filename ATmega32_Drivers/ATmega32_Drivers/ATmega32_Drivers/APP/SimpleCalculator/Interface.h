@@ -1,5 +1,5 @@
 /**
- * @file KEYPAD_Private.h
+ * @file Interface.h
  * 
  * @author: Mohamed Wx
  * @date Aug 24, 2022
@@ -7,36 +7,35 @@
  * @copyright (c) Mohamed Ashraf WxCo 2022
  **/
 /** @def Header Guards */
-#ifndef HAL_KEYPAD_KEYPAD_PRIVATE_H_
-#define HAL_KEYPAD_KEYPAD_PRIVATE_H_
+#ifndef APP_SIMPLECALCULATOR_INTERFACE_H_
+#define APP_SIMPLECALCULATOR_INTERFACE_H_
+
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
  * -	MACROS & ENUMS
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
-
-/*
- * --------------------------------------------------------------------------------------------------------------------------------------------------
- * -	STRUCTS & GLOBALS
- * --------------------------------------------------------------------------------------------------------------------------------------------------
-*/
-
-
-/** @def keypad config parameters */
-typedef struct
+enum CALCULATOR_OPERATIONS
 {
-	u8 PORT_ID;
-	u8 PIN_ID;
-	u8 PIN_Direction;
-	u8 PIN_Value;
-}ST_KeyPadConfig_t;
+	/** @defgroup operations */
+	MUL,
+	DIV,
+	SUM,
+	SUB,
+	CLR,
+	ENTER
+};
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
- * -	PRIVATE FUNCTIONS PROTOTYPE
+ * -	PUBLIC FUNCTIONS PROTOTYPE
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
+void voidSystemInitilization(void);
+void voidSystemUpdate(void);
 
-#endif /* HAL_KEYPAD_KEYPAD_PRIVATE_H_ */
+void voidValueToFunction(u8 Copy_u8KeyValue, u8 *Address_u8KeyFunction);
+
+#endif /* APP_SIMPLECALCULATOR_INTERFACE_H_ */

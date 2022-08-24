@@ -90,6 +90,4 @@ void LCD_voidClearScreen(void);
 void LCD_voidDisplayShiftLeft(void);
 void LCD_voidDisplayShiftRight(void);
 
-
-
 #endif /* HAL_LCD_LCD_INTERFACE_H_ */

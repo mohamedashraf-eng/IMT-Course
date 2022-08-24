@@ -39,7 +39,7 @@ void LED_voidLedsInitalaization(void)
 	u8 L_u8LedID;
 	for(L_u8LedID = 0; (L_u8LedID < NUM_OF_LEDS); ++L_u8LedID)
 	{
-		LED_SetLedPinDirection(L_u8LedID);
+		LED_voidLedInitalaization(L_u8LedID);
 	}
 }/** @end LED_voidLedsInitalaization */
 
@@ -51,7 +51,9 @@ void LED_voidLedInitalaization(cu8 Copy_cu8LedID)
 
 void LED_voidLedSetValue(cu8 Copy_cu8LedID, cu8 Copy_cu8LedValue)
 {
-	LED_SetLedPinValue(Copy_cu8LedID);
+	DIO_voidSetPinValue(myLedsConfig[Copy_cu8LedID].PORT_ID,
+						myLedsConfig[Copy_cu8LedID].PIN_ID,
+						Copy_cu8LedValue);
 }/** @end LED_voidLedSetValue */
 
 

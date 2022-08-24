@@ -1,5 +1,5 @@
 /**
- * @file KEYPAD_Private.h
+ * @file Private.h
  * 
  * @author: Mohamed Wx
  * @date Aug 24, 2022
@@ -7,8 +7,8 @@
  * @copyright (c) Mohamed Ashraf WxCo 2022
  **/
 /** @def Header Guards */
-#ifndef HAL_KEYPAD_KEYPAD_PRIVATE_H_
-#define HAL_KEYPAD_KEYPAD_PRIVATE_H_
+#ifndef APP_SIMPLECALCULATOR_PRIVATE_H_
+#define APP_SIMPLECALCULATOR_PRIVATE_H_
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -16,21 +16,12 @@
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
-/*
- * --------------------------------------------------------------------------------------------------------------------------------------------------
- * -	STRUCTS & GLOBALS
- * --------------------------------------------------------------------------------------------------------------------------------------------------
-*/
+#define MAX_OPERAND_BUFFER_SIZE 	(10)
 
-
-/** @def keypad config parameters */
-typedef struct
+enum CALCULATIONS_EXCEPTIONS_FLAGS
 {
-	u8 PORT_ID;
-	u8 PIN_ID;
-	u8 PIN_Direction;
-	u8 PIN_Value;
-}ST_KeyPadConfig_t;
+	DIV_BY_ZERO_FLAG= 133
+};
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -38,5 +29,10 @@ typedef struct
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
+static u32 u32ValueToOperation(u16 Copy_u16Number1, u16 Copy_u16Number2, u8 Copy_u8KeyValue);
+static u16 u16DigitsToInt(u8 *Address_u8DigitsArray);
 
-#endif /* HAL_KEYPAD_KEYPAD_PRIVATE_H_ */
+static void voidClearAndReset(void);
+static void voidClearOperandBuffer(u8 *Address_u8BufferArray);
+
+#endif /* APP_SIMPLECALCULATOR_PRIVATE_H_ */

@@ -39,6 +39,29 @@ enum KEYPAD_PINS
 	KP_LastColumn_ID = KP_Column3_ID
 };
 
+enum KEYPAD_AVAILABILE_KEYS
+{
+	/** @defgroup numbers */
+	KP_ZERO,
+	KP_ONE,
+	KP_TWO,
+	KP_THREE,
+	KP_FOUR,
+	KP_FIVE,
+	KP_SIX,
+	KP_SEVEN,
+	KP_EIGHT,
+	KP_NINE,
+
+	/** @defgroup operations */
+	KP_MUL,
+	KP_DIV,
+	KP_SUM,
+	KP_SUB,
+	KP_CLR,
+	KP_ENTER
+};
+
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
  * -	PUBLIC FUNCTIONS PROTOTYPE
@@ -47,6 +70,5 @@ enum KEYPAD_PINS
 
 void KEYPAD_voidSystemInitialization(void);
 void KEYPAD_voidGetPressedKey(u8 *Address_u8PressedValue);
-
 
 #endif /* HAL_KEYPAD_KEYPAD_INTERFACE_H_ */

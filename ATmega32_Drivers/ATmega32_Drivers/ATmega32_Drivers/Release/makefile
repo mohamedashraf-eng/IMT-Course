@@ -14,6 +14,7 @@ RM := rm -rf
 -include HAL/LCD/subdir.mk
 -include HAL/KEYPAD/subdir.mk
 -include HAL/BUTTON/subdir.mk
+-include APP/SimpleCalculator/subdir.mk
 -include APP/SSD_Frame/subdir.mk
 -include APP/SSD_Counter/subdir.mk
 -include APP/LCD_PrintingName/subdir.mk

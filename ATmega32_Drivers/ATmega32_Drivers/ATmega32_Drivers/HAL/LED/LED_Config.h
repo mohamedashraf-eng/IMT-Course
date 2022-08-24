@@ -21,7 +21,7 @@
  */
 const ST_LED_LedsConfig_t myLedsConfig[NUM_OF_LEDS] =
 {
-		{PORT_D, PIN_1, LOW}, /** @def Led 1 */
+		{PORT_C, PIN_8, LOW}, /** @def Led 1 */
 		{PORT_D, PIN_2, LOW}, /** @def Led 2 */
 		{PORT_A, PIN_3, LOW}, /** @def Led 3 */
 		{PORT_A, PIN_4, LOW}, /** @def Led 4 */

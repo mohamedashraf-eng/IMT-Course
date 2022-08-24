@@ -20,8 +20,8 @@
 #include "../../MCAL/DIO/DIO_Interface.h"
 
 #include "KEYPAD_Private.h"
-#include "KEYPAD_Config.h"
 #include "KEYPAD_Interface.h"
+#include "KEYPAD_Config.h"
 
 #include <avr/delay.h>
 
@@ -73,7 +73,7 @@ void KEYPAD_voidSystemInitialization(void)
 void KEYPAD_voidGetPressedKey(u8 *Address_u8PressedValue)
 {
 	/** @defgroup Variables declaration */
-	u8 delay_after = 50;
+	u8 delay_after = 10;
 
 	u8 volatile L_u8KeyValue 	= 0,
 				L_u8ReturnValue = NO_KEY_PRESSED;
@@ -113,7 +113,12 @@ void KEYPAD_voidGetPressedKey(u8 *Address_u8PressedValue)
 				L_u8FlagPressed = 1;
 
 				/* Loop to make sure that only get one value for the pressed key */
-				//while( (L_u8KeyValue == Pressed) ) {;} /** @todo to be modifed */
+				while( (L_u8KeyValue == Pressed) )
+				{
+					/* Get the current row value */
+					L_u8KeyValue = DIO_u8GetPinValue(MyKeyPadConfig[L_u8RowsIterator].PORT_ID,
+													 MyKeyPadConfig[L_u8RowsIterator].PIN_ID);
+				} /** @todo to be modifed */
 
 				/* Delay to solve the bouncing problem */
 				_delay_ms(delay_after);
@@ -138,6 +143,8 @@ void KEYPAD_voidGetPressedKey(u8 *Address_u8PressedValue)
 	/* Return the key value */
 	(*Address_u8PressedValue) = L_u8ReturnValue;
 }/** @end KEYPAD_voidGetPressedKey */
+
+
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------

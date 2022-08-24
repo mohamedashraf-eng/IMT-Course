@@ -15,7 +15,7 @@
 */
 
 /** @defgroup addresses */
-//#define DIO_PERIPHERAL_BASE_ADDRESS		( (u8) (0x10) )
+//#define DIO_PERIPHERAL_BASE_ADDRESS	( (u8) (0x10) )
 #define DIO_PERIPHERAL_MMIO_OFFSET		( (u8) (0x20) )
 //#define DIO_PERIPHERAL_REG_OFFSET		( (u8) (0x01) )
 
