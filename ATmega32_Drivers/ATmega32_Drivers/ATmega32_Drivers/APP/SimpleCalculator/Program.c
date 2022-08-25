@@ -56,6 +56,7 @@ void voidSystemInitilization(void)
  * 			3. Get operation.
  * 	3.
  **/
+/** @todo to be optimized */
 void voidSystemUpdate(void)
 {
 	/* Variables declaration */
@@ -122,7 +123,6 @@ void voidSystemUpdate(void)
 
 			case KP_CLR:
 					L_u16Number1 = 0; L_u16Number2 = 0;
-					L_u8OperandPositionFlag = 0;
 					L_u8OperationSetFlag = 0;
 					L_u8CalculationFinishFlag = 0;
 					voidClearAndReset();
@@ -135,16 +135,14 @@ void voidSystemUpdate(void)
 					else;
 					LCD_voidDisplayCharacter('=');
 					LCD_voidDisplayInteger(L_u32Result);
-					L_u8OperandPositionFlag = 0;
 					L_u8OperationSetFlag = 0;
 					L_u8CalculationFinishFlag = 1;
 				break;
 
 			default:
-					if( (L_u8OperandPositionFlag == 0) )
+					if( (L_u8OperationSetFlag == 0) )
 					{
 						L_u16Number1 = L_u16Number1 * 10 + L_u8InputKeyValue;
-						L_u8OperandPositionFlag = 1;
 					}
 					else
 					{
