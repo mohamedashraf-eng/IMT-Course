@@ -97,6 +97,11 @@ project
 |           | LCD_Config.h
 |           | LCD_Interface.h
 |           | LCD_Program.c
+|       └───MOTORS
+|           | MOTORS_Private.h
+|           | MOTORS_Config.h
+|           | MOTORS_Interface.h
+|           | MOTORS_Program.c
 |   └───MCAL
 |       └───DIO
 |           | DIO_Registers.h
