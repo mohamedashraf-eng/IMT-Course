@@ -122,3 +122,4 @@ ___
 |Button|External|Done|
 |Seven Segement Digit|External|Done|
 |LCD|External|Done|
+|Motors|External|Half|
