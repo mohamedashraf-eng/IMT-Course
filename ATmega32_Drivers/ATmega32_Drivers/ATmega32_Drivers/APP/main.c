@@ -7,6 +7,17 @@
  */
 
 /*
+	888       888Y88b   d88P    .d8888b.  .d88888b. 8888888b. 8888888888
+	888   o   888 Y88b d88P    d88P  Y88bd88P" "Y88b888  "Y88b888
+	888  d8b  888  Y88o88P     888    888888     888888    888888
+	888 d888b 888   Y888P      888       888     888888    8888888888
+	888d88888b888   d888b      888       888     888888    888888
+	88888P Y88888  d88888b     888    888888     888888    888888
+	8888P   Y8888 d88P Y88b    Y88b  d88PY88b. .d88P888  .d88P888
+	888P     Y888d88P   Y88b    "Y8888P"  "Y88888P" 8888888P" 8888888888
+ */
+
+/*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
  * -	HEADERS INCLUDED
  * --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -18,18 +29,21 @@
 #include "../HAL/LCD/LCD_Interface.h"
 #include "../HAL/KEYPAD/KEYPAD_Interface.h"
 #include "../HAL/LED/LED_Interface.h"
-
-#include "SimpleCalculator/Interface.h"
+#include "../HAL/MOTORS/MOTORS_Interface.h"
 
 #include <avr/delay.h>
 
 int  main(void)
 {
-	voidSystemInitilization();
+	MOTOR_voidDcSystemInitalization();
+
+	MOTOR_voidSetDcMotorSpeed(MOTOR1_ID, 44);
+//	MOTOR_voidSetDcMotorDirection(MOTOR1_ID, ClockWise);
+	MOTOR_voidSetDcMotorDirection(MOTOR1_ID, CounterClockWise);
 
 	while(True)
 	{
-		voidSystemUpdate();
+
 	}
 
 	return 0;
