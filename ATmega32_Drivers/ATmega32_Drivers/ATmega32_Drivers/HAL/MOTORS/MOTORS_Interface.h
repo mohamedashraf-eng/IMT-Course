@@ -63,7 +63,7 @@ enum SET_OF_MOTORS_ID
 /** @defgroup DC Motors */
 
 void MOTOR_voidDcSystemInitalization(void);
-void MOTOR_voidSetDcMotorSpeed(u8 Copy_u8MotorSpeed);
+void MOTOR_voidSetDcMotorSpeed(u8 Copy_u8MotorID, u8 Copy_u8MotorSpeed);
 void MOTOR_voidSetDcMotorDirection(u8 Copy_u8MotorID, u8 Copy_u8MotorDirection);
 
 /** @defgroup Servo Motors */

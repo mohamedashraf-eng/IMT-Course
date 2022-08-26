@@ -39,9 +39,12 @@ void MOTOR_voidDcSystemInitalization(void)
 	{ voidDCMotorInitalization(L_u8Iterator); }
 }/** @end MOTOR_voidDcSystemInitalization */
 
-void MOTOR_voidSetDcMotorSpeed(u8 Copy_u8MotorSpeed)
+void MOTOR_voidSetDcMotorSpeed(u8 Copy_u8MotorID, u8 Copy_u8MotorSpeed)
 {
 	/** @todo to be added after PWM Timer */
+	DIO_voidSetPinValue(MyMotorsConfig.MyDcMotorConfig[Copy_u8MotorID].SPD_PORT_ID,
+						MyMotorsConfig.MyDcMotorConfig[Copy_u8MotorID].SPD_PIN_ID,
+						HIGH);
 }/** @end MOTOR_voidSetDcMotorSpeed */
 
 void MOTOR_voidSetDcMotorDirection(u8 Copy_u8MotorID, u8 Copy_u8MotorDirection)

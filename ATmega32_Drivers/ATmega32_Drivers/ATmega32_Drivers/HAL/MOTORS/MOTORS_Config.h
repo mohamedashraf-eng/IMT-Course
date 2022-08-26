@@ -26,16 +26,16 @@
 ST_MotorsConfig_t MyMotorsConfig =
 {
 	/** @note DC Motors Config */
-	{	  /* IN1,    IN2,    SPD */
+	{	  /* IN1,    IN2,    SPD */	/** @note Motor1_*/
 			{PORT_D, PORT_C, PORT_C,
 			 PIN_4,  PIN_5,  PIN_6}
 	},
-	/** @note Servo Motors Config */
+	/** @note Servo Motors Config */ /** @note Motor1_*/
 	{		/*	Signal  */
 			{PORT_D, PIN_5}
 	},
 	/** @note Stepper Motors Config */
-	{     /* Pole1,  Pole2, Pole3,   Pole4  */
+	{     /* Pole1,  Pole2, Pole3,   Pole4  */ /** @note Motor1_*/
 			{PORT_C, PORT_C, PORT_C, PORT_C,
 			 PIN_1,  PIN_2,  PIN_3,  PIN_4}
 	}
