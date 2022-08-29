@@ -118,8 +118,11 @@ ___
 |Driver|Type|State|
 |----------|--------|------|
 |Digital Input Output Driver|Internal|Done|
+|Interrupts|Internal|Half|
 |Led|External|Done|
 |Button|External|Done|
 |Seven Segement Digit|External|Done|
 |LCD|External|Done|
 |Motors|External|Half|
+|Electronic Switches|External|Done|
+
