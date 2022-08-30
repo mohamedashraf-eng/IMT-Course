@@ -16,6 +16,8 @@
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
+#define NUM_OF_EXTI ( (u8) (3) )
+
 /** @defgroup addresses */
 #define PERIPHERAL_MMIO_OFFSET		( (u8) (0x20) )
 
@@ -54,6 +56,8 @@ enum GIFR_BITS
 	INTF2 = 5
 }; /** @note the other bits are not used in this peripheral */
 
+typedef void (*CallBackFunctionPointer) (void);	/** @note type to make function pointer */
+
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
  * -	PRIVATE STRUCTS
@@ -81,7 +85,7 @@ typedef struct
  * -	PRIVATE FUNCTIONS PROTOTYPE
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
-
+/** @defgroup General Functions */
 static void voidINT0Intailze(void);
 static void voidINT1Intailze(void);
 static void voidINT2Intailze(void);
@@ -98,5 +102,11 @@ static void voidINT2Control(u8 Copy_u8State);
 static void voidINT0ResetFlag(void);
 static void voidINT1ResetFlag(void);
 static void voidINT2ResetFlag(void);
+
+/** @defgroup ISR Functions */
+void __vector_1(void) __attribute__((signal));	/** @def EXTI0 */
+void __vector_2(void) __attribute__((signal));	/** @def EXTI1 */
+void __vector_3(void) __attribute__((signal));	/** @def EXTI2 */
+
 
 #endif /* MCAL_EXTI_EXTI_PRIVATE_H_ */

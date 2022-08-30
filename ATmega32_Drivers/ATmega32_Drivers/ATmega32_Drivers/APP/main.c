@@ -35,11 +35,6 @@
 
 int  main(void)
 {
-	MOTOR_voidDcSystemInitalization();
-
-	MOTOR_voidSetDcMotorSpeed(MOTOR1_ID, 44);
-//	MOTOR_voidSetDcMotorDirection(MOTOR1_ID, ClockWise);
-	MOTOR_voidSetDcMotorDirection(MOTOR1_ID, CounterClockWise);
 
 	while(True)
 	{

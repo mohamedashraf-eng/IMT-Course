@@ -26,6 +26,14 @@
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
+ * -	GLOBAL VARIABLES
+ * --------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+/** @def ISR vector address */
+CallBackFunctionPointer G_voidEXTICallBack[NUM_OF_EXTI] = {NULL, NULL, NULL};
+
+/*
+ * --------------------------------------------------------------------------------------------------------------------------------------------------
  * -	PUBLIC FUNCTIONS IMPLEMENTATION
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
@@ -73,6 +81,33 @@ void EXTI_voidInterruptFlagReset(u8 Copy_u8InterruptID)
 		default: break; /* Error handler */
 	}
 }/** @end EXTI_voidInterruptFlagReset */
+
+void EXTI_voidINT0_CallBackFunction(CallBackFunctionPointer Copy_voidINT0_CallBack)
+{
+	if( (Copy_voidINT0_CallBack != NULL) )
+	{
+		G_voidEXTICallBack[EXTI_INT0] = Copy_voidINT0_CallBack;
+	}
+	else;
+}/** @end EXTI_voidINT0_CallBackFunction */
+
+void EXTI_voidINT1_CallBackFunction(CallBackFunctionPointer Copy_voidINT1_CallBack)
+{
+	if( (Copy_voidINT1_CallBack != NULL) )
+	{
+		G_voidEXTICallBack[EXTI_INT1] = Copy_voidINT1_CallBack;
+	}
+	else;
+}/** @end EXTI_voidINT1_CallBackFunction */
+
+void EXTI_voidINT2_CallBackFunction(CallBackFunctionPointer Copy_voidINT2_CallBack)
+{
+	if( (Copy_voidINT2_CallBack != NULL) )
+	{
+		G_voidEXTICallBack[EXTI_INT2] = Copy_voidINT2_CallBack;
+	}
+	else;
+}/** @end EXTI_voidINT2_CallBackFunction */
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -224,5 +259,43 @@ static void voidINT2ResetFlag(void)
 {
 	BIT_CLR(GIFR, INTF2);
 }/** @end voidINT2ResetFlag */
+
+/** @defgroup ISR Vectors */
+void __vector_1(void)
+{
+	if( (G_voidEXTICallBack[EXTI_INT0] != NULL) )
+	{
+		G_voidEXTICallBack[EXTI_INT0]();
+	}
+	else;
+}/** @end __vector_1 */
+
+void __vector_2(void)
+{
+	if( (G_voidEXTICallBack[EXTI_INT1] != NULL) )
+	{
+		G_voidEXTICallBack[EXTI_INT1]();
+	}
+	else;
+}/** @end __vector_2 */
+
+void __vector_3(void)
+{
+	if( (G_voidEXTICallBack[EXTI_INT2] != NULL) )
+	{
+		G_voidEXTICallBack[EXTI_INT2]();
+	}
+	else;
+}/** @end __vector_3 */
+
+
+
+
+
+
+
+
+
+
 
 

@@ -20,6 +20,8 @@
 #define NUM_OF_SERVO_MOTORS	  	(1UL)
 #define NUM_OF_STEPPER_MOTORS 	(1UL)
 
+#define STEPPER_DELAY (5ul)
+
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
  * -	STRUCTS & GLOBALS

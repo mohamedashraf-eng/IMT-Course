@@ -15,6 +15,8 @@
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
+#define NULL ( (void *) (0) )
+
 /** @defgroup signed */
 typedef signed char         s8;
 typedef signed short int    s16;
@@ -56,5 +58,6 @@ typedef enum BOOLEN_TYPES
 	False,
 	True
 }bool_t;
+
 
 #endif /* STD_TYPES_H_ */
