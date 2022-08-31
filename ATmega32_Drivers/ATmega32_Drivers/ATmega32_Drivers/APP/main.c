@@ -25,25 +25,60 @@
 #include "../LIB/std_types.h"
 #include "../LIB/bit_math.h"
 
-//#include "../MCAL/DIO/DIO_Interface.h"
-#include "../HAL/LCD/LCD_Interface.h"
-#include "../HAL/KEYPAD/KEYPAD_Interface.h"
-#include "../HAL/LED/LED_Interface.h"
-#include "../HAL/MOTORS/MOTORS_Interface.h"
+#include "../MCAL/DIO/DIO_Interface.h"
+#include "../MCAL/SREG/SREG_Interface.h"
+#include "../MCAL/EXTI/EXTI_Interface.h"
+
+//#include "../HAL/LCD/LCD_Interface.h"
+//#include "../HAL/KEYPAD/KEYPAD_Interface.h"
+//#include "../HAL/LED/LED_Interface.h"
+//#include "../HAL/MOTORS/MOTORS_Interface.h"
 
 #include <avr/delay.h>
 
+void LedToggle(void);
+
 int  main(void)
 {
+	DIO_voidSetPinDirection(PORT_D, PIN_8, OUTPUT);
+	DIO_voidSetPinValue(PORT_D, PIN_8, LOW);
+
+	DIO_voidSetPinDirection(PORT_B, PIN_2, OUTPUT);
+	DIO_voidSetPinValue(PORT_B, PIN_2, LOW);
+
+	/** @defgroup setting the interrupt */
+	EXTI_voidInterruptInitalize(EXTI_INT0);
+	EXTI_voidSetInterruptMode(EXTI_INT0, EXTI_FALLING_EDGE);
+	EXTI_voidINT0_CallBackFunction(LedToggle);
+	EXTI_voidInterruptControl(EXTI_INT0, EXTI_Enable);
+
+	SREG_voidGlobalInterruptControl(SREG_Enable);
 
 	while(True)
 	{
-
+		DIO_voidSetPinValue(PORT_B, PIN_2, LOW);
+		_delay_ms(200);
+		DIO_voidSetPinValue(PORT_B, PIN_2, HIGH);
+		_delay_ms(200);
 	}
 
 	return 0;
 }
 
 
+void LedToggle(void)
+{
+	 u8 static volatile counter = 0;
 
+		DIO_voidSetPinValue(PORT_D, PIN_8, HIGH);
 
+	if( (counter >= 3) )
+	{
+		DIO_voidSetPinValue(PORT_D, PIN_8, LOW);
+		counter = 0;
+	}
+	else
+	{
+		counter++;
+	}
+}

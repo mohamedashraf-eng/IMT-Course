@@ -18,18 +18,20 @@
 
 ST_EXTIConfig_t MyEXTIConfigs =
 {
-		/** @defgroup Pins */
-		PORT_B,	/** @note INT0 */
-		PORT_D,	/** @note INT  */
-		PORT_D,	/** @note INT2 */
-		PIN_3,	/** @note INT0 */
-		PIN_3,	/** @note INT1 */
-		PIN_4,	/** @note INT2 */
+	/** @defgroup Pins */
+	PORT_D,	/** @note INT0 */
+	PIN_3,	/** @note INT0 */
 
-		/** @defgroup Modes */
-		EXTI_FALLING_EDGE,	/** @note INT0 */
-		EXTI_FALLING_EDGE,	/** @note INT1 */
-		EXTI_FALLING_EDGE	/** @note INT2 */
+	PORT_D,	/** @note INT1  */
+	PIN_4,	/** @note INT1 */
+
+	PORT_B,	/** @note INT2 */
+	PIN_3,	/** @note INT2 */
+
+	/** @defgroup Modes */
+	EXTI_FALLING_EDGE,	/** @note INT0 */
+	EXTI_FALLING_EDGE,	/** @note INT1 */
+	EXTI_FALLING_EDGE	/** @note INT2 */
 };
 
 #endif /* MCAL_EXTI_EXTI_CONFIG_H_ */

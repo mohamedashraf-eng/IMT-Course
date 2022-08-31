@@ -104,9 +104,9 @@ static void voidINT1ResetFlag(void);
 static void voidINT2ResetFlag(void);
 
 /** @defgroup ISR Functions */
-void __vector_1(void) __attribute__((signal));	/** @def EXTI0 */
-void __vector_2(void) __attribute__((signal));	/** @def EXTI1 */
-void __vector_3(void) __attribute__((signal));	/** @def EXTI2 */
+static void __vector_1(void) __attribute__((signal));	/** @def EXTI0 */
+static void __vector_2(void) __attribute__((signal));	/** @def EXTI1 */
+static void __vector_3(void) __attribute__((signal));	/** @def EXTI2 */
 
 
 #endif /* MCAL_EXTI_EXTI_PRIVATE_H_ */

@@ -30,7 +30,7 @@
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 /** @def ISR vector address */
-CallBackFunctionPointer G_voidEXTICallBack[NUM_OF_EXTI] = {NULL, NULL, NULL};
+static CallBackFunctionPointer G_voidEXTICallBack[NUM_OF_EXTI] = {NULL, NULL, NULL};
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -121,7 +121,7 @@ static void voidINT0Intailze(void)
 							INPUT);
 	DIO_voidSetPinValue(MyEXTIConfigs.EXTI_INT0_PORT_ID,
 						MyEXTIConfigs.EXTI_INT0_PIN_ID,
-						LOW);
+						HIGH);
 	voidINT0SetMode(MyEXTIConfigs.EXTI_INT0_MODE);
 	BIT_CLR(GICR, INT0);
 }/** @end voidINT0Intailze */
@@ -132,7 +132,7 @@ static void voidINT1Intailze(void)
 							INPUT);
 	DIO_voidSetPinValue(MyEXTIConfigs.EXTI_INT1_PORT_ID,
 						MyEXTIConfigs.EXTI_INT1_PIN_ID,
-						LOW);
+						HIGH);
 	voidINT1SetMode(MyEXTIConfigs.EXTI_INT1_MODE);
 	BIT_CLR(GICR, INT1);
 }/** @end voidINT1Intailze */
@@ -143,7 +143,7 @@ static void voidINT2Intailze(void)
 							INPUT);
 	DIO_voidSetPinValue(MyEXTIConfigs.EXTI_INT2_PORT_ID,
 						MyEXTIConfigs.EXTI_INT2_PIN_ID,
-						LOW);
+						HIGH);
 	voidINT2SetMode(MyEXTIConfigs.EXTI_INT2_MODE);
 	BIT_CLR(GICR, INT2);
 }/** @end voidINT2Intailze */
@@ -218,7 +218,6 @@ static void voidINT2SetMode(u8 Copy_u8Mode)
 	}
 }/** @end voidINT2SetMode */
 
-
 static void voidINT0Control(u8 Copy_u8State)
 {
 	switch(Copy_u8State)
@@ -261,7 +260,7 @@ static void voidINT2ResetFlag(void)
 }/** @end voidINT2ResetFlag */
 
 /** @defgroup ISR Vectors */
-void __vector_1(void)
+static void __vector_1(void)
 {
 	if( (G_voidEXTICallBack[EXTI_INT0] != NULL) )
 	{
@@ -270,7 +269,7 @@ void __vector_1(void)
 	else;
 }/** @end __vector_1 */
 
-void __vector_2(void)
+static void __vector_2(void)
 {
 	if( (G_voidEXTICallBack[EXTI_INT1] != NULL) )
 	{
@@ -279,7 +278,7 @@ void __vector_2(void)
 	else;
 }/** @end __vector_2 */
 
-void __vector_3(void)
+static void __vector_3(void)
 {
 	if( (G_voidEXTICallBack[EXTI_INT2] != NULL) )
 	{
@@ -287,15 +286,3 @@ void __vector_3(void)
 	}
 	else;
 }/** @end __vector_3 */
-
-
-
-
-
-
-
-
-
-
-
-
