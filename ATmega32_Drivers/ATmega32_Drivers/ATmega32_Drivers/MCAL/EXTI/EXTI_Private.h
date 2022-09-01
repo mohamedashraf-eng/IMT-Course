@@ -29,6 +29,12 @@
 #define MCUCR	( *((u8 volatile *) (MMIO_ADDRESS(0x35))) )
 #define MCUCSR	( *((u8 volatile *) (MMIO_ADDRESS(0x34))) )
 
+/*
+ * --------------------------------------------------------------------------------------------------------------------------------------------------
+ * -	MACROS & ENUMS
+ * --------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+
 enum MCUCR_BITS
 {
 	ISC00,
@@ -55,8 +61,6 @@ enum GIFR_BITS
 	INTF1 = 7,
 	INTF2 = 5
 }; /** @note the other bits are not used in this peripheral */
-
-typedef void (*CallBackFunctionPointer) (void);	/** @note type to make function pointer */
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -85,6 +89,7 @@ typedef struct
  * -	PRIVATE FUNCTIONS PROTOTYPE
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
+
 /** @defgroup General Functions */
 static void voidINT0Intailze(void);
 static void voidINT1Intailze(void);
@@ -93,7 +98,6 @@ static void voidINT2Intailze(void);
 static void voidINT0SetMode(u8 Copy_u8Mode);
 static void voidINT1SetMode(u8 Copy_u8Mode);
 static void voidINT2SetMode(u8 Copy_u8Mode);
-static void voidInterrupModetReset(void);
 
 static void voidINT0Control(u8 Copy_u8State);
 static void voidINT1Control(u8 Copy_u8State);
@@ -103,10 +107,10 @@ static void voidINT0ResetFlag(void);
 static void voidINT1ResetFlag(void);
 static void voidINT2ResetFlag(void);
 
-/** @defgroup ISR Functions */
-static void __vector_1(void) __attribute__((signal));	/** @def EXTI0 */
-static void __vector_2(void) __attribute__((signal));	/** @def EXTI1 */
-static void __vector_3(void) __attribute__((signal));	/** @def EXTI2 */
+/** @defgroup ISR Functions */	/** @note Compiler Optimization */
+void __vector_1(void) __attribute__( (signal, used) );	/** @def EXTI0 */
+void __vector_2(void) __attribute__( (signal, used) );	/** @def EXTI1 */
+void __vector_3(void) __attribute__( (signal, used) );	/** @def EXTI2 */
 
 
 #endif /* MCAL_EXTI_EXTI_PRIVATE_H_ */

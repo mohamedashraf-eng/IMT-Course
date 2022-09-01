@@ -46,14 +46,14 @@ enum EXTI_INTERRUPT_STATE
 
 /** @defgroup General Functions */
 void EXTI_voidInterruptInitalize(u8 Copy_u8InterruptID);
-void EXTI_voidInterruptControl(u8 Copy_u8InterruptID, u8 Copy_u8State);
 void EXTI_voidSetInterruptMode(u8 Copy_u8InterruptID, u8 Copy_u8Mode);
+void EXTI_voidInterruptControl(u8 Copy_u8InterruptID, u8 Copy_u8State);
 void EXTI_voidInterruptFlagReset(u8 Copy_u8InterruptID);
 
 /** @defgroup Call back functions */
-void EXTI_voidINT0_CallBackFunction(void (*Copy_voidINT0_CallBack)(void));
-void EXTI_voidINT1_CallBackFunction(void (*Copy_voidINT1_CallBack)(void));
-void EXTI_voidINT2_CallBackFunction(void (*Copy_voidINT2_CallBack)(void));
+void EXTI_voidINT0_CallBackFunction(CallBackFunctionPointer_t Copy_voidINT0_CallBack);
+void EXTI_voidINT1_CallBackFunction(CallBackFunctionPointer_t Copy_voidINT1_CallBack);
+void EXTI_voidINT2_CallBackFunction(CallBackFunctionPointer_t Copy_voidINT2_CallBack);
 
 
 #endif /* MCAL_EXTI_EXTI_INTERFACE_H_ */

@@ -20,8 +20,8 @@
 
 #include "../DIO/DIO_Interface.h"	/** @todo to be modified */
 
-#include "EXTI_Interface.h"
 #include "EXTI_Private.h"
+#include "EXTI_Interface.h"
 #include "EXTI_Config.h"
 
 /*
@@ -30,7 +30,7 @@
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 /** @def ISR vector address */
-static CallBackFunctionPointer G_voidEXTICallBack[NUM_OF_EXTI] = {NULL, NULL, NULL};
+CallBackFunctionPointer_t G_voidEXTICallBack[NUM_OF_EXTI] = {NULL, NULL, NULL};
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -82,7 +82,7 @@ void EXTI_voidInterruptFlagReset(u8 Copy_u8InterruptID)
 	}
 }/** @end EXTI_voidInterruptFlagReset */
 
-void EXTI_voidINT0_CallBackFunction(CallBackFunctionPointer Copy_voidINT0_CallBack)
+void EXTI_voidINT0_CallBackFunction(CallBackFunctionPointer_t Copy_voidINT0_CallBack)
 {
 	if( (Copy_voidINT0_CallBack != NULL) )
 	{
@@ -91,7 +91,7 @@ void EXTI_voidINT0_CallBackFunction(CallBackFunctionPointer Copy_voidINT0_CallBa
 	else;
 }/** @end EXTI_voidINT0_CallBackFunction */
 
-void EXTI_voidINT1_CallBackFunction(CallBackFunctionPointer Copy_voidINT1_CallBack)
+void EXTI_voidINT1_CallBackFunction(CallBackFunctionPointer_t Copy_voidINT1_CallBack)
 {
 	if( (Copy_voidINT1_CallBack != NULL) )
 	{
@@ -100,7 +100,7 @@ void EXTI_voidINT1_CallBackFunction(CallBackFunctionPointer Copy_voidINT1_CallBa
 	else;
 }/** @end EXTI_voidINT1_CallBackFunction */
 
-void EXTI_voidINT2_CallBackFunction(CallBackFunctionPointer Copy_voidINT2_CallBack)
+void EXTI_voidINT2_CallBackFunction(CallBackFunctionPointer_t Copy_voidINT2_CallBack)
 {
 	if( (Copy_voidINT2_CallBack != NULL) )
 	{
@@ -119,9 +119,6 @@ static void voidINT0Intailze(void)
 	DIO_voidSetPinDirection(MyEXTIConfigs.EXTI_INT0_PORT_ID,
 							MyEXTIConfigs.EXTI_INT0_PIN_ID,
 							INPUT);
-	DIO_voidSetPinValue(MyEXTIConfigs.EXTI_INT0_PORT_ID,
-						MyEXTIConfigs.EXTI_INT0_PIN_ID,
-						HIGH);
 	voidINT0SetMode(MyEXTIConfigs.EXTI_INT0_MODE);
 	BIT_CLR(GICR, INT0);
 }/** @end voidINT0Intailze */
@@ -130,9 +127,6 @@ static void voidINT1Intailze(void)
 	DIO_voidSetPinDirection(MyEXTIConfigs.EXTI_INT1_PORT_ID,
 							MyEXTIConfigs.EXTI_INT1_PIN_ID,
 							INPUT);
-	DIO_voidSetPinValue(MyEXTIConfigs.EXTI_INT1_PORT_ID,
-						MyEXTIConfigs.EXTI_INT1_PIN_ID,
-						HIGH);
 	voidINT1SetMode(MyEXTIConfigs.EXTI_INT1_MODE);
 	BIT_CLR(GICR, INT1);
 }/** @end voidINT1Intailze */
@@ -141,40 +135,27 @@ static void voidINT2Intailze(void)
 	DIO_voidSetPinDirection(MyEXTIConfigs.EXTI_INT2_PORT_ID,
 							MyEXTIConfigs.EXTI_INT2_PIN_ID,
 							INPUT);
-	DIO_voidSetPinValue(MyEXTIConfigs.EXTI_INT2_PORT_ID,
-						MyEXTIConfigs.EXTI_INT2_PIN_ID,
-						HIGH);
 	voidINT2SetMode(MyEXTIConfigs.EXTI_INT2_MODE);
 	BIT_CLR(GICR, INT2);
 }/** @end voidINT2Intailze */
-
-static void voidInterrupModetReset(void)
-{
-	BIT_CLR(MCUCR, ISC00);
-	BIT_CLR(MCUCR, ISC01);
-}/** @end voidInterrupModetReset */
 
 static void voidINT0SetMode(u8 Copy_u8Mode)
 {
 	switch(Copy_u8Mode)
 	{
 		case EXTI_LOW_LEVEL:
-							voidInterrupModetReset();
 							BIT_CLR(MCUCR, ISC00);
 							BIT_CLR(MCUCR, ISC01);
 						break;
 		case EXTI_LOGICAL_CHANGE:
-							voidInterrupModetReset();
 							BIT_SET(MCUCR, ISC00);
 							BIT_CLR(MCUCR, ISC01);
 						break;
 		case EXTI_FALLING_EDGE:
-							voidInterrupModetReset();
 							BIT_CLR(MCUCR, ISC00);
 							BIT_SET(MCUCR, ISC01);
 						break;
 		case EXTI_RISING_EDGE:
-							voidInterrupModetReset();
 							BIT_SET(MCUCR, ISC00);
 							BIT_SET(MCUCR, ISC01);
 						break;
@@ -186,22 +167,18 @@ static void voidINT1SetMode(u8 Copy_u8Mode)
 	switch(Copy_u8Mode)
 	{
 		case EXTI_LOW_LEVEL:
-							voidInterrupModetReset();
 							BIT_CLR(MCUCR, ISC10);
 							BIT_CLR(MCUCR, ISC11);
 						break;
 		case EXTI_LOGICAL_CHANGE:
-							voidInterrupModetReset();
 							BIT_SET(MCUCR, ISC10);
 							BIT_CLR(MCUCR, ISC11);
 						break;
 		case EXTI_FALLING_EDGE:
-							voidInterrupModetReset();
 							BIT_CLR(MCUCR, ISC10);
 							BIT_SET(MCUCR, ISC11);
 						break;
 		case EXTI_RISING_EDGE:
-							voidInterrupModetReset();
 							BIT_SET(MCUCR, ISC10);
 							BIT_SET(MCUCR, ISC11);
 						break;
@@ -260,7 +237,7 @@ static void voidINT2ResetFlag(void)
 }/** @end voidINT2ResetFlag */
 
 /** @defgroup ISR Vectors */
-static void __vector_1(void)
+void __vector_1(void)
 {
 	if( (G_voidEXTICallBack[EXTI_INT0] != NULL) )
 	{
@@ -269,7 +246,7 @@ static void __vector_1(void)
 	else;
 }/** @end __vector_1 */
 
-static void __vector_2(void)
+void __vector_2(void)
 {
 	if( (G_voidEXTICallBack[EXTI_INT1] != NULL) )
 	{
@@ -278,7 +255,7 @@ static void __vector_2(void)
 	else;
 }/** @end __vector_2 */
 
-static void __vector_3(void)
+void __vector_3(void)
 {
 	if( (G_voidEXTICallBack[EXTI_INT2] != NULL) )
 	{

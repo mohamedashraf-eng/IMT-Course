@@ -1,46 +1,28 @@
 /**
- * @file SREG_Private.h
+ * @file ADC_Config.h
  * 
  * @author: Mohamed Wx
- * @date Aug 29, 2022
+ * @date Aug 31, 2022
  * @version v1.0
  * @copyright (c) Mohamed Ashraf WxCo 2022
  **/
 /** @def Header Guards */
-#ifndef MCAL_SREG_SREG_PRIVATE_H_
-#define MCAL_SREG_SREG_PRIVATE_H_
+#ifndef MCAL_ADC_ADC_CONFIG_H_
+#define MCAL_ADC_ADC_CONFIG_H_
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
- * -	REGISTERS
- * --------------------------------------------------------------------------------------------------------------------------------------------------
-*/
-
-/** @defgroup addresses */
-#define PERIPHERAL_MMIO_OFFSET		( (u8) (0x20) )
-
-/** @def macro like function to convert the peripheral address to its mmio address */
-#define MMIO_ADDRESS(PERIPHERAL)			 	( (PERIPHERAL + PERIPHERAL_MMIO_OFFSET) )
-
-#define SREG	( *((u8 volatile *) (MMIO_ADDRESS(0x3F))) )
-
-enum SREG_BITS
-{
-	C,
-	Z,
-	N,
-	V,
-	S,
-	H,
-	T,
-	I
-};
-
-/*
- * --------------------------------------------------------------------------------------------------------------------------------------------------
- * -	PRIVATE FUNCTIONS PROTOTYPE
+ * -	MACROS & ENUMS
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
 
-#endif /* MCAL_SREG_SREG_PRIVATE_H_ */
+/*
+ * --------------------------------------------------------------------------------------------------------------------------------------------------
+ * -	 STRUCTS
+ * --------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+
+
+
+#endif /* MCAL_ADC_ADC_CONFIG_H_ */

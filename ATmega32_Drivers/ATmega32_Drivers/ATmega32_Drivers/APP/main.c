@@ -36,49 +36,37 @@
 
 #include <avr/delay.h>
 
-void LedToggle(void);
+void INT_ISR(void)
+{
+	DIO_voidSetPinValue(PORT_C, PIN_1, HIGH);
+}
 
 int  main(void)
 {
-	DIO_voidSetPinDirection(PORT_D, PIN_8, OUTPUT);
-	DIO_voidSetPinValue(PORT_D, PIN_8, LOW);
+	DIO_voidSetPinDirection(PORT_C, PIN_1, OUTPUT);
+	DIO_voidSetPinDirection(PORT_D, PIN_7, OUTPUT);
 
-	DIO_voidSetPinDirection(PORT_B, PIN_2, OUTPUT);
-	DIO_voidSetPinValue(PORT_B, PIN_2, LOW);
+	DIO_voidSetPinValue(PORT_D, PIN_3, HIGH);
 
 	/** @defgroup setting the interrupt */
-	EXTI_voidInterruptInitalize(EXTI_INT0);
-	EXTI_voidSetInterruptMode(EXTI_INT0, EXTI_FALLING_EDGE);
-	EXTI_voidINT0_CallBackFunction(LedToggle);
-	EXTI_voidInterruptControl(EXTI_INT0, EXTI_Enable);
+	EXTI_voidINT0_CallBackFunction(INT_ISR);
 
+	EXTI_voidInterruptInitalize(EXTI_INT0);
+	EXTI_voidSetInterruptMode(EXTI_INT0, EXTI_LOW_LEVEL);
+	EXTI_voidInterruptControl(EXTI_INT0, EXTI_Enable);
 	SREG_voidGlobalInterruptControl(SREG_Enable);
 
 	while(True)
 	{
-		DIO_voidSetPinValue(PORT_B, PIN_2, LOW);
+		DIO_voidSetPinValue(PORT_D, PIN_7, LOW);
 		_delay_ms(200);
-		DIO_voidSetPinValue(PORT_B, PIN_2, HIGH);
+		DIO_voidSetPinValue(PORT_D, PIN_7, HIGH);
 		_delay_ms(200);
+
+		DIO_voidSetPinValue(PORT_C, PIN_1, LOW);
 	}
 
 	return 0;
 }
 
 
-void LedToggle(void)
-{
-	 u8 static volatile counter = 0;
-
-		DIO_voidSetPinValue(PORT_D, PIN_8, HIGH);
-
-	if( (counter >= 3) )
-	{
-		DIO_voidSetPinValue(PORT_D, PIN_8, LOW);
-		counter = 0;
-	}
-	else
-	{
-		counter++;
-	}
-}
