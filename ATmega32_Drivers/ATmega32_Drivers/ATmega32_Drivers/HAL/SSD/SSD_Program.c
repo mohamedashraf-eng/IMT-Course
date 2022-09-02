@@ -107,7 +107,7 @@ void SSD_voidSsdSetNumber(u8 Copy_u8SsdID, u8 Copy_u8Number)
 			break;
 
 		case SSD_2:
-#if (SSD1_COMMON == COMMON_CATHODE)
+#if (SSD2_COMMON == COMMON_CATHODE)
 			DIO_voidSetRegisterValue(SSD2_PORT, L_u8NumbersLookupTable[Copy_u8Number]);
 #else
 			DIO_voidSetRegisterValue(SSD2_PORT, ~L_u8NumbersLookupTable[Copy_u8Number]);
