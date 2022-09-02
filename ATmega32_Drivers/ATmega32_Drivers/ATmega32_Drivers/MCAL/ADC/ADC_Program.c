@@ -69,8 +69,8 @@ void ADC_voidADCControl(u8 Copy_u8ADCState)
 {
 	switch(Copy_u8ADCState)
 	{
-		case ADC_ENABLE:	BIT_SET(ADCSRA, ADEN);	break;
 		case ADC_DISABLE:	BIT_CLR(ADCSRA, ADEN);	break;
+		case ADC_ENABLE:	BIT_SET(ADCSRA, ADEN);	break;
 		default: break;	/* Error handler */
 	}
 }/** @end ADC_voidADCControl */
@@ -91,7 +91,7 @@ void ADC_voidSetVREF(u8 Copy_u8VREF)
 							BIT_CLR(ADMUX, REFS0);
 							BIT_SET(ADMUX, REFS1);
 			break;
-		case INTERNAL_2f56VREF_WITH_EXTERNAL_AREF_CAP:
+		case INTERNAL_2V56VREF_WITH_EXTERNAL_AREF_CAP:
 							BIT_SET(ADMUX, REFS0);
 							BIT_SET(ADMUX, REFS1);
 			break;
@@ -111,15 +111,15 @@ void ADC_voidAdjustmentControl(u8 Copy_u8AdjustmentState)
 
 void ADC_voidStartConversion(void)
 {
-	BIT_SET(ADMUX, ADLAR);
+	BIT_SET(ADCSRA, ADSC);
 }/** @end voidConversionControl */
 
 void ADC_voidInterruptControl(u8 Copy_u8InterruptState)
 {
 	switch(Copy_u8InterruptState)
 	{
-		case ADC_INTERRUPT_ENABLE:	BIT_SET(ADCSRA, ADIE);	break;
 		case ADC_INTERRUPT_DISABLE:	BIT_CLR(ADCSRA, ADIE);	break;
+		case ADC_INTERRUPT_ENABLE:	BIT_SET(ADCSRA, ADIE);	break;
 		default: break;	/* Error handler */
 	}
 }/** @end voidInterruptControl */
@@ -133,6 +133,16 @@ void ADC_voidClearFlag(void)
 {
 	BIT_SET(ADCSRA, ADIF);
 }/** @end ADC_voidClearFlag */
+
+u8 ADC_u8Data2VoltageCvt(u8 Copy_u8ADC_Data)
+{
+	u8 L_u8Voltage = 0;
+
+	/** @todo to be modified */
+	L_u8Voltage = (((float) ATMEGA32_ADC_VCC_AREF / ATMEGA32_ADC_RESOLUTION_VALUE)) * Copy_u8ADC_Data;
+
+	return L_u8Voltage;
+}/** @end ADC_voidGetVoltage */
 
 u16 ADC_u16GetDataSync(u8 Copy_u8ChannelID)
 {
@@ -148,6 +158,7 @@ u16 ADC_u16GetDataSync(u8 Copy_u8ChannelID)
 
 	return ADCD;	/** @note return 2-byte ADC data register */
 }/** @end ADC_u16GetDataSync */
+
 void ADC_voidGetDataAsync(u8 Copy_u8ChannelID, ADC_CallBackFunctionPointer ADC_CallBackFunction)
 {
 
@@ -160,7 +171,7 @@ void ADC_voidGetDataAsync(u8 Copy_u8ChannelID, ADC_CallBackFunctionPointer ADC_C
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
-static void __vector_16(void)
+void __vector_16(void)
 {
 	if( (G_ADC_CallBackFunction != NULL) )
 	{

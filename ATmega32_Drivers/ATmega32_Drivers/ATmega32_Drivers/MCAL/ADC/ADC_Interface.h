@@ -22,7 +22,7 @@ enum ADC_VREF
 	AVREF_WITH_INTERNAL_VREF_OFF,
 	AVCC_WITH_EXTERNAL_AREF_CAP,
 	RESERVED,
-	INTERNAL_2f56VREF_WITH_EXTERNAL_AREF_CAP
+	INTERNAL_2V56VREF_WITH_EXTERNAL_AREF_CAP
 };
 
 enum ADC_CHANNELS
@@ -84,9 +84,10 @@ void ADC_voidInterruptControl(u8 Copy_u8InterruptState);
 void ADC_voidADCControl(u8 Copy_u8ADCState);
 void ADC_voidGetFlag(u8 *Address_FlagValue);
 void ADC_voidClearFlag(void);
+u8 ADC_u8Data2VoltageCvt(u8 Copy_u8ADC_Data);
 
 /** @defgroup Action Functions */
 u16 ADC_u16GetDataSync(u8 Copy_u8ChannelID);
-void ADC_voidGetDataAsync(u8 Copy_u8ChannelID, ADC_CallBackFunctionPointer ADC_CallBackFunction);
+//void ADC_voidGetDataAsync(u8 Copy_u8ChannelID, ADC_CallBackFunctionPointer ADC_CallBackFunction);
 
 #endif /* MCAL_ADC_ADC_INTERFACE_H_ */

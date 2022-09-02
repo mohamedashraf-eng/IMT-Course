@@ -28,7 +28,7 @@
 #define ADCH	( *((u8 volatile *)  (MMIO_ADDRESS(0x05))) )
 #define ADCL	( *((u8 volatile *)  (MMIO_ADDRESS(0x04))) )
 
-#define ADCD	( *((u16 volatile *) (MMIO_ADDRESS(&ADCL))) )
+#define ADCD	( *((u16 volatile *) (MMIO_ADDRESS(0x04))) )
 
 typedef u16 (*ADC_CallBackFunctionPointer)(u16 Copy_u8DataValue);
 /*
@@ -36,6 +36,12 @@ typedef u16 (*ADC_CallBackFunctionPointer)(u16 Copy_u8DataValue);
  * -	MACROS & ENUMS
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
+
+#define ATMEGA32_ADC_RESOLUTION_BITS 	( (cu8)  (10U)   )
+#define ATMEGA32_ADC_RESOLUTION_VALUE 	( (cu16) (1024U) )
+#define ATMEGA32_ADC_VCC_AREF			( (cu8)  (5U)    )
+
+#define ADC_QUANTIZATION_STEP			(ATMEGA32_ADC_VCC_AREF / ATMEGA32_ADC_RESOLUTION_VALUE);
 
 enum ADMUXR_BITS
 {
@@ -76,6 +82,6 @@ enum ADCSRA_BITS
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
-static void __vector_16(void) __attribute__((signal, used));
+void __vector_16(void) __attribute__((signal, used));
 
 #endif /* MCAL_ADC_ADC_PRIVATE_H_ */

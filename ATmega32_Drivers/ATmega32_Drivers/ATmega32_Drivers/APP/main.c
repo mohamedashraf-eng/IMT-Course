@@ -28,42 +28,30 @@
 #include "../MCAL/DIO/DIO_Interface.h"
 #include "../MCAL/SREG/SREG_Interface.h"
 #include "../MCAL/EXTI/EXTI_Interface.h"
+#include "../MCAL/ADC/ADC_Interface.h"
 
-//#include "../HAL/LCD/LCD_Interface.h"
+#include "../HAL/LCD/LCD_Interface.h"
 //#include "../HAL/KEYPAD/KEYPAD_Interface.h"
 //#include "../HAL/LED/LED_Interface.h"
 //#include "../HAL/MOTORS/MOTORS_Interface.h"
 
 #include <avr/delay.h>
 
-void INT_ISR(void)
-{
-	DIO_voidSetPinValue(PORT_C, PIN_1, HIGH);
-}
-
 int  main(void)
 {
-	DIO_voidSetPinDirection(PORT_C, PIN_1, OUTPUT);
-	DIO_voidSetPinDirection(PORT_D, PIN_7, OUTPUT);
+	LCD_voidSystemInitalaization(LCD_EightBitMode);
+	ADC_voidSystemInitilization();
 
-	DIO_voidSetPinValue(PORT_D, PIN_3, HIGH);
-
-	/** @defgroup setting the interrupt */
-	EXTI_voidINT0_CallBackFunction(INT_ISR);
-
-	EXTI_voidInterruptInitalize(EXTI_INT0);
-	EXTI_voidSetInterruptMode(EXTI_INT0, EXTI_LOW_LEVEL);
-	EXTI_voidInterruptControl(EXTI_INT0, EXTI_Enable);
-	SREG_voidGlobalInterruptControl(SREG_Enable);
+	u16 data = 0;
 
 	while(True)
 	{
-		DIO_voidSetPinValue(PORT_D, PIN_7, LOW);
-		_delay_ms(200);
-		DIO_voidSetPinValue(PORT_D, PIN_7, HIGH);
-		_delay_ms(200);
+		data = ADC_u16GetDataSync(ADC_CHANNEL0);
 
-		DIO_voidSetPinValue(PORT_C, PIN_1, LOW);
+		LCD_voidDisplayInteger(data);
+
+		_delay_ms(50);
+		LCD_voidClearScreen();
 	}
 
 	return 0;

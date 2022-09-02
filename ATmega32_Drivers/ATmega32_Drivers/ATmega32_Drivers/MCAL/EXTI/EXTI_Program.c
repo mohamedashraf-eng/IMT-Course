@@ -119,6 +119,9 @@ static void voidINT0Intailze(void)
 	DIO_voidSetPinDirection(MyEXTIConfigs.EXTI_INT0_PORT_ID,
 							MyEXTIConfigs.EXTI_INT0_PIN_ID,
 							INPUT);
+	DIO_voidSetPinValue(MyEXTIConfigs.EXTI_INT0_PORT_ID,
+						MyEXTIConfigs.EXTI_INT0_PIN_ID,
+						HIGH);
 	voidINT0SetMode(MyEXTIConfigs.EXTI_INT0_MODE);
 	BIT_CLR(GICR, INT0);
 }/** @end voidINT0Intailze */
@@ -127,6 +130,9 @@ static void voidINT1Intailze(void)
 	DIO_voidSetPinDirection(MyEXTIConfigs.EXTI_INT1_PORT_ID,
 							MyEXTIConfigs.EXTI_INT1_PIN_ID,
 							INPUT);
+	DIO_voidSetPinValue(MyEXTIConfigs.EXTI_INT1_PORT_ID,
+						MyEXTIConfigs.EXTI_INT1_PIN_ID,
+						HIGH);
 	voidINT1SetMode(MyEXTIConfigs.EXTI_INT1_MODE);
 	BIT_CLR(GICR, INT1);
 }/** @end voidINT1Intailze */
