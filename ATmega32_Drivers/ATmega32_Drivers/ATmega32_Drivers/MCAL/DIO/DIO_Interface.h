@@ -83,6 +83,8 @@ DIO_voidSetPinDirection(u8 Copy_u8PortID, u8 Copy_u8PinID, u8 Copy_u8PinDirectio
 void
 DIO_voidSetPinValue(u8 Copy_u8PortID, u8 Copy_u8PinID, u8 Copy_u8PinValue);
 
+void
+DIO_voidTogPin(u8 Copy_u8PortID, u8 Copy_u8PinID);
 /** @defgroup control - register level*/
 void
 DIO_voidSetRegisterDirection(u8 Copy_u8PortID, u8 Copy_u8RegisterDirection);

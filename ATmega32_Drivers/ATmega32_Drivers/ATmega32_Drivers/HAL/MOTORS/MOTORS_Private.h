@@ -16,11 +16,14 @@
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
-#define NUM_OF_DC_MOTORS		(1UL)
-#define NUM_OF_SERVO_MOTORS	  	(1UL)
-#define NUM_OF_STEPPER_MOTORS 	(1UL)
+#define NUM_OF_DC_MOTORS		   (1U)
+#define NUM_OF_SERVO_MOTORS	  	   (1U)
+#define NUM_OF_STEPPER_MOTORS      (1U)
 
-#define STEPPER_DELAY (5ul)
+#define STEPPER_DELAY              (5U)
+
+#define SERVO_MAX_PERIOD_MS        (2U)
+#define SERVO_MIN_PERIOD_MS        (1U)
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -37,12 +40,15 @@ struct DC_MOTOR_CONFIG
 	u8 SPD_PIN_ID;
 	u8 IN1_PIN_ID;
 	u8 IN2_PIN_ID;
+
+    u8 TIM_CH;
 };
 
 struct SERVO_MOTOR_CONFIG
 {
 	u8 PORT_ID;
 	u8 PIN_ID;
+    u8 TIM_CH;
 };
 
 struct STEPPER_MOTOR_CONFIG
@@ -78,6 +84,8 @@ static void voidDCMotorInitalization(u8 Copy_u8MotorID);
 
 /** @defgroup Servo Motor */
 static void voidServoMotorInitalization(u8 Copy_u8MotorID);
+static u8 u8ServoMotorAngleToPWM(u8 Copy_u8ServoAngle);
+static f32 f32ServoMotorGetAnglePulse(u8 Copy_u8ServoAngle);
 
 /** @defgroup Stepper Motor */
 static void voidStepperMotorInitalization(u8 Copy_u8MotorID);

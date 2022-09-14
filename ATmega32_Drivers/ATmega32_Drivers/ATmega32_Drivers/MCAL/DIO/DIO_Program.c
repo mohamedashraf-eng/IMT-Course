@@ -81,6 +81,26 @@ DIO_voidSetPinValue(u8 Copy_u8PortID, u8 Copy_u8PinID, u8 Copy_u8PinValue)
 }/** @end DIO_voidSetPinValue */
 
 void
+DIO_voidTogPin(u8 Copy_u8PortID, u8 Copy_u8PinID)
+{
+	if( (Copy_u8PortID < NUM_OF_PORTS) && (Copy_u8PinID < PORT_PIN_NUM) )
+	{
+		switch(Copy_u8PortID)
+		{
+			case PORT_A: BIT_TOG(PORTA, Copy_u8PinID);   break;
+			case PORT_B: BIT_TOG(PORTB, Copy_u8PinID);   break;
+			case PORT_C: BIT_TOG(PORTC, Copy_u8PinID);   break;
+			case PORT_D: BIT_TOG(PORTD, Copy_u8PinID);   break;
+			default: return;
+		}
+	}
+	else
+	{
+		/* return error */
+	}
+}/** @end DIO_voidTogPin */
+
+void
 DIO_voidSetRegisterDirection(u8 Copy_u8PortID, u8 Copy_u8RegisterDirection)
 {
 	if( (Copy_u8PortID < NUM_OF_PORTS) )
@@ -165,6 +185,5 @@ DIO_u8GetRegisterValue(u8 Copy_u8PortID)
 	}
 	return L_RegisterValue;
 }/** @end DIO_u8GetRegisterValue */
-
 
 

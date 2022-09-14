@@ -27,7 +27,7 @@
 
 ST_LCD_ConfigParameters_t myLCD_Configs =
 {
-	PORT_A,			/** @note Data	*/
+	PORT_C,			/** @note Data	*/
 	PORT_D, PIN_1,	/** @note EN	*/
 	PORT_D, PIN_2,	/** @note RW	*/
 	PORT_D, PIN_3	/** @note RS	*/

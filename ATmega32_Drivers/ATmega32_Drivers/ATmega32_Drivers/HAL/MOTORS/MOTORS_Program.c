@@ -17,6 +17,7 @@
 #include "../../LIB/bit_math.h"
 
 #include "../../MCAL/DIO/DIO_Interface.h"
+#include "../../MCAL/TIMER/TIMER_Interface.h"
 
 #include "MOTORS_Private.h"
 #include "MOTORS_Interface.h"
@@ -42,16 +43,20 @@ void MOTOR_voidDcSystemInitalization(void)
 void MOTOR_voidSetDcMotorSpeed(u8 Copy_u8MotorID, u8 Copy_u8MotorSpeed)
 {
 	/** @todo to be added after PWM Timer */
-	DIO_voidSetPinValue(MyMotorsConfig.MyDcMotorConfig[Copy_u8MotorID].SPD_PORT_ID,
-						MyMotorsConfig.MyDcMotorConfig[Copy_u8MotorID].SPD_PIN_ID,
-						HIGH);
+	switch(MyMotorsConfig.MyServoMotorConfig[Copy_u8MotorID].TIM_CH)
+	{
+		case TIM0_ID: TIMER_voidTIM0GeneratePWM(Copy_u8MotorSpeed);	break;
+		case TIM1_ID: break;
+		case TIM2_ID: break;
+		default: break; /* Error handler */
+	}
 }/** @end MOTOR_voidSetDcMotorSpeed */
 
 void MOTOR_voidSetDcMotorDirection(u8 Copy_u8MotorID, u8 Copy_u8MotorDirection)
 {
 	switch(Copy_u8MotorDirection)
 	{
-		case ClockWise:		    voidSetDCMotorCW(Copy_u8MotorID);	break;
+		case ClockWise: voidSetDCMotorCW(Copy_u8MotorID);	break;
 		case CounterClockWise:	voidSetDCMotorCCW(Copy_u8MotorID);	break;
 		default: break; /* Error handler */
 	}
@@ -69,7 +74,15 @@ void MOTOR_voidServoSystemInitalization(void)
 
 void MOTOR_voidSetServoAngle(u8 Copy_u8ServoID, u8 Copy_u8ServoAngle)
 {
-	/** @todo to be added after PWM Timer */
+	u8 L_u8AngleDutyCycle = u8ServoMotorAngleToPWM(Copy_u8ServoAngle);
+
+	switch(MyMotorsConfig.MyServoMotorConfig[Copy_u8ServoID].TIM_CH)
+	{
+		case TIM0_ID: TIMER_voidTIM0GeneratePWM(L_u8AngleDutyCycle);	break;
+		case TIM1_ID: break;
+		case TIM2_ID: break;
+		default: break; /* Error handler */
+	}
 }/** @end MOTOR_voidSetServoAngle */
 
 /** @defgroup Stepper Motor */
@@ -167,6 +180,14 @@ static void voidDCMotorInitalization(u8 Copy_u8MotorID)
 	DIO_voidSetPinValue(MyMotorsConfig.MyDcMotorConfig[Copy_u8MotorID].IN2_PORT_ID,
 						MyMotorsConfig.MyDcMotorConfig[Copy_u8MotorID].IN2_PIN_ID,
 						LOW);
+
+	switch(MyMotorsConfig.MyServoMotorConfig[Copy_u8MotorID].TIM_CH)
+	{
+		case TIM0_ID: TIMER_voidTIM0Init();	break;
+		case TIM1_ID: break;
+		case TIM2_ID: break;
+		default: break; /* Error handler */
+	}
 }/** @end voidDCMotorInitalization */
 
 /** @defgroup Servo Motor */
@@ -179,7 +200,30 @@ static void voidServoMotorInitalization(u8 Copy_u8MotorID)
 	DIO_voidSetPinValue(MyMotorsConfig.MyServoMotorConfig[Copy_u8MotorID].PORT_ID,
 						MyMotorsConfig.MyServoMotorConfig[Copy_u8MotorID].PIN_ID,
 						LOW);
+
+	switch(MyMotorsConfig.MyServoMotorConfig[Copy_u8MotorID].TIM_CH)
+	{
+		case TIM0_ID: TIMER_voidTIM0Init();	break;
+		case TIM1_ID: break;
+		case TIM2_ID: break;
+		default: break; /* Error handler */
+	}
 }/** @end voidServoMotorInitalization */
+static u8 u8ServoMotorAngleToPWM(u8 Copy_u8ServoAngle)
+{
+	f32 L_f32ServoPulse = f32ServoMotorGetAnglePulse(Copy_u8ServoAngle);
+
+	u8 L_u8PulseDutyCycle = (L_f32ServoPulse / SERVO_MAX_PERIOD_MS) * 100;
+
+	return L_u8PulseDutyCycle;
+}/** @end u8ServoMotorAngleToPWM */
+static f32 f32ServoMotorGetAnglePulse(u8 Copy_u8ServoAngle)
+{
+	f32 L_f32ServoPulse =
+	((Copy_u8ServoAngle * (SERVO_MAX_PERIOD_MS - SERVO_MIN_PERIOD_MS)/(180.0))) + (SERVO_MIN_PERIOD_MS);
+
+	return L_f32ServoPulse;
+}/** @end voidServoMotorAngleToPWM */
 
 /** @defgroup Stepper Motor */
 static void voidStepperMotorInitalization(u8 Copy_u8MotorID)

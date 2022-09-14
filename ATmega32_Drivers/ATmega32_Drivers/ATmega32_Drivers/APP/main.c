@@ -29,32 +29,42 @@
 #include "../MCAL/SREG/SREG_Interface.h"
 #include "../MCAL/EXTI/EXTI_Interface.h"
 #include "../MCAL/ADC/ADC_Interface.h"
+#include "../MCAL/TIMER/TIMER_Interface.h"
 
-#include "../HAL/LCD/LCD_Interface.h"
+//#include "../HAL/LCD/LCD_Interface.h"
 //#include "../HAL/KEYPAD/KEYPAD_Interface.h"
 //#include "../HAL/LED/LED_Interface.h"
-//#include "../HAL/MOTORS/MOTORS_Interface.h"
+#include "../HAL/MOTORS/MOTORS_Interface.h"
 
 #include <avr/delay.h>
 
+void tog(void);
+
 int  main(void)
 {
-	LCD_voidSystemInitalaization(LCD_EightBitMode);
-	ADC_voidSystemInitilization();
+	DIO_voidSetPinDirection(PORT_B, PIN_4, OUTPUT);
 
-	u16 data = 0;
+	TIMER_voidTIM0Init();
+
+	//MOTOR_voidServoSystemInitalization();
+	//MOTOR_voidSetServoAngle(MOTOR1_ID, 90);
+
+	TIMER_voidTIM0SetCallBack(TIM0_OVF_ISR_ID, tog);
+
+	SREG_voidGlobalInterruptControl(SREG_Enable);
+
+	TIMER_voidTIM0DelayAsync(AsyncMode_Periodic, 500);
 
 	while(True)
 	{
-		data = ADC_u16GetDataSync(ADC_CHANNEL0);
 
-		LCD_voidDisplayInteger(data);
-
-		_delay_ms(50);
-		LCD_voidClearScreen();
 	}
 
 	return 0;
 }
 
 
+void tog(void)
+{
+	DIO_voidTogPin(PORT_B, PIN_4);
+}

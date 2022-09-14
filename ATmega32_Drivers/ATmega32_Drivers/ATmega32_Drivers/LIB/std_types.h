@@ -53,6 +53,8 @@ typedef const long double         cf128;
 
 
 /** @def defined types */
+typedef void (*CallBackFunctionPointer_t) (void);	/** @note type to make function pointer */
+
 typedef enum BOOLEN_TYPES
 {
 	False,
