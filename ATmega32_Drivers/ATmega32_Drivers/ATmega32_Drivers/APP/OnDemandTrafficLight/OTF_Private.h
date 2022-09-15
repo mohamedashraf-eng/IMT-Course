@@ -1,44 +1,34 @@
-/*
- * LED_Interface.h
+/**
+ * @file OTM_Private.h
  *
- *  Created on: Aug 16, 2022
- *      Author: Wx
- */
+ * @author: Mohamed Wx
+ * @date Aug 29, 2022
+ * @version v1.0
+ * @copyright (c) Mohamed Ashraf WxCo 2022
+ **/
 /** @def Header Guards */
-#ifndef HAL_LED_LED_INTERFACE_H_
-#define HAL_LED_LED_INTERFACE_H_
+#ifndef APP_OTM_OTM_PRIVATE_H_
+#define APP_OTM_OTM_PRIVATE_H_
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
- * -	MACROS & ENUMS
+ * -    MACROS & ENUMS
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
-enum LEDS_ID
-{
-	LED_1,
-	LED_2,
-	LED_3,
-	LED_4,
-	LED_5,
-	LED_6,
-	LED_7,
-	LED_8
-};
-
-enum LEDS_STATE
-{
-	LED_OFF,
-	LED_ON
-};
+#define RESET_MCU  asm volatile ("JMP 0x000");
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
- * -	FUNCTIONS PROTOTYPE
+ * -    PRIVATE FUNCTIONS PROTOTYPE
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
-void LED_voidLedsInitalaization(void);
-void LED_voidLedInitalaization(cu8 Copy_cu8LedID);
-void LED_voidLedSetValue(cu8 Copy_cu8LedID, cu8 Copy_cu8LedValue);
 
-#endif /* HAL_LED_LED_INTERFACE_H_ */
+static void voidSysLedInit(void);
+static void voidSysButtonInit(void);
+static void voidSysInterruptInit(void);
+static void voidPassengerEventHandle(void);
+
+static void voidClrLeds(void);
+
+#endif /* MCAL_OTM_OTM_PRIVATE_H_ */

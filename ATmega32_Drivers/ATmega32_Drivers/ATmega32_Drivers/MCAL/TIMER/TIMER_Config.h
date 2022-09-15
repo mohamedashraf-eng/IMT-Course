@@ -51,6 +51,36 @@
 #endif
 
 /** @defgroup: Timer_1 Configuration Parameters */
+/**
+ * @brief: Configuration Parameters for Timer 1
+ *
+ * For TIM1_MODE:
+ * _TIM1_NORMAL_MODE
+ * _TIM1_PHASE_CORRECT_PWM_8
+ * _TIM1_PHASE_CORRECT_PWM_9
+ * _TIM1_PHASE_CORRECT_PWM_10
+ * _TIM1_PHASE_CORRECT_PWM_ICR
+ * _TIM1_PHASE_CORRECT_PWM_OCRA
+ * _TIM1_PHASE_FREQ_CORRECT_PWM_ICR
+ * _TIM1_PHASE_FREQ_CORRECT_PWM_OCRA
+ * _TIM1_FAST_PWM_8
+ * _TIM1_FAST_PWM_9
+ * _TIM1_FAST_PWM_10
+ * _TIM1_FAST_PWM_ICR
+ * _TIM1_FAST_PWM_OCRA
+ * _TIM1_CTC_OCRA
+ * _TIM1_CTC_ICR
+ *
+ * For TIM1_COM_MODE:
+ *   _TIM1_OC_NORMAL
+ *   _TIM1_OC_TOGGLE_CM
+ *   _TIM1_OC_CLEAR_CM
+ *   _TIM1_OC_SET_CM
+ *
+ * For TIM1_PWM_MODE:
+ *   _PWM_INVERTED
+ *   _PWM_NONINVERTED
+ */
 #define TIM1_MODE       _TIM1_NORMAL_MODE
 #define TIM1_COM_MODE   _TIM1_OC_NORMAL
 #define TIM1_PRESCALER  _TIM_1024_PRESCALER
@@ -58,7 +88,7 @@
 #if ( (TIM1_MODE == _TIM1_FAST_PWM) || \
       (TIM1_MODE == _TIM1_PHASE_CORRECT_PWM) )
 
-    #define TIM0_PWM_MODE  _TIM_PWM_INVERTED
+    #define TIM1_PWM_MODE  _TIM_PWM_INVERTED
 
 #endif
 /** @defgroup: Timer_2 Configuration Parameters */

@@ -183,7 +183,10 @@ static void voidDCMotorInitalization(u8 Copy_u8MotorID)
 
 	switch(MyMotorsConfig.MyServoMotorConfig[Copy_u8MotorID].TIM_CH)
 	{
-		case TIM0_ID: TIMER_voidTIM0Init();	break;
+		case TIM0_ID:
+				DIO_voidSetPinDirection(PORT_B, PIN_4, OUTPUT);
+				TIMER_voidTIM0Init();
+			break;
 		case TIM1_ID: break;
 		case TIM2_ID: break;
 		default: break; /* Error handler */

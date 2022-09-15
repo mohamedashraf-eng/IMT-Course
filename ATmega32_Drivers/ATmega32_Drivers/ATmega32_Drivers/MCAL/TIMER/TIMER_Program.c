@@ -24,7 +24,7 @@
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
- * -    PUBLIC FUNCTIONS IMPLEMENTATION
+ * -    GLOBAL VARIABLES
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
@@ -42,6 +42,9 @@ u32 volatile G_u32DelayAsyncOVFValue   = 0;
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
+/**
+ * @defgroup TIMER0
+ */
 void TIMER_voidTIM0Init(void)
 {
     TIMER_voidTIM0SetMode(TIM0_MODE);
@@ -95,32 +98,10 @@ void TIMER_voidTIM0SetOCmode(u8 Copy_u8OCmode)
         default: break; /* Error handler */
     }
 }/** @end TIMER_voidTIM0SetOCmode */
-void TIMER_voidTIM0SetPreScaler(u8 Copy_u8TimerID, u16 Copy_u16PreScaler)
-{
-    u8 L_u8PrescalerValue = 0;
-
-    switch(Copy_u8TimerID)
-    {
-        case TIM0_ID:
-                L_u8PrescalerValue = u8GetPreScalerValue(Copy_u16PreScaler);
-                TCCR0 &= (~(0b111));
-                TCCR0 |= L_u8PrescalerValue;
-            break;
-        case TIM1_ID:
-                L_u8PrescalerValue = u8GetPreScalerValue(Copy_u16PreScaler);
-                TCCR0 &= (~(0b111));
-                TCCR0 |= L_u8PrescalerValue;
-            break;
-        case TIM2_ID:
-                L_u8PrescalerValue = u8GetPreScalerValue(Copy_u16PreScaler);
-                TCCR0 &= (~(0b111));
-                TCCR0 |= L_u8PrescalerValue;
-            break;
-        default: break; /* Error handler */
-    }
-}/** @end TIMER_voidTIM0SetPreScaler */
 void TIMER_voidTIM0DelaySync(f32 Copy_f32Delay)
 {
+    voidStopTimer0();
+
     f32 L_f32Delay_s = (Copy_f32Delay * 0.001f);
     u32 L_u32NumberOfOVs = 0;
     u8  L_u8RegisterValue =
@@ -145,6 +126,8 @@ void TIMER_voidTIM0DelaySync(f32 Copy_f32Delay)
 
 void TIMER_voidTIM0DelayAsync(u8 Copy_u8AsyncMode, f32 Copy_f32Delay)
 {
+    voidStopTimer0();
+
     f32 L_f32Delay_s = (Copy_f32Delay * 0.001f);
     u8  L_u8RegisterValue = (u8) u16CalculateTimerInitalValue(TIM0_ID,
                                                               L_f32Delay_s,
@@ -167,8 +150,7 @@ void TIMER_voidTIM0DelayAsync(u8 Copy_u8AsyncMode, f32 Copy_f32Delay)
  */
 void TIMER_voidTIM0GeneratePWM(u8 Copy_u8DutyCycle)
 {
-    /* Enable T0 OverFlow interrupt */
-//   BIT_SET(TIMSK, TOV0);
+    voidStopTimer0();
     voidTIM0SetDutyCycle(Copy_u8DutyCycle);
     voidStartTimer0();
 }/** @end TIMER_voidTIM0GeneratePWM */
@@ -182,6 +164,159 @@ void TIMER_voidTIM0SetCallBack(u8 Copy_u8TIM0isrID,
     }else{;}
 }/** @end TIMER_voidTIM0SetCallBack */
 
+/**
+ * @defgroup TIMER1
+ */
+void TIMER_voidTIM1Init(void)
+{
+    TIMER_voidTIM1SetMode(TIM1_MODE);
+    voidStopTimer1();
+}/** @end TIMER_voidTIM1Init */
+void TIMER_voidTIM1SetMode(u8 Copy_u8ModeID)
+{
+    switch(Copy_u8ModeID)
+    {
+        case _TIM1_NORMAL_MODE:
+                TCCR1A &= (~(0b11)); TCCR1B &= (~(0b11 << 3U));
+                TCCR1A |= (0b00);    TCCR1B |= (0b00 << 3U);
+            break;
+        case _TIM1_PHASE_CORRECT_PWM_8:
+                TCCR1A &= (~(0b11)); TCCR1B &= (~(0b11 << 3U));
+                TCCR1A |= (0b01);    TCCR1B |= (0b00 << 3U);
+            break;
+        case _TIM1_PHASE_CORRECT_PWM_9:
+                TCCR1A &= (~(0b11)); TCCR1B &= (~(0b11 << 3U));
+                TCCR1A |= (0b10);    TCCR1B |= (0b00 << 3U);
+            break;
+        case _TIM1_PHASE_CORRECT_PWM_10:
+                TCCR1A &= (~(0b11)); TCCR1B &= (~(0b11 << 3U));
+                TCCR1A |= (0b11);    TCCR1B |= (0b00 << 3U);
+            break;
+        case _TIM1_PHASE_CORRECT_PWM_ICR:
+                TCCR1A &= (~(0b11)); TCCR1B &= (~(0b11 << 3U));
+                TCCR1A |= (0b10);    TCCR1B |= (0b10 << 3U);
+            break;
+        case _TIM1_PHASE_CORRECT_PWM_OCRA:
+                TCCR1A &= (~(0b11)); TCCR1B &= (~(0b11 << 3U));
+                TCCR1A |= (0b11);    TCCR1B |= (0b10 << 3U);
+            break;
+        case _TIM1_PHASE_FREQ_CORRECT_PWM_ICR:
+                TCCR1A &= (~(0b11)); TCCR1B &= (~(0b11 << 3U));
+                TCCR1A |= (0b00);    TCCR1B |= (0b10 << 3U);
+            break;
+        case _TIM1_PHASE_FREQ_CORRECT_PWM_OCRA:
+                TCCR1A &= (~(0b11)); TCCR1B &= (~(0b11 << 3U));
+                TCCR1A |= (0b01);    TCCR1B |= (0b10 << 3U);
+            break;
+        case _TIM1_FAST_PWM_8:
+                TCCR1A &= (~(0b11)); TCCR1B &= (~(0b11 << 3U));
+                TCCR1A |= (0b01);    TCCR1B |= (0b01 << 3U);
+            break;
+        case _TIM1_FAST_PWM_9:
+                TCCR1A &= (~(0b11)); TCCR1B &= (~(0b11 << 3U));
+                TCCR1A |= (0b10);    TCCR1B |= (0b01 << 3U);
+            break;
+        case _TIM1_FAST_PWM_10:
+                TCCR1A &= (~(0b11)); TCCR1B &= (~(0b11 << 3U));
+                TCCR1A |= (0b11);    TCCR1B |= (0b01 << 3U);
+            break;
+        case _TIM1_FAST_PWM_ICR:
+                TCCR1A &= (~(0b11)); TCCR1B &= (~(0b11 << 3U));
+                TCCR1A |= (0b10);    TCCR1B |= (0b11 << 3U);
+            break;
+        case _TIM1_FAST_PWM_OCRA:
+                TCCR1A &= (~(0b11)); TCCR1B &= (~(0b11 << 3U));
+                TCCR1A |= (0b11);    TCCR1B |= (0b11 << 3U);
+            break;
+        case _TIM1_CTC_OCRA:
+                TCCR1A &= (~(0b11)); TCCR1B &= (~(0b11 << 3U));
+                TCCR1A |= (0b00);    TCCR1B |= (0b01 << 3U);
+            break;
+        case _TIM1_CTC_ICR:
+                TCCR1A &= (~(0b11)); TCCR1B &= (~(0b11 << 3U));
+                TCCR1A |= (0b00);    TCCR1B |= (0b11 << 3U);
+            break;
+        default: break; /* Error handler */
+    }
+}/** @end TIMER_voidTIM1SetMode */
+void TIMER_voidTIM1ASetOCmode(u8 Copy_u8OCmode)
+{
+    switch(Copy_u8OCmode)
+    {
+        case _TIM1_NORMAL_MODE:
+                        BIT_CLR(TCCR1A, COM1A1);
+                        BIT_CLR(TCCR1A, COM1A0);
+                    break;
+        case _TIM1_OC_TOGGLE_CM:
+                        BIT_CLR(TCCR1A, COM1A1);
+                        BIT_SET(TCCR1A, COM1A0);
+                    break;
+        case _TIM1_OC_CLEAR_CM:
+                        BIT_SET(TCCR1A, COM1A1);
+                        BIT_CLR(TCCR1A, COM1A0);
+                    break;
+        case _TIM1_OC_SET_CM:
+                        BIT_SET(TCCR1A, COM1A1);
+                        BIT_SET(TCCR1A, COM1A0);
+                    break;
+        default: break; /* Error handler */
+    }
+}/** @end TIMER_voidTIM1ASetOCmode */
+void TIMER_voidTIM1BSetOCmode(u8 Copy_u8OCmode)
+{
+    switch(Copy_u8OCmode)
+    {
+        case _TIM1_OC_NORMAL:
+                        BIT_CLR(TCCR1A, COM1B1);
+                        BIT_CLR(TCCR1A, COM1B0);
+                    break;
+        case _TIM1_OC_TOGGLE_CM:
+                        BIT_CLR(TCCR1A, COM1B1);
+                        BIT_SET(TCCR1A, COM1B0);
+                    break;
+        case _TIM1_OC_CLEAR_CM:
+                        BIT_SET(TCCR1A, COM1B1);
+                        BIT_CLR(TCCR1A, COM1B0);
+                    break;
+        case _TIM1_OC_SET_CM:
+                        BIT_SET(TCCR1A, COM1B1);
+                        BIT_SET(TCCR1A, COM1B0);
+                    break;
+        default: break; /* Error handler */
+    }
+}/** @end TIMER_voidTIM1BSetOCmode */
+
+/**
+ * @defgroup TIMER2
+ */
+
+/**
+ * @defgroup GENERAL USE
+ */
+void TIMER_voidTIMSetPreScaler(u8 Copy_u8TimerID, u16 Copy_u16PreScaler)
+{
+    u8 L_u8PrescalerValue = 0;
+
+    switch(Copy_u8TimerID)
+    {
+        case TIM0_ID:
+                L_u8PrescalerValue = u8GetPreScalerValue(Copy_u16PreScaler);
+                TCCR0 &= (~(0b111));
+                TCCR0 |= L_u8PrescalerValue;
+            break;
+        case TIM1_ID:
+                L_u8PrescalerValue = u8GetPreScalerValue(Copy_u16PreScaler);
+                TCCR1B &= (~(0b111));
+                TCCR1B |= L_u8PrescalerValue;
+            break;
+        case TIM2_ID:
+                L_u8PrescalerValue = u8GetPreScalerValue(Copy_u16PreScaler);
+                TCCR0 &= (~(0b111));
+                TCCR0 |= L_u8PrescalerValue;
+            break;
+        default: break; /* Error handler */
+    }
+}/** @end TIMER_voidTIMSetPreScaler */
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
  * -    PRIVATE FUNCTIONS IMPLEMENTATION
@@ -192,12 +327,12 @@ void TIMER_voidTIM0SetCallBack(u8 Copy_u8TIM0isrID,
 static void voidStartTimer0(void)
 {
     TCNT0 = (u8) 0;
-    TIMER_voidTIM0SetPreScaler(TIM0_ID, TIM0_PRESCALER);
+    TIMER_voidTIMSetPreScaler(TIM0_ID, TIM0_PRESCALER);
 }/** @end voidStartTimer0 */
 static void voidStopTimer0(void)
 {
     TCNT0 = (u8) 0;
-    TIMER_voidTIM0SetPreScaler(TIM0_ID, _TIM_NO_CLKSOURCE);
+    TIMER_voidTIMSetPreScaler(TIM0_ID, _TIM_NO_CLKSOURCE);
 }/** @end voidSetTimerStopValue */
 static void voidSetTimer0StartValue(u8 Copy_u8StartValue)
 {
@@ -247,7 +382,19 @@ static void voidTIM0SetDutyCycle(u8 Copy_u8DutyCycle)
 }/** @end TIMER_voidTIM0SetDutyCycle */
 
 /** @defgroup: Timer 1 Private Functions */
-/** @todo */
+static void voidStartTimer1(void)
+{
+    TCNT1 = (u16) 0;
+    TIMER_voidTIMSetPreScaler(TIM1_ID, TIM1_PRESCALER);
+}/** @end voidStartTimer1 */
+
+static void voidStopTimer1(void)
+{
+    TCNT1 = (u16) 0;
+    TIMER_voidTIMSetPreScaler(TIM1_ID, TIM1_PRESCALER);
+}/** @end voidStopTimer1 */
+
+
 /** @defgroup: Timer 2 Private Functions */
 /** @todo */
 
@@ -492,7 +639,7 @@ void TIM0_OVF_ISR(void)
             	BIT_CLR(TIMSK, TOIE0);
                 voidStopTimer0();
                 G_u8DelayAsyncFlag = 0;
-            }else {;}/** @end else: AsyncMode */
+            }else {;}/** @end else: AsyncMode_Periodic */
         }
         else
         {

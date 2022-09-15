@@ -82,12 +82,19 @@ enum TIMER0_ISR_ID
 void TIMER_voidTIM0Init(void);
 void TIMER_voidTIM0SetMode(u8 Copy_u8ModeID);
 void TIMER_voidTIM0SetOCmode(u8 Copy_u8OCmode);
-void TIMER_voidTIM0SetPreScaler(u8 Copy_u8TimerID, u16 Copy_u16PreScaler);
 void TIMER_voidTIM0DelaySync(f32 Copy_f32Delay);
 void TIMER_voidTIM0DelayAsync(u8 Copy_u8AsyncMode, f32 Copy_f32Delay);
 void TIMER_voidTIM0GeneratePWM(u8 Copy_u8DutyCycle);
 void TIMER_voidTIM0SetCallBack(u8 Copy_u8TIM0isrID, void (*CallBackFunction)(void));
 /** @defgroup: Timer 1 Public Functions */
+void TIMER_voidTIM1Init(void);
+void TIMER_voidTIM1SetMode(u8 Copy_u8ModeID);
+void TIMER_voidTIM1ASetOCmode(u8 Copy_u8OCmode);
+void TIMER_voidTIM1BSetOCmode(u8 Copy_u8OCmode);
+
 /** @defgroup: Timer 2 Public Functions */
+
+/** @defgroup: General Public Functions */
+void TIMER_voidTIMSetPreScaler(u8 Copy_u8TimerID, u16 Copy_u16PreScaler);
 
 #endif /* MCAL_TIMER_TIMER_INTERFACE_H_ */

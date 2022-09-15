@@ -34,37 +34,20 @@
 //#include "../HAL/LCD/LCD_Interface.h"
 //#include "../HAL/KEYPAD/KEYPAD_Interface.h"
 //#include "../HAL/LED/LED_Interface.h"
-#include "../HAL/MOTORS/MOTORS_Interface.h"
+//#include "../HAL/MOTORS/MOTORS_Interface.h"
 
-#include <avr/delay.h>
+#include "OnDemandTrafficLight/OTF_Interface.h"
 
-void tog(void);
+
 
 int  main(void)
 {
-	DIO_voidSetPinDirection(PORT_B, PIN_4, OUTPUT);
-
-	TIMER_voidTIM0Init();
-
-	//MOTOR_voidServoSystemInitalization();
-	//MOTOR_voidSetServoAngle(MOTOR1_ID, 90);
-
-	TIMER_voidTIM0SetCallBack(TIM0_OVF_ISR_ID, tog);
-
-	SREG_voidGlobalInterruptControl(SREG_Enable);
-
-	TIMER_voidTIM0DelayAsync(AsyncMode_Periodic, 500);
+	OTF_voidSysInit();
 
 	while(True)
 	{
-
+		OTF_voidSysUpdate();
 	}
 
 	return 0;
-}
-
-
-void tog(void)
-{
-	DIO_voidTogPin(PORT_B, PIN_4);
 }

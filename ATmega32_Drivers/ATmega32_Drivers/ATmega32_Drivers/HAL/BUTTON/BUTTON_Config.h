@@ -23,7 +23,7 @@
 /** @note only add the internal options */
 ST_ButtonConfig_t myButtonConfig[NUM_OF_BUTTONS] =
 {
-		{PORT_D, PIN_4, INTERNAL_PULLUP_RESISTOR},  /** @def button 1 */
+		{PORT_D, PIN_3, INTERNAL_PULLUP_RESISTOR},  /** @def button 1 */
 		{PORT_D, PIN_5, INTERNAL_PULLUP_RESISTOR},  /** @def button 2 */
 		{PORT_D, PIN_3, INTERNAL_PULLUP_RESISTOR},  /** @def button 3 */
 		{PORT_A, PIN_4, INTERNAL_PULLUP_RESISTOR},  /** @def button 4 */

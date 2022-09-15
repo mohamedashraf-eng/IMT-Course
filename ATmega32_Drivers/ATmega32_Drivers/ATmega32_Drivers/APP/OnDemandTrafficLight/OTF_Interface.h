@@ -1,44 +1,53 @@
-/*
- * LED_Interface.h
+/**
+ * @file OTF_Interface.h
  *
- *  Created on: Aug 16, 2022
- *      Author: Wx
- */
+ * @author: Mohamed Wx
+ * @date Aug 29, 2022
+ * @version v1.0
+ * @copyright (c) Mohamed Ashraf WxCo 2022
+ **/
 /** @def Header Guards */
-#ifndef HAL_LED_LED_INTERFACE_H_
-#define HAL_LED_LED_INTERFACE_H_
+#ifndef APP_OTF_OTF_INTERFACE_H_
+#define APP_OTF_OTF_INTERFACE_H_
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
- * -	MACROS & ENUMS
+ * -    MACROS & ENUMS
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
-enum LEDS_ID
+enum CAR_TF_LEDS
 {
-	LED_1,
-	LED_2,
-	LED_3,
-	LED_4,
-	LED_5,
-	LED_6,
-	LED_7,
-	LED_8
+    CAR_G_LED   = 0,
+    CAR_Y_LED   = 1,
+    CAR_R_LED   = 2
 };
 
-enum LEDS_STATE
+enum PAS_TF_LEDS
 {
-	LED_OFF,
-	LED_ON
+    PAS_G_LED   = 3,
+    PAS_Y_LED   = 4,
+    PAS_R_LED   = 5
+};
+
+enum PAS_PASSING_BUTTON
+{
+    PASS_BUTTON = 0
+};
+
+enum UsefulRE
+{
+    Delay_5s    = 5000,
+    Delay_500ms = 500
 };
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
- * -	FUNCTIONS PROTOTYPE
+ * -    PUBLIC FUNCTIONS PROTOTYPE
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
-void LED_voidLedsInitalaization(void);
-void LED_voidLedInitalaization(cu8 Copy_cu8LedID);
-void LED_voidLedSetValue(cu8 Copy_cu8LedID, cu8 Copy_cu8LedValue);
 
-#endif /* HAL_LED_LED_INTERFACE_H_ */
+void OTF_voidSysInit(void);
+void OTF_voidSysUpdate(void);
+
+#endif /* MCAL_OTF_OTF_INTERFACE_H_ */
