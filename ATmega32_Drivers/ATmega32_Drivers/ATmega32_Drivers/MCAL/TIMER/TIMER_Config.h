@@ -39,14 +39,19 @@
  *   _PWM_INVERTED
  *   _PWM_NONINVERTED
  */
-#define TIM0_MODE       _TIM0_NORMAL_MODE
-#define TIM0_COM_MODE   _TIM0_OC_NORMAL
-#define TIM0_PRESCALER  _TIM_1024_PRESCALER
+#define TIM0_MODE       _TIM0_PHASE_CORRECT_PWM
+#define TIM0_COM_MODE   _TIM0_OC_SET_CM
+#define TIM0_PRESCALER  _TIM_8_PRESCALER
 
 #if ( (TIM0_MODE == _TIM0_FAST_PWM) || \
       (TIM0_MODE == _TIM0_PHASE_CORRECT_PWM) )
 
     #define TIM0_PWM_MODE  _TIM_PWM_INVERTED
+
+#elif (TIM0_MODE == _TIM0_CTC)
+
+	#define OCR_VALUE (77U) /** @todo: To be modified (Debug the equation function) */
+      #define CTC_PWM_FREQ (50U)
 
 #endif
 
@@ -69,7 +74,7 @@
  * _TIM1_FAST_PWM_ICR
  * _TIM1_FAST_PWM_OCRA
  * _TIM1_CTC_OCRA
- * _TIM1_CTC_ICR
+ * _TIM1_CTC_ICR 
  *
  * For TIM1_COM_MODE:
  *   _TIM1_OC_NORMAL

@@ -43,7 +43,7 @@ void MOTOR_voidDcSystemInitalization(void)
 void MOTOR_voidSetDcMotorSpeed(u8 Copy_u8MotorID, u8 Copy_u8MotorSpeed)
 {
 	/** @todo to be added after PWM Timer */
-	switch(MyMotorsConfig.MyServoMotorConfig[Copy_u8MotorID].TIM_CH)
+	switch(MyMotorsConfig.MyDcMotorConfig[Copy_u8MotorID].TIM_CH)
 	{
 		case TIM0_ID: TIMER_voidTIM0GeneratePWM(Copy_u8MotorSpeed);	break;
 		case TIM1_ID: break;
@@ -57,7 +57,7 @@ void MOTOR_voidSetDcMotorDirection(u8 Copy_u8MotorID, u8 Copy_u8MotorDirection)
 	switch(Copy_u8MotorDirection)
 	{
 		case ClockWise: voidSetDCMotorCW(Copy_u8MotorID);	break;
-		case CounterClockWise:	voidSetDCMotorCCW(Copy_u8MotorID);	break;
+		case CounterClockWise: voidSetDCMotorCCW(Copy_u8MotorID);	break;
 		default: break; /* Error handler */
 	}
 }/** @end MOTOR_voidSetDcMotorDirection */

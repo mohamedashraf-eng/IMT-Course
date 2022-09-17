@@ -31,22 +31,20 @@
 #include "../MCAL/ADC/ADC_Interface.h"
 #include "../MCAL/TIMER/TIMER_Interface.h"
 
+#include "ControlMotorSpeed/App.h"
+
 //#include "../HAL/LCD/LCD_Interface.h"
 //#include "../HAL/KEYPAD/KEYPAD_Interface.h"
 //#include "../HAL/LED/LED_Interface.h"
 //#include "../HAL/MOTORS/MOTORS_Interface.h"
 
-#include "OnDemandTrafficLight/OTF_Interface.h"
-
-
-
 int  main(void)
 {
-	OTF_voidSysInit();
+	voidApplicationInit();
 
 	while(True)
 	{
-		OTF_voidSysUpdate();
+		voidApplicationUpdate();
 	}
 
 	return 0;

@@ -35,16 +35,16 @@
 #define TCCR1B   ( *((u8 volatile *) (MMIO_ADDRESS(0x2E))) )
 #define TCNT1H   ( *((u8 volatile *) (MMIO_ADDRESS(0x2D))) )
 #define TCNT1L   ( *((u8 volatile *) (MMIO_ADDRESS(0x2C))) )
-#define TCNT1    ( *((u16 volatile *) (MMIO_ADDRESS(0x2C))) )
+#define TCNT1    ( *((u16 volatile *) (MMIO_ADDRESS(0x2C))) ) /** @def: The Full Register */
 #define OCR1AH   ( *((u8 volatile *) (MMIO_ADDRESS(0x2B))) )
 #define OCR1AL   ( *((u8 volatile *) (MMIO_ADDRESS(0x2A))) )
-#define OCR1A    ( *((u16 volatile *) (MMIO_ADDRESS(0x2A))) )
+#define OCR1A    ( *((u16 volatile *) (MMIO_ADDRESS(0x2A))) ) /** @def: The Full Register */
 #define OCR1BH   ( *((u8 volatile *) (MMIO_ADDRESS(0x29))) )
 #define OCR1BL   ( *((u8 volatile *) (MMIO_ADDRESS(0x28))) )
-#define OCR1B    ( *((u16 volatile *) (MMIO_ADDRESS(0x28))) )
+#define OCR1B    ( *((u16 volatile *) (MMIO_ADDRESS(0x28))) ) /** @def: The Full Register */
 #define ICR1H    ( *((u8 volatile *) (MMIO_ADDRESS(0x27))) )
 #define ICR1L    ( *((u8 volatile *) (MMIO_ADDRESS(0x26))) )
-#define ICR1     ( *((u16 volatile *) (MMIO_ADDRESS(0x26))) )
+#define ICR1     ( *((u16 volatile *) (MMIO_ADDRESS(0x26))) ) /** @def: The Full Register */
 /** @defgroup: Timer/Counter 2 Registers */
 #define TCCR2    ( *((u8 volatile *) (MMIO_ADDRESS(0x25))) )
 #define TCNT2    ( *((u8 volatile *) (MMIO_ADDRESS(0x24))) )
@@ -191,6 +191,7 @@ static void voidStopTimer1(void);
 static void voidSetTimer1StartValue(u8 Copy_u8StartValue);
 
 /** @defgroup: General Purpose Private Functions */
+u16 u16CalculateCTCfreqOCR(u8 Copy_u8TimerID, u16 Copy_u16Frequency);
 static u16 u16CalculateTimerInitalValue(u8 Copy_u8TimerID, f32 Copy_f32Delay, u32 *Address_u32OVFs);
 static u16 u16CalculateFastPWMDutyCycleOCR(u8 Copy_u8TimerID, u8 Copy_u8OCmode, u8 Copy_u8DutyCycle);
 static u16 u16CalculatePhaseCorrectPWMDutyCycleOCR(u8 Copy_u8TimerID,

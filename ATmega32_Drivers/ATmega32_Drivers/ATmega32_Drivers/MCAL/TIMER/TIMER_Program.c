@@ -377,7 +377,9 @@ static void voidTIM0SetDutyCycle(u8 Copy_u8DutyCycle)
     OCR0 = (u8) u16CalculateFastPWMDutyCycleOCR(TIM0_ID, TIM0_PWM_MODE, Copy_u8DutyCycle);
 #elif ( (TIM0_MODE == _TIM0_PHASE_CORRECT_PWM) )
     /** @note: PWM Configuration Parameters can be changed */
-    OCR0 = (u8) u16CalculatePhaseCorrectDutyCycleOCR(TIM0_ID, TIM0_PWM_MODE, Copy_u8DutyCycle);
+    OCR0 = (u8) u16CalculatePhaseCorrectPWMDutyCycleOCR(TIM0_ID, TIM0_PWM_MODE, Copy_u8DutyCycle);
+#elif ( (TIM0_MODE == _TIM0_CTC) )
+    OCR0 = OCR_VALUE; //(u8) u16CalculateCTCfreqOCR(TIM0_ID, CTC_PWM_FREQ);
 #endif
 }/** @end TIMER_voidTIM0SetDutyCycle */
 
@@ -485,33 +487,33 @@ static u16 u16CalculateFastPWMDutyCycleOCR(u8 Copy_u8TimerID, u8 Copy_u8OCmode, 
         case TIM0_ID:
                 if( (Copy_u8OCmode == _TIM_PWM_INVERTED) )
                 {
-                    L_u16RegisterValue = ( (255U) - (2.56f * Copy_u8DutyCycle) );
+                    L_u16RegisterValue = ( (255U) - ((2.56f) * Copy_u8DutyCycle) );
                 }
                 else if( ((Copy_u8OCmode == _TIM_PWM_NONINVERTED)) )
                 {
-                    L_u16RegisterValue = ( (2.56f * Copy_u8DutyCycle) - (1U) );
+                    L_u16RegisterValue = ( ((2.56f) * Copy_u8DutyCycle) - (1U) );
                 }
                 else {;}
              break;
         case TIM1_ID:
                 if( (Copy_u8OCmode == _TIM_PWM_INVERTED) )
                 {
-                    L_u16RegisterValue = ( (65535U) - (655.36f * Copy_u8DutyCycle) );
+                    L_u16RegisterValue = ( (65535U) - ((655.36f) * Copy_u8DutyCycle) );
                 }
                 else if( ((Copy_u8OCmode == _TIM_PWM_NONINVERTED)) )
                 {
-                    L_u16RegisterValue = ( (655.36f * Copy_u8DutyCycle) - 1U);
+                    L_u16RegisterValue = ( ((655.36f) * Copy_u8DutyCycle) - (1U));
                 }
                 else {;}
              break;
         case TIM2_ID:
                 if( (Copy_u8OCmode == _TIM_PWM_INVERTED) )
                 {
-                    L_u16RegisterValue = ( (255U) - (2.56f * Copy_u8DutyCycle) );
+                    L_u16RegisterValue = ( (255U) - ((2.56f) * Copy_u8DutyCycle) );
                 }
                 else if( ((Copy_u8OCmode == _TIM_PWM_NONINVERTED)) )
                 {
-                    L_u16RegisterValue = ( (2.56f * Copy_u8DutyCycle) - 1U);
+                    L_u16RegisterValue = ( ((2.56f) * Copy_u8DutyCycle) - (1U));
                 }
                 else {;}
              break;
@@ -522,17 +524,17 @@ static u16 u16CalculateFastPWMDutyCycleOCR(u8 Copy_u8TimerID, u8 Copy_u8OCmode, 
 /**
  * @breif: Duty Cycle Calulcations
  * 1. NON-INVERTING-FAST_PWM
- *  DutyCycle = ((OCRx+1)/Timer_Resulution) * 100.
+ *  DutyCycle = ( ((2*OCR)/(2*(Timer_Resulution-1))) * 100).
  *
  * 2. INVERTING-FAST_PWM
- *  DutyCycle = ((Timer_Resulution-(OCRx+1))/Timer_Resulution) * 100.
+ *  DutyCycle = (((2*(Timer_Resulution-1))-(2*OCR))/(2*(Timer_Resulution-1))) * 100
  * @note: PWM values should be the percentage value (0%-100%)D.C
  *        ex: For 56% DC => (Copy_u8DutyCycle = 56)
  */
 static u16 u16CalculatePhaseCorrectPWMDutyCycleOCR(u8 Copy_u8TimerID,
                                                    u8 Copy_u8OCmode,
                                                    u8 Copy_u8DutyCycle)
-{ /** @todo TO BE IMPLMENTED */
+{
     u16 L_u16RegisterValue = 0;
 
     switch(Copy_u8TimerID)
@@ -540,33 +542,33 @@ static u16 u16CalculatePhaseCorrectPWMDutyCycleOCR(u8 Copy_u8TimerID,
         case TIM0_ID:
                 if( (Copy_u8OCmode == _TIM_PWM_INVERTED) )
                 {
-                    L_u16RegisterValue = 0;
+                    L_u16RegisterValue = ( (255U) - ((2.55f) * Copy_u8DutyCycle) );
                 }
                 else if( ((Copy_u8OCmode == _TIM_PWM_NONINVERTED)) )
                 {
-                    L_u16RegisterValue = 0;
+                    L_u16RegisterValue = (2.55f * Copy_u8DutyCycle);
                 }
                 else {;}
              break;
         case TIM1_ID:
                 if( (Copy_u8OCmode == _TIM_PWM_INVERTED) )
                 {
-                    L_u16RegisterValue = 0;
+                    L_u16RegisterValue = ( (65535U) - ((655.35f) * Copy_u8DutyCycle) );
                 }
                 else if( ((Copy_u8OCmode == _TIM_PWM_NONINVERTED)) )
                 {
-                    L_u16RegisterValue = 0;
+                    L_u16RegisterValue = ((655.35f) * Copy_u8DutyCycle);
                 }
                 else {;}
              break;
         case TIM2_ID:
                 if( (Copy_u8OCmode == _TIM_PWM_INVERTED) )
                 {
-                    L_u16RegisterValue = 0;
+                    L_u16RegisterValue = ( (255U) - ((2.55f) * Copy_u8DutyCycle) );
                 }
                 else if( ((Copy_u8OCmode == _TIM_PWM_NONINVERTED)) )
                 {
-                    L_u16RegisterValue = 0;
+                    L_u16RegisterValue = (2.55f * Copy_u8DutyCycle);
                 }
                 else {;}
              break;
@@ -574,6 +576,35 @@ static u16 u16CalculatePhaseCorrectPWMDutyCycleOCR(u8 Copy_u8TimerID,
     }/** @end switch: Copy_u8TimerID */
     return L_u16RegisterValue;
 }/** @end u16CalculatePhaseCorrectPWMDutyCycleOCR */
+
+/**
+ * @brief:
+ * F = CPU_CLOCK/(2*PreScaler*(1+OCR)) Hz
+ */
+u16 u16CalculateCTCfreqOCR(u8 Copy_u8TimerID, u16 Copy_u16Frequency)
+{
+    u16 L_u16OCRValue = 0;
+    f32 L_f32Temporary = 0.0;
+
+    switch(Copy_u8TimerID)
+    {
+        case TIM0_ID:
+                L_f32Temporary = ((2U*TIM0_PRESCALER)/CPU_CLOCK);
+                L_u16OCRValue = (1U/(L_f32Temporary*Copy_u16Frequency)) - 1;
+            break;
+        case TIM1_ID:
+                L_f32Temporary = ((2U*TIM1_PRESCALER)/CPU_CLOCK);
+                L_u16OCRValue = (1U/(L_f32Temporary*Copy_u16Frequency)) - 1;
+            break;
+        case TIM2_ID:
+                L_f32Temporary = ((2U*TIM2_PRESCALER)/CPU_CLOCK);
+                L_u16OCRValue = (1U/(L_f32Temporary*Copy_u16Frequency)) - 1;
+            break;
+        default: break; /* Error handler */
+    }
+    return L_u16OCRValue;
+}/** @end u16CalculateCTCfreqOCR */
+
 static u8 u8GetPreScalerValue(u16 Copy_u16PreScaler)
 {
     u8 L_u8PreScalerValue = 0;
@@ -617,7 +648,13 @@ void TIM0_COMP_ISR(void)
     }
     else
     {
-        /** @todo to be write alternate function */
+        #if (TIM0_MODE == _TIM0_CTC)
+            #if (CTC_PWM_FREQ > 0)
+
+            /** @todo: Do operation */
+
+            #endif
+        #endif
     }/** @end else: CallBack */
 }/* @end TIM0_COMP_ISR */
 
