@@ -71,6 +71,9 @@ enum TIMER0_ISR_ID
     TIM0_COMP_ISR_ID
 };
 
+#define _TIM1_CAPTURE_RISING                 0
+#define _TIM1_CAPTURE_FALLING                1
+
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -91,6 +94,15 @@ void TIMER_voidTIM1Init(void);
 void TIMER_voidTIM1SetMode(u8 Copy_u8ModeID);
 void TIMER_voidTIM1ASetOCmode(u8 Copy_u8OCmode);
 void TIMER_voidTIM1BSetOCmode(u8 Copy_u8OCmode);
+void TIMER_voidSetTIM1xICUxCapture(u8 Copy_u8CaptureMode);
+u16 TIMER_u16TIM1GetICR(void);
+void TIMER_voidTIM1DisableICU(void);
+void TIMER_voidTIM1GeneratePWM(u8 Copy_u8DutyCycle);
+void TIMER_voidTIM1MeasurePWMSync(u8  *Address_u8DutyCycle,
+                                  u32 *Address_u32Frequency);
+void TIMER_voidTIM1MeasurePWMAsync(void);
+void TIMER_voidTIM1SetICUCallBack(void (*TIM1_CallBack)(void));
+void TIMER_voidTIM1SetOVFCallBack(void (*TIM1_CallBack)(void));
 
 /** @defgroup: Timer 2 Public Functions */
 

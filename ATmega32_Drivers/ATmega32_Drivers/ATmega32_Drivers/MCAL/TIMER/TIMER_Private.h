@@ -114,7 +114,7 @@ enum TCCR1B_BITS
     WGM12   = 3,
     WGM13   = 4,
     ICES1   = 6,
-    ICNC1   =7
+    ICNC1   = 7
 };
 
 
@@ -154,6 +154,11 @@ enum TCCR1B_BITS
 #define _TIM1_OC_TOGGLE_CM                   1
 #define _TIM1_OC_CLEAR_CM                    2
 #define _TIM1_OC_SET_CM                      3
+/** @note: Used for Capture ISR routine */
+#define TIM1_MEASURE_DC                      0
+#define TIM1_MEASURE_FREQ                    1
+
+#define TIM1xICU_IsItRising(CURRENT_MODE) (CURRENT_MODE == _TIM1_CAPTURE_RISING)
 
 /**
  * @defgroup TIMER2
@@ -197,10 +202,9 @@ static u16 u16CalculateFastPWMDutyCycleOCR(u8 Copy_u8TimerID, u8 Copy_u8OCmode, 
 static u16 u16CalculatePhaseCorrectPWMDutyCycleOCR(u8 Copy_u8TimerID,
                                                    u8 Copy_u8OCmode,
                                                    u8 Copy_u8DutyCycle);
+static void voidTIM1SetDutyCycleOCR1A(u8 Copy_u8DutyCycle);
 static u8 u8GetPreScalerValue(u16 Copy_u16PreScaler);
 static u32 u32MyCeil(f32 Copy_f32Value);
-
-
 
 
 /** @defgroup ISR Functions */  /** @note Compiler Optimization */

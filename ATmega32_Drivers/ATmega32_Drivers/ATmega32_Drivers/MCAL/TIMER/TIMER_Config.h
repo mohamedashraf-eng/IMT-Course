@@ -41,19 +41,13 @@
  */
 #define TIM0_MODE       _TIM0_PHASE_CORRECT_PWM
 #define TIM0_COM_MODE   _TIM0_OC_SET_CM
-#define TIM0_PRESCALER  _TIM_8_PRESCALER
+#define TIM0_PRESCALER  _TIM_1024_PRESCALER
 
-#if ( (TIM0_MODE == _TIM0_FAST_PWM) || \
-      (TIM0_MODE == _TIM0_PHASE_CORRECT_PWM) )
+#define TIM0_PWM_MODE  _TIM_PWM_INVERTED
 
-    #define TIM0_PWM_MODE  _TIM_PWM_INVERTED
+#define OCR_VALUE (77U) /** @todo: To be modified (Debug the equation function) */
+#define CTC_PWM_FREQ (50U)
 
-#elif (TIM0_MODE == _TIM0_CTC)
-
-	#define OCR_VALUE (77U) /** @todo: To be modified (Debug the equation function) */
-      #define CTC_PWM_FREQ (50U)
-
-#endif
 
 /** @defgroup: Timer_1 Configuration Parameters */
 /**
@@ -86,16 +80,18 @@
  *   _PWM_INVERTED
  *   _PWM_NONINVERTED
  */
-#define TIM1_MODE       _TIM1_NORMAL_MODE
-#define TIM1_COM_MODE   _TIM1_OC_NORMAL
-#define TIM1_PRESCALER  _TIM_1024_PRESCALER
+#define TIM1_MODE       _TIM1_FAST_PWM_10
+#define TIM1_CHA_MODE   _TIM1_OC_TOGGLE_CM
+#define TIM1_CHB_MODE   _TIM1_OC_NORMAL
+#define TIM1_PRESCALER  _TIM_256_PRESCALER
 
-#if ( (TIM1_MODE == _TIM1_FAST_PWM) || \
-      (TIM1_MODE == _TIM1_PHASE_CORRECT_PWM) )
+/** @defgroup: Special settings for PWM */
+#define TIM1_PWM_MODE  _TIM_PWM_INVERTED
 
-    #define TIM1_PWM_MODE  _TIM_PWM_INVERTED
+/** @defgroup: Special settings for ICU */
+#define TIM1_ICU_CAPTURE_EDGE _TIM1_CAPTURE_RISING
 
-#endif
+
 /** @defgroup: Timer_2 Configuration Parameters */
 #define TIM2_MODE       _TIM2_NORMAL_MODE
 #define TIM2_COM_MODE   _TIM2_OC_NORMAL
@@ -103,8 +99,7 @@
 
 #if ( (TIM2_MODE == _TIM2_FAST_PWM) || \
       (TIM2_MODE == _TIM2_PHASE_CORRECT_PWM) )
-
-    #define TIM0_PWM_MODE  _TIM_PWM_INVERTED
-
+    #define TIM2_PWM_MODE  _TIM_PWM_INVERTED
 #endif
+
 #endif /* MCAL_TIMER_TIMER_CONFIG_H_ */

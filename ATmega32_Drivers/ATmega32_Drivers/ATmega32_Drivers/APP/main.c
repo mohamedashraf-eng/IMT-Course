@@ -30,22 +30,34 @@
 #include "../MCAL/EXTI/EXTI_Interface.h"
 #include "../MCAL/ADC/ADC_Interface.h"
 #include "../MCAL/TIMER/TIMER_Interface.h"
-
-#include "ControlMotorSpeed/App.h"
+#include "../MCAL/UART/UART_Interface.h"
+#include "../MCAL/SPI/SPI_Interface.h"
 
 //#include "../HAL/LCD/LCD_Interface.h"
 //#include "../HAL/KEYPAD/KEYPAD_Interface.h"
 //#include "../HAL/LED/LED_Interface.h"
 //#include "../HAL/MOTORS/MOTORS_Interface.h"
 
+#include <avr/delay.h>
+
 int  main(void)
 {
-	voidApplicationInit();
+
 
 	while(True)
 	{
-		voidApplicationUpdate();
+
 	}
 
 	return 0;
 }
+
+
+
+
+
+
+
+
+
+

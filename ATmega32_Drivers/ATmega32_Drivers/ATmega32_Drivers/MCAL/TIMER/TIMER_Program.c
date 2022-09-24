@@ -32,9 +32,15 @@ Timer0CallBackFunction_t G_Timer0CallBackFunction[2u] = {NULL, NULL};
 
 /** @defgroup: Async Delay Parameters */
 u8 G_u8DelayAsyncFlag = 0;
-u8 G_u8DelayAsyncMode =0;
+u8 G_u8DelayAsyncMode = 0;
 u32 volatile G_u32DelayAsyncOVFCounter = 0;
 u32 volatile G_u32DelayAsyncOVFValue   = 0;
+/** @defgroup: TIM1 - ICU Parameters */
+u8 G_u8ICUxPWM_Flag = 0;
+u8 G_u8TIM1_ICUxMode = 0;
+u32 volatile G_u32TimerPeriod[2] = {0};
+void (*G_TIM1_CaptureCallBack) (void) = NULL;
+void (*G_TIM1_OverFlowCallBack) (void) = NULL;
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -170,6 +176,8 @@ void TIMER_voidTIM0SetCallBack(u8 Copy_u8TIM0isrID,
 void TIMER_voidTIM1Init(void)
 {
     TIMER_voidTIM1SetMode(TIM1_MODE);
+    TIMER_voidTIM1ASetOCmode(TIM1_CHA_MODE);
+    TIMER_voidTIM1BSetOCmode(TIM1_CHB_MODE);
     voidStopTimer1();
 }/** @end TIMER_voidTIM1Init */
 void TIMER_voidTIM1SetMode(u8 Copy_u8ModeID)
@@ -286,6 +294,104 @@ void TIMER_voidTIM1BSetOCmode(u8 Copy_u8OCmode)
     }
 }/** @end TIMER_voidTIM1BSetOCmode */
 
+void TIMER_voidSetTIM1xICUxCapture(u8 Copy_u8CaptureMode)
+{
+    switch(Copy_u8CaptureMode)
+    {
+    	case _TIM1_CAPTURE_FALLING: BIT_CLR(TCCR1B, ICES1); break;
+        case _TIM1_CAPTURE_RISING:  BIT_SET(TCCR1B, ICES1); break;
+        default: break; /* Error handler */
+    }
+}/** @end TIMER_voidSetTIM1xICUxCapture */
+
+u16 TIMER_u16TIM1GetICR(void)
+{
+	return ICR1;
+}/** @end TIMER_u16TIM1GetICR */
+void TIMER_voidTIM1DisableICU(void)
+{
+    /*Disable Capture interrupt*/
+    BIT_CLR(TIMSK, TICIE1);
+}/** @end TIMER_voidTIM1DisableICU */
+
+void TIMER_voidTIM1GeneratePWM(u8 Copy_u8DutyCycle)
+{
+    voidStopTimer1();
+    OCR1A = u16CalculatePhaseCorrectPWMDutyCycleOCR(TIM1_ID, TIM1_PWM_MODE, Copy_u8DutyCycle);
+    voidStartTimer1();
+}/** @end TIMER_voidTIM1GeneratePWM */
+
+void TIMER_voidTIM1MeasurePWMSync(u8  *Address_u8DutyCycle,
+                                  u32 *Address_u32Frequency)
+{
+    u32 L_u32Interval[3] = {0};
+    u32 L_u32TimeOn = 0, L_u32TimeOff = 0, L_u32TimeAll = 0;
+    u8  L_u8CurrentEdge = TIM1_ICU_CAPTURE_EDGE;
+
+    voidStopTimer1();
+    /** @def: Clear the IC Flag */
+    BIT_SET(TIFR, ICF1);
+    TIMER_voidSetTIM1xICUxCapture(TIM1_ICU_CAPTURE_EDGE);
+    voidStartTimer1();
+
+    /** @def: Wait for the flag to be raised */
+    while( (BIT_GET(TIFR, ICF1) == 0) ) {;}
+    /** @def: Get the First interval */
+    L_u32Interval[0] = ICR1;
+    /** @def: Set the Next trigger as inverse */
+    L_u8CurrentEdge ^= L_u8CurrentEdge;
+    TIMER_voidSetTIM1xICUxCapture(L_u8CurrentEdge);
+
+    /** @def: Clear the IC Flag */
+    BIT_SET(TIFR, ICF1);
+    while( (BIT_GET(TIFR, ICF1) == 0) ) {;}
+    /** @def: Get the Second interval */
+    L_u32Interval[1] = ICR1;
+    /** @def: Set the Next trigger as inverse */
+    L_u8CurrentEdge ^= L_u8CurrentEdge;
+    TIMER_voidSetTIM1xICUxCapture(L_u8CurrentEdge);
+
+    /** @def: Clear the IC Flag */
+    BIT_SET(TIFR, ICF1);
+    while( (BIT_GET(TIFR, ICF1) == 0) ) {;}
+    L_u32Interval[2] = ICR1;
+    /** @def: Return to the default */
+    TIMER_voidSetTIM1xICUxCapture(TIM1_ICU_CAPTURE_EDGE);
+    BIT_SET(TIFR, ICF1); /** @def: Clear the IC Flag */
+    voidStopTimer1();
+
+    L_u32TimeOn  = L_u32Interval[1] - L_u32Interval[0];
+    L_u32TimeOff = L_u32Interval[2] - L_u32Interval[1];
+    L_u32TimeAll = L_u32TimeOn + L_u32TimeOff;
+
+    *Address_u32Frequency = (u32) ((1.0/L_u32TimeAll) * 1000000UL);;
+    *Address_u8DutyCycle  = (u8) (((f32) L_u32TimeOn/L_u32TimeAll) * 100.0);
+}/** @end TIMER_u32TIM1MeasureDutyCycleSync */
+void TIMER_voidTIM1MeasurePWMAsync(void)
+{
+    voidStopTimer1();
+    TIMER_voidSetTIM1xICUxCapture(TIM1_ICU_CAPTURE_EDGE);
+    /** @def: Enable Input Capture Interrupts & Over Flow */
+    BIT_SET(TIMSK, TICIE1);
+    BIT_SET(TIMSK, TOIE1);
+    voidStartTimer1();
+}/** @end TIMER_u32TIM1xICUxPWM */
+
+void TIMER_voidTIM1SetICUCallBack(void (*TIM1_CallBack)(void))
+{
+	if(NULL != TIM1_CallBack)
+	{
+		G_TIM1_CaptureCallBack = TIM1_CallBack;
+	}else{;}
+}/** @end TIMER_voidTIM1SetCallBack */
+void TIMER_voidTIM1SetOVFCallBack(void (*TIM1_CallBack)(void))
+{
+	if(NULL != TIM1_CallBack)
+	{
+		G_TIM1_OverFlowCallBack = TIM1_CallBack;
+	}else{;}
+}/** @end TIMER_voidTIM1SetOVFCallBack */
+
 /**
  * @defgroup TIMER2
  */
@@ -295,28 +401,26 @@ void TIMER_voidTIM1BSetOCmode(u8 Copy_u8OCmode)
  */
 void TIMER_voidTIMSetPreScaler(u8 Copy_u8TimerID, u16 Copy_u16PreScaler)
 {
-    u8 L_u8PrescalerValue = 0;
+    u8 L_u8PrescalerValue = u8GetPreScalerValue(Copy_u16PreScaler);
 
     switch(Copy_u8TimerID)
     {
         case TIM0_ID:
-                L_u8PrescalerValue = u8GetPreScalerValue(Copy_u16PreScaler);
                 TCCR0 &= (~(0b111));
                 TCCR0 |= L_u8PrescalerValue;
             break;
         case TIM1_ID:
-                L_u8PrescalerValue = u8GetPreScalerValue(Copy_u16PreScaler);
                 TCCR1B &= (~(0b111));
                 TCCR1B |= L_u8PrescalerValue;
             break;
         case TIM2_ID:
-                L_u8PrescalerValue = u8GetPreScalerValue(Copy_u16PreScaler);
                 TCCR0 &= (~(0b111));
                 TCCR0 |= L_u8PrescalerValue;
             break;
         default: break; /* Error handler */
     }
 }/** @end TIMER_voidTIMSetPreScaler */
+
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
  * -    PRIVATE FUNCTIONS IMPLEMENTATION
@@ -396,6 +500,25 @@ static void voidStopTimer1(void)
     TIMER_voidTIMSetPreScaler(TIM1_ID, TIM1_PRESCALER);
 }/** @end voidStopTimer1 */
 
+static void voidTIM1SetDutyCycleOCR1A(u8 Copy_u8DutyCycle)
+{
+    /** Error handling */
+    if( (Copy_u8DutyCycle > 100) )
+    { Copy_u8DutyCycle = 100; }
+    else if( (Copy_u8DutyCycle < 0) )
+    { Copy_u8DutyCycle = 0; }
+    else {;}
+
+#if ( (TIM0_MODE == _TIM0_FAST_PWM) )
+    /** @note: PWM Configuration Parameters can be changed */
+    OCR1A = (u8) u16CalculateFastPWMDutyCycleOCR(TIM0_ID, TIM0_PWM_MODE, Copy_u8DutyCycle);
+#elif ( (TIM0_MODE == _TIM0_PHASE_CORRECT_PWM) )
+    /** @note: PWM Configuration Parameters can be changed */
+    OCR1A = (u8) u16CalculatePhaseCorrectPWMDutyCycleOCR(TIM0_ID, TIM0_PWM_MODE, Copy_u8DutyCycle);
+#elif ( (TIM0_MODE == _TIM0_CTC) )
+    OCR1A = OCR_VALUE; //(u8) u16CalculateCTCfreqOCR(TIM0_ID, CTC_PWM_FREQ);
+#endif
+}/** @end voidTIM1SetDutyCycleOCR1A */
 
 /** @defgroup: Timer 2 Private Functions */
 /** @todo */
@@ -645,50 +768,29 @@ void TIM0_COMP_ISR(void)
     if( (G_Timer0CallBackFunction[TIM0_COMP_ISR_ID] != NULL) )
     {
         G_Timer0CallBackFunction[TIM0_COMP_ISR_ID]();
-    }
-    else
-    {
-        #if (TIM0_MODE == _TIM0_CTC)
-            #if (CTC_PWM_FREQ > 0)
-
-            /** @todo: Do operation */
-
-            #endif
-        #endif
-    }/** @end else: CallBack */
+    }else {;}
 }/* @end TIM0_COMP_ISR */
 
 void TIM0_OVF_ISR(void)
 {
-    /** @note: Alternate ISR functionality */
-    if( (1 == G_u8DelayAsyncFlag) )
+    if( (NULL != G_Timer0CallBackFunction[TIM0_OVF_ISR_ID]) )
     {
-        if( (G_u32DelayAsyncOVFCounter >= G_u32DelayAsyncOVFValue) )
-        {
-            /** Evaluate the needed function */
-        	G_Timer0CallBackFunction[TIM0_OVF_ISR_ID]();
-
-        	G_u32DelayAsyncOVFCounter = 0;
-
-            if( (G_u8DelayAsyncMode == AsyncMode_Single) )
-            {
-            	/** Disable TimerOverFlow Interrupt */
-            	BIT_CLR(TIMSK, TOIE0);
-                voidStopTimer0();
-                G_u8DelayAsyncFlag = 0;
-            }else {;}/** @end else: AsyncMode_Periodic */
-        }
-        else
-        {
-            ++G_u32DelayAsyncOVFCounter;
-        }/** @end else: OVF Counter */
-    }
-    /** @note: The actual functionality of the ISR */
-    else
-    {
-        if( (NULL != G_Timer0CallBackFunction[TIM0_OVF_ISR_ID]) )
-        {
-            G_Timer0CallBackFunction[TIM0_OVF_ISR_ID]();
-        }else {;}
-    }/** @end else: CallBack */
+        G_Timer0CallBackFunction[TIM0_OVF_ISR_ID]();
+    }else {;}
 }/* @end TIM0_OVF_ISR */
+
+void TIM1_CAPT_ISR(void)
+{
+	if(NULL != G_TIM1_CaptureCallBack)
+	{
+		G_TIM1_CaptureCallBack();
+	}else{;}
+}/** @end TIM1_CAPT_ISR */
+
+void TIM1_OVF_ISR(void)
+{
+	if(NULL != G_TIM1_OverFlowCallBack)
+	{
+		G_TIM1_OverFlowCallBack();
+	}else{;}
+}/** @end TIM1_OVF_ISR */
