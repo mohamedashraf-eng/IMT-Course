@@ -35,6 +35,7 @@ u8 G_u8DelayAsyncFlag = 0;
 u8 G_u8DelayAsyncMode = 0;
 u32 volatile G_u32DelayAsyncOVFCounter = 0;
 u32 volatile G_u32DelayAsyncOVFValue   = 0;
+u16 volatile G_u16TIM0StartValue = 0;
 /** @defgroup: TIM1 - ICU Parameters */
 u8 G_u8ICUxPWM_Flag = 0;
 u8 G_u8TIM1_ICUxMode = 0;
@@ -137,11 +138,13 @@ void TIMER_voidTIM0DelayAsync(u8 Copy_u8AsyncMode, f32 Copy_f32Delay)
     f32 L_f32Delay_s = (Copy_f32Delay * 0.001f);
     u8  L_u8RegisterValue = (u8) u16CalculateTimerInitalValue(TIM0_ID,
                                                               L_f32Delay_s,
-                                                             ((u32 *) &G_u32DelayAsyncOVFValue));
+                                                              G_u32DelayAsyncOVFValue);
+    G_u16TIM0StartValue = L_u8RegisterValue;
     G_u8DelayAsyncFlag = 1;
     G_u8DelayAsyncMode = Copy_u8AsyncMode;
 
     voidSetTimer0StartValue(L_u8RegisterValue);
+
     /** Enable TOV0 Interrupt */
     BIT_SET(TIMSK, TOIE0);
     voidStartTimer0();
@@ -166,7 +169,7 @@ void TIMER_voidTIM0SetCallBack(u8 Copy_u8TIM0isrID,
 {
     if( (Copy_CallBackFunction != NULL) )
     {
-        G_Timer0CallBackFunction[Copy_u8TIM0isrID] = Copy_CallBackFunction;
+    	G_Timer0CallBackFunction[Copy_u8TIM0isrID] = Copy_CallBackFunction;
     }else{;}
 }/** @end TIMER_voidTIM0SetCallBack */
 
@@ -773,10 +776,19 @@ void TIM0_COMP_ISR(void)
 
 void TIM0_OVF_ISR(void)
 {
-    if( (NULL != G_Timer0CallBackFunction[TIM0_OVF_ISR_ID]) )
-    {
-        G_Timer0CallBackFunction[TIM0_OVF_ISR_ID]();
-    }else {;}
+	if( (G_u32DelayAsyncOVFCounter >= G_u32DelayAsyncOVFValue) )
+	{
+	    if( (NULL != G_Timer0CallBackFunction[TIM0_OVF_ISR_ID]) )
+	    {
+	        G_Timer0CallBackFunction[TIM0_OVF_ISR_ID]();
+	    }else {;}
+
+	    G_u32DelayAsyncOVFCounter = 0;
+	}else
+	{ ++G_u32DelayAsyncOVFCounter; }
+
+	voidSetTimer0StartValue(G_u16TIM0StartValue);
+
 }/* @end TIM0_OVF_ISR */
 
 void TIM1_CAPT_ISR(void)

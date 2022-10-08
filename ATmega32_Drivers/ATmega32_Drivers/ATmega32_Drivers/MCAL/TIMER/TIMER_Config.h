@@ -39,14 +39,14 @@
  *   _PWM_INVERTED
  *   _PWM_NONINVERTED
  */
-#define TIM0_MODE       _TIM0_PHASE_CORRECT_PWM
-#define TIM0_COM_MODE   _TIM0_OC_SET_CM
+#define TIM0_MODE       _TIM0_NORMAL_MODE
+#define TIM0_COM_MODE   _TIM0_OC_NORMAL
 #define TIM0_PRESCALER  _TIM_1024_PRESCALER
 
 #define TIM0_PWM_MODE  _TIM_PWM_INVERTED
 
-#define OCR_VALUE (77U) /** @todo: To be modified (Debug the equation function) */
-#define CTC_PWM_FREQ (50U)
+//#define OCR_VALUE (77U) /** @todo: To be modified (Debug the equation function) */
+//#define CTC_PWM_FREQ (50U)
 
 
 /** @defgroup: Timer_1 Configuration Parameters */

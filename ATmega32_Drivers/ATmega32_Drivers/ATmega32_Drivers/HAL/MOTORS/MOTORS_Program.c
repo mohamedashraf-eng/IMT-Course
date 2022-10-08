@@ -27,6 +27,15 @@
 
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
+ * -	GLOBAL VARIABLES
+ * --------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+
+/** @defgroup: Servo Motors Variables */
+static f32 volatile G_f32ServoAnglePulseValue = 0.0f;
+
+/*
+ * --------------------------------------------------------------------------------------------------------------------------------------------------
  * -	PUBLIC FUNCTIONS IMPLEMENTATION
  * --------------------------------------------------------------------------------------------------------------------------------------------------
 */
@@ -74,15 +83,8 @@ void MOTOR_voidServoSystemInitalization(void)
 
 void MOTOR_voidSetServoAngle(u8 Copy_u8ServoID, u8 Copy_u8ServoAngle)
 {
-	u8 L_u8AngleDutyCycle = u8ServoMotorAngleToPWM(Copy_u8ServoAngle);
-
-	switch(MyMotorsConfig.MyServoMotorConfig[Copy_u8ServoID].TIM_CH)
-	{
-		case TIM0_ID: TIMER_voidTIM0GeneratePWM(L_u8AngleDutyCycle);	break;
-		case TIM1_ID: break;
-		case TIM2_ID: break;
-		default: break; /* Error handler */
-	}
+	//f32 L_f328AngleDutyCycle = f32ServoMotorAngleToPWM(Copy_u8ServoAngle);
+	G_f32ServoAnglePulseValue = f32ServoMotorGetAnglePulse(Copy_u8ServoAngle);
 }/** @end MOTOR_voidSetServoAngle */
 
 /** @defgroup Stepper Motor */
@@ -206,27 +208,43 @@ static void voidServoMotorInitalization(u8 Copy_u8MotorID)
 
 	switch(MyMotorsConfig.MyServoMotorConfig[Copy_u8MotorID].TIM_CH)
 	{
-		case TIM0_ID: TIMER_voidTIM0Init();	break;
+		case TIM0_ID:
+				TIMER_voidTIM0Init();
+				TIMER_voidTIM0SetCallBack(TIM0_OVF_ISR_ID,
+										  voidSetMotorServoCallBackFunction);
+				TIMER_voidTIM0DelayAsync(AsyncMode_Periodic, 18);
+			break;
 		case TIM1_ID: break;
 		case TIM2_ID: break;
 		default: break; /* Error handler */
 	}
 }/** @end voidServoMotorInitalization */
-static u8 u8ServoMotorAngleToPWM(u8 Copy_u8ServoAngle)
+static f32 f32ServoMotorAngleToPWM(u8 Copy_u8ServoAngle)
 {
 	f32 L_f32ServoPulse = f32ServoMotorGetAnglePulse(Copy_u8ServoAngle);
 
-	u8 L_u8PulseDutyCycle = (L_f32ServoPulse / SERVO_MAX_PERIOD_MS) * 100;
+	f32 L_uf32PulseDutyCycle = (L_f32ServoPulse / SERVO_MAX_PERIOD_MS) * 100;
 
-	return L_u8PulseDutyCycle;
+	return L_uf32PulseDutyCycle;
 }/** @end u8ServoMotorAngleToPWM */
 static f32 f32ServoMotorGetAnglePulse(u8 Copy_u8ServoAngle)
 {
 	f32 L_f32ServoPulse =
-	((Copy_u8ServoAngle * (SERVO_MAX_PERIOD_MS - SERVO_MIN_PERIOD_MS)/(180.0))) + (SERVO_MIN_PERIOD_MS);
+	((Copy_u8ServoAngle * (SERVO_MAX_PERIOD_MS - SERVO_MIN_PERIOD_MS)/(180.0))) + SERVO_MIN_PERIOD_MS;
 
 	return L_f32ServoPulse;
 }/** @end voidServoMotorAngleToPWM */
+
+static void voidSetMotorServoCallBackFunction(u8 Copy_u8MotorID)
+{
+	DIO_voidSetPinValue(MyMotorsConfig.MyServoMotorConfig[Copy_u8MotorID].PORT_ID,
+						MyMotorsConfig.MyServoMotorConfig[Copy_u8MotorID].PIN_ID,
+						HIGH);
+	_delay_us( (u16) (G_f32ServoAnglePulseValue * 1000u) );
+	DIO_voidSetPinValue(MyMotorsConfig.MyServoMotorConfig[Copy_u8MotorID].PORT_ID,
+						MyMotorsConfig.MyServoMotorConfig[Copy_u8MotorID].PIN_ID,
+						LOW);
+}/** @end voidSetMotorServoCallBackFunction */
 
 /** @defgroup Stepper Motor */
 static void voidStepperMotorInitalization(u8 Copy_u8MotorID)

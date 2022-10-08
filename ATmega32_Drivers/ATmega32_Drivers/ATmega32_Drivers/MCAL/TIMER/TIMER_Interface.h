@@ -74,7 +74,6 @@ enum TIMER0_ISR_ID
 #define _TIM1_CAPTURE_RISING                 0
 #define _TIM1_CAPTURE_FALLING                1
 
-
 /*
  * --------------------------------------------------------------------------------------------------------------------------------------------------
  * -    PUBLIC FUNCTIONS PROTOTYPE

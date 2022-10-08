@@ -32,17 +32,37 @@
 #include "../MCAL/TIMER/TIMER_Interface.h"
 #include "../MCAL/UART/UART_Interface.h"
 #include "../MCAL/SPI/SPI_Interface.h"
+//#include "../MCAL/TWI/TWI_Interface.h"
+#include "../Services/FreeRTOS/inc/FreeRTOS.h"
+#include "../Services/FreeRTOS/inc/task.h"
+#include "../Services/FreeRTOS/inc/FreeRTOSConfig.h"
+#include "../Services/FreeRTOS/inc/semphr.h"
 
-//#include "../HAL/LCD/LCD_Interface.h"
+#include "../HAL/LCD/LCD_Interface.h"
 //#include "../HAL/KEYPAD/KEYPAD_Interface.h"
 //#include "../HAL/LED/LED_Interface.h"
 //#include "../HAL/MOTORS/MOTORS_Interface.h"
 
 #include <avr/delay.h>
 
+xSemaphoreHandle LCD_SEM;
+
+void vTask1(void *vArg);
+void vTask2(void *vArg);
+
 int  main(void)
 {
+	LCD_voidSystemInitalaization(LCD_EightBitMode);
 
+	/* Create Semaphore */
+	vSemaphoreCreateBinary(LCD_SEM);
+
+	/* Create tasks */
+	xTaskCreate(vTask1, NULL, configMINIMAL_STACK_SIZE, NULL, 3, NULL);
+	xTaskCreate(vTask2, NULL, configMINIMAL_STACK_SIZE, NULL, 2, NULL);
+
+	/* Start the sched */
+	vTaskStartScheduler();
 
 	while(True)
 	{
@@ -53,11 +73,32 @@ int  main(void)
 }
 
 
+void vTask1(void *vArg)
+{
+	int ret = 0;
 
+	while(True)
+	{
+		ret = xSemaphoreTake(LCD_SEM, 0xFFFF);
 
+		if( (1 == ret) )
+		{
+			LCD_voidClearScreen();
+			LCD_voidDisplayString("I am Task 1");
+			vTaskDelay(1000);
+		}else {;}
+		xSemaphoreGive(LCD_SEM);
+	}
+}
 
+void vTask2(void *vArg)
+{
 
-
-
-
+	while(True)
+	{
+		LCD_voidClearScreen();
+		LCD_voidDisplayString("I am Task 2");
+		vTaskDelay(1000);
+	}
+}
 

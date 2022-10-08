@@ -84,8 +84,9 @@ static void voidDCMotorInitalization(u8 Copy_u8MotorID);
 
 /** @defgroup Servo Motor */
 static void voidServoMotorInitalization(u8 Copy_u8MotorID);
-static u8 u8ServoMotorAngleToPWM(u8 Copy_u8ServoAngle);
+static f32 f32ServoMotorAngleToPWM(u8 Copy_u8ServoAngle);
 static f32 f32ServoMotorGetAnglePulse(u8 Copy_u8ServoAngle);
+static void voidSetMotorServoCallBackFunction(u8 Copy_u8MotorID);
 
 /** @defgroup Stepper Motor */
 static void voidStepperMotorInitalization(u8 Copy_u8MotorID);
